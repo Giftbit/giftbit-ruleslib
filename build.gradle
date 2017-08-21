@@ -1,0 +1,63 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.amazonaws:aws-java-sdk-core:1.11.+'
+    }
+}
+
+apply plugin: "java"
+apply plugin: 'groovy'
+apply plugin: "maven"
+apply plugin: 'maven-publish'
+apply plugin: 'idea'
+apply plugin: 'antlr'
+
+group 'com.giftbit'
+version '1.0'
+sourceCompatibility = JavaVersion.VERSION_1_8
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+dependencies {
+    compile 'org.codehaus.groovy:groovy-all:2.4.7'
+
+    testCompile "org.spockframework:spock-core:1.0-groovy-2.4"
+
+    antlr "org.antlr:antlr4:4.7"
+}
+
+jar {
+    from sourceSets.main.output
+    from sourceSets.main.allSource
+}
+
+publishing {
+    repositories {
+        maven {
+            name 'Giftbit private repo'
+            url 's3://giftbit-maven.s3-us-west-2.amazonaws.com/'
+            credentials(AwsCredentials) {
+                def defaultCredentials = new com.amazonaws.auth.DefaultAWSCredentialsProviderChain().credentials
+                accessKey defaultCredentials.AWSAccessKeyId
+                secretKey defaultCredentials.AWSSecretKey
+            }
+        }
+    }
+    publications {
+        maven(MavenPublication) {
+            groupId 'com.giftbit'
+            from components.java
+        }
+    }
+}
+
+generateGrammarSource {
+    maxHeapSize = "64m"
+    arguments += ["-visitor", "-long-messages"]
+}
