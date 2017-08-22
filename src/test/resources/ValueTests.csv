@@ -1,0 +1,308 @@
+# number parsing
+0,0
+-0,-0
+123,123
+-123,-123
+1.234,1.234
+-1.234,-1.234
+Inf,Inf
+-Inf,-Inf
+
+# string parsing
+'foo',"foo"
+"foo","foo"
+"'foo","'foo"
+"'foo'","'foo'"
+"foo'","foo'"
+"f'o'o","f'o'o"
+'"foo'."\"foo"
+'foo"',"foo\""
+
+# boolean parsing
+true,true
+false,false
+
+# null parsing
+null,null
+
+# arbitrary white space
+1 + 1,2
+1+1,2
+   1   +1,2
+(1 + 1   ),2
+
+# unary minus
+-1,-1
+-23,-23
+-(-1),1
+-'foo',0
+-'23',-23
+-true,-1
+-false,0
+-null,0
+
+# unary plus
++1,1
++(-1),-1
+-(+1),-1
++(+1),1
++'foo',0
++'23',23
++true,1
++false,0
++null,0
+
+# logical not
+!1,false
+!0,true
+!'',true
+!'foo',false
+!'true',false
+!'false',false
+!'null',false
+!true,false
+!!true,true
+!false,true
+!!false,false
+!null,true
+
+# addition
+1+2,3
+12345 + 67890,80235
+1234567890 + 1234567890,2469135780
+1.5+1.5,3.0
+1.5+1,2.5
+'foo'+'bar',"foobar"
+'foo'+5,"foo5"
+5+'foo',"5foo"
+'5'+5,"55"
+5+'5',"55"
+true+1,2
+false+1,1
+true+'foo',"truefoo"
+null+5,5
+null+true,1
+null+false,0
+null+'foo',"foo"
+null+null,0
+
+# subtraction
+1-1,0
+10-7,3
+3-7,-4
+4611686018427388000 - 4611686018427388000,0
+'foo'-'bar',0
+'foo'-4,-4
+true-1,0
+false-1,-1
+true-'foo',1
+true-'5',-4
+1-null,1
+'foo'-null,0
+'5'-null,5
+true-null,1
+
+# multiplication
+1*1,1
+4*9,36
+-5*9,-45
+6*-9,-54
+-7*-9=63
+4.2*9.3=39.06
+'foo'*5,0
+true*100,100
+false*100,0
+true*'foo',0
+true*'5',5
+1*null,0
+'foo'*null,0
+'5'*null,0
+true*null,0
+
+# division
+1/1,1
+1/0,Inf
+0/0,NaN
+8/2,4.0
+8.0/2,4.0
+9/2,4.5
+-10/2,-5.0
+10/-2.0,-5.0
+-10.0/-2.0,5.0
+'foo'/5,0
+true/100,0.01
+false/100,0
+true/'foo',Inf
+true/'100',0.01
+1/null,Inf
+'foo'/null,NaN
+'5'/null,Inf
+true/null,Inf
+
+# modulo
+1 % 1,0
+2 % 1,0
+1 % 2,1
+2 % -3,2
+-3 % 4,-3
+-4 % -500,-4
+'foo' % 5,0
+true % 100,1
+false % 100,0
+true % 'foo',NaN
+1 % null,NaN
+'foo' % null,NaN
+'5' % null,NaN
+true % null,NaN
+
+# less than
+1 < 1,false
+1 < 1.0001,true
+1 < 2,true
+1 < '2',true
+'10' < 2,false
+true < 2,true
+true < 0,false
+false < 0,false
+false < 1,true
+null < 1,true
+null < 0,false
+
+# less than or equal
+1 <= 0,false
+1 <= 1,true
+1 <= 2,true
+1 <= '2',true
+'10' <= 2,false
+true <= 2,true
+true <= 0,false
+true <= 1,true
+false <= 0,true
+false <= -0.00001,false
+null <= 1,true
+null <= 0,true
+null <= -2345,false
+
+# greater than
+1 > 1,false
+1.0001 > 1,true
+2 > 1,true
+'2' > 1,true
+2 > '10',false
+2 > true,true
+0 > true,false
+0 > false,false
+1 > false,true
+1 > null,true
+0 > null,false
+
+# greater than or equal
+0 >= 1,false
+1 >= 1,true
+2 >= 1,true
+'2' >= 1,true
+2 >= '10',false
+2 >= true,true
+0 >= true,false
+1 >= true,true
+0 >= false,true
+-0.00001 >= false,false
+1 >= null,true
+0 >= null,true
+-2345 >= null,false
+
+# logcial equals
+null == null,true
+true == true,true
+false == false,true
+'foo' == 'foo',true
+0 == 0,true
++0 == -0,true
+0 == false,true
+false == 0,true
+'' == false,true
+false == '',true
+'' == 0,true
+0 == '',true
+'0' == 0,true
+0 == '0',true
+'17' == 17,true
+17 == '17',true
+null == true,false
+true == null,false
+null == false,false
+false == null,false
+null == 0,false
+0 == null,false
+null == 'null',false
+null == 'null',false
+
+# logical not equals
+null != null,false
+true != true,false
+false != false,false
+'foo' != 'foo',false
+0 != 0,false
++0 != -0,false
+0 != false,false
+false != 0,false
+'' != false,false
+false != '',false
+'' != 0,false
+0 != '',false
+'0' != 0,false
+0 != '0',false
+'17' != 17,false
+17 != '17',false
+
+null != true,true
+true != null,true
+null != false,true
+false != null,true
+null != 0,true
+0 != null,true
+null != 'null',true
+null != 'null',true
+
+# logcial and
+true && true,true
+true && false,false
+false && true,false
+false && false,false
+true && true && true && false && true,false
+1 && false,false
+0 && 11,0
+12 && 11,11
+'monkey' && 'potato',"potato"
+null && 'potato',null
+null && null,null
+
+# logcial or
+true || true,true
+true || false,true
+false || true,true
+false || false,false
+false || false || false || true || false,true
+1 || false,1
+0 || 11,11
+12 || 11,12
+'monkey' || 'potato',"monkey"
+null || 'potato',"potato"
+null || null,null
+
+# ternary expression
+true ? 'starfish' : 'gorilla',"starfish"
+false ? 'starfish' : 'gorilla',"gorilla"
+0 ? 'starfish' : 'gorilla',"gorilla"
+12345 ? 'starfish' : 'gorilla',"starfish"
+null ? 'starfish' : 'gorilla',"gorilla"
+'xxx' && 'yyy' ? 'starfish' || 'seamonkey' : 'gorilla',"starfish"
+'alpha' ? 'beta' ? 'charlie' ? 'delta' : 'echo' : 'foxtrot' : 'golf',"delta"
+'alpha' ? 'beta' ? 'charlie' : 'delta' ? 'echo' : 'foxtrot' : 'golf',"charlie"
+'alpha' ? 'beta' ? 'charlie' : 'delta' : 'echo' ? 'foxtrot' : 'golf',"charlie"
+
+# compound expressions
+1 + 2 + 3 + 4 + 5 + 6 + 7 + 8 + 9,45
+1 + 2 - 3 + 4 - 5 + 6 - 7 + 8 - 9,-3
+1 * 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9,362880
+(1 * 2) + (3 * 4) - (5 / 6) * (7 + 8) + 9,10.5
