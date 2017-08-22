@@ -15,7 +15,7 @@ class IdentifierNode extends ExpressionNode {
     Value getValue(Context context) {
         def value = context.getValue(identifier)
         if (value == null) {
-            value =  Value.NULL
+            value = Value.NULL
         }
         return value
     }

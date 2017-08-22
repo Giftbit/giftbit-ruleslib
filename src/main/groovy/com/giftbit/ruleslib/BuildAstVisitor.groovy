@@ -97,10 +97,7 @@ class BuildAstVisitor extends RedemptionRuleBaseVisitor<ExpressionNode> {
 
     @Override
     ExpressionNode visitTernaryExpr(RedemptionRuleParser.TernaryExprContext ctx) {
-        if (ctx.condition && ctx.left && ctx.right) {
-            return new TernaryNode(visit(ctx.condition), visit(ctx.left), visit(ctx.right))
-        }
-        return null
+        return new TernaryNode(visit(ctx.condition), visit(ctx.left), visit(ctx.right))
     }
 
     @Override

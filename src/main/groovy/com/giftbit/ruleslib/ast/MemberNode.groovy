@@ -46,8 +46,8 @@ class MemberNode extends ExpressionNode {
     @Override
     String toString() {
         if (isCalculated) {
-            return "${parent.isComplex() ? "($parent)" : parent}.$child."
+            return "${parent.isComplex() ? "($parent)" : parent}[$child]"
         }
-        return "${parent.isComplex() ? "($parent)" : parent}[$child]"
+        return "${parent.isComplex() ? "($parent)" : parent}.$child"
     }
 }

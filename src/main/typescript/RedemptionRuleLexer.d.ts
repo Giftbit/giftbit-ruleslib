@@ -1,2 +1,2 @@
-declare const a: any;
-export = a;
+declare const RedemptionRuleLexer: any;
+export {RedemptionRuleLexer};
