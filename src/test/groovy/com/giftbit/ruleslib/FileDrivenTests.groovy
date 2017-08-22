@@ -51,8 +51,9 @@ class FileDrivenTests {
     @Test
     void testValueTests() {
         List<String> lines = loadTestFile("ValueTests.txt")
-
         String lastComment = "file start"
+        int assertCount = 0
+
         for (String line in lines) {
             if (line.startsWith("#")) {
                 lastComment = line.substring(1).trim()
@@ -66,8 +67,11 @@ class FileDrivenTests {
                 Value actualValue = expression.getValue(context)
                 Value expectedValue = parseValue(parts[1].trim())
                 assert actualValue.innerValue == expectedValue.innerValue : "${lastComment}: ${parts[0]} ➡ ${expression.toString()} ➡ ${actualValue.toString()} == ${parts[1]} ➡ ${expectedValue.toString()}"
+                assertCount++
             }
         }
+
+        println("Made ${assertCount} asserts")
     }
 
     static List<String> loadTestFile(String fileName) {

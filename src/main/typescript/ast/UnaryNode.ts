@@ -8,10 +8,24 @@ export class UnaryNode implements ExpressionNode {
     constructor(private readonly operator: string, private readonly child: ExpressionNode) {}
 
     getValue(context: Context): Value {
+        const child = this.child.getValue(context);
+
         switch (this.operator) {
-            case "!": return !this.child.getValue(context);
-            case "-": return -this.child.getValue(context);
-            case "+": return +this.child.getValue(context);
+            case "!": return !child;
+            case "-": {
+                const value = -child;
+                if (isNaN(value)) {
+                    return 0;
+                }
+                return value;
+            }
+            case "+": {
+                const value = +child;
+                if (isNaN(value)) {
+                    return 0;
+                }
+                return value;
+            }
             default: throw new UnsupportedOperationError();
         }
     }

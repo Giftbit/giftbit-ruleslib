@@ -9,19 +9,26 @@ export class InfixNode implements ExpressionNode {
 
     /* tslint:disable:triple-equals*/
     getValue(context: Context): Value {
+        const left = this.left.getValue(context);
+        const right = this.right.getValue(context);
+
         switch (this.operator) {
-            case "+": return this.left.getValue(context) + this.right.getValue(context);
-            case "-": return this.left.getValue(context) - this.right.getValue(context);
-            case "*": return this.left.getValue(context) * this.right.getValue(context);
-            case "/": return this.left.getValue(context) / this.right.getValue(context);
-            case "%": return this.left.getValue(context) % this.right.getValue(context);
-            case "==": return this.left.getValue(context) == this.right.getValue(context);
-            case "&&": return this.left.getValue(context) && this.right.getValue(context);
-            case "||": return this.left.getValue(context) || this.right.getValue(context);
-            case ">": return this.left.getValue(context) > this.right.getValue(context);
-            case ">=": return this.left.getValue(context) >= this.right.getValue(context);
-            case "<": return this.left.getValue(context) < this.right.getValue(context);
-            case "<=": return this.left.getValue(context) <= this.right.getValue(context);
+            case "+":
+                if ((typeof left === "string" || typeof right === "string") && (left === null || right === null)) {
+                    return (left || "") + (right || "");
+                }
+                return left + right;
+            case "-": return (+left || 0) - (+right || 0);
+            case "*": return (+left || 0) * (+right || 0);
+            case "/": return (+left || 0) / (+right || 0);
+            case "%": return (+left || 0) % (+right || 0);
+            case "==": return left == right;
+            case "&&": return left && right;
+            case "||": return left || right;
+            case ">": return left > right;
+            case ">=": return left >= right;
+            case "<": return left < right;
+            case "<=": return left <= right;
             default: throw new UnsupportedOperationError();
         }
     }

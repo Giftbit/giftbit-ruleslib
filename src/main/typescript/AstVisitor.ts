@@ -23,7 +23,11 @@ export class AstVisitor extends RuleVisitor {
 
         const tree = parser.compileUnit();
         const visitor = new AstVisitor();
-        return visitor.visitCompileUnit(tree)[0];
+        return visitor.visitCompileUnit(tree);
+    }
+
+    visitCompileUnit(ctx: any): any {
+        return this.visit(ctx.children[0]);
     }
 
     visitFuncExpr(ctx: any): any {
@@ -39,11 +43,18 @@ export class AstVisitor extends RuleVisitor {
     }
 
     visitNumberExpr(ctx: any): any {
+        if (ctx.value.text === "Inf") {
+            return new LiteralNode(Number.POSITIVE_INFINITY);
+        }
         return new LiteralNode(+ctx.value.text);
     }
 
     visitMemberExpr(ctx: any): any {
         return new MemberNode(this.visit(ctx.source), this.visit(ctx.member), true);
+    }
+
+    visitParensExpr(ctx: any): any {
+        return this.visit(ctx.children[1]);
     }
 
     visitStringExpr(ctx: any): any {

@@ -66,7 +66,12 @@ for (let lineIx = 0; lineIx < lines.length; lineIx++) {
                         const expression = AstVisitor.buildAst(parts[0]);
                         const actualValue = expression.getValue(context);
                         const expectedValue = parseValue(parts[1]);
-                        chai.assert.equal(actualValue, expectedValue, `${expression.toString()} == ${expectedValue}`)
+
+                        if (typeof expectedValue === "number" && isNaN(expectedValue)) {
+                            chai.assert.isNaN(actualValue, `${expression.toString()} == ${expectedValue}`);
+                        } else {
+                            chai.assert.equal(actualValue, expectedValue, `${expression.toString()} == ${expectedValue}`)
+                        }
                     });
                 }
             }
