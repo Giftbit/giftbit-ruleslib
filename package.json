@@ -1,0 +1,38 @@
+{
+  "name": "giftbit-ruleslib",
+  "version": "1.0.0",
+  "description": "Expression-evaluation library for Redemption Rules, Reaction Rules, et al",
+  "main": "distjs/index.js",
+  "types": "distjs/index.d.ts",
+  "scripts": {
+    "build": "npm run clean && tsc && cp -r ./build/generated-src/antlr/js/com/giftbit/ruleslib/* ./distjs",
+    "clean": "rimraf ./distjs",
+    "lint": "tslint --project tsconfig.json",
+    "test": "mocha --recursive --throw-deprecation --require ts-node/register \"src/test/**/*.ts\"",
+    "test:watch": "npm run test -- --watch --watch-extensions ts,tsx --growl"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Giftbit/giftbit-ruleslib.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Giftbit/giftbit-ruleslib/issues"
+  },
+  "homepage": "https://github.com/Giftbit/giftbit-ruleslib#readme",
+  "dependencies": {
+    "antlr4": "^4.7.0"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.0.4",
+    "@types/mocha": "^2.2.42",
+    "chai": "^4.1.1",
+    "mocha": "^3.5.0",
+    "rimraf": "^2.6.1",
+    "ts-node": "^3.3.0",
+    "tslint": "^5.6.0",
+    "typescript": "^2.4.2"
+  }
+}

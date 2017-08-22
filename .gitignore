@@ -1,2 +1,21 @@
-.gradle/
-.idea/
+# Java stuff
+/build
+/.gradle
+*.class
+*.jar
+*.war
+*.ear
+
+# Node stuff
+
+
+# IntelliJ stuff
+*.iml
+/.idea
+
+# Node stuff
+node_modules/
+*.log
+npm-debug.log*
+.npm
+.node_repl_history

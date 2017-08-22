@@ -58,6 +58,18 @@ publishing {
 }
 
 generateGrammarSource {
-    maxHeapSize = "64m"
-    arguments += ["-visitor", "-long-messages"]
+    maxHeapSize = "128m"
+    arguments += ["-visitor", "-long-messages", "-package", "com.giftbit.ruleslib"]
 }
+
+task generateJavaScriptGrammarSource(type: AntlrTask) {
+    source = sourceSets.main.antlr
+    outputDirectory = file("${project.buildDir}/generated-src/antlr/js")
+    maxHeapSize = "128m"
+    arguments += ["-visitor", "-long-messages", "-Dlanguage=JavaScript", "-visitor"]
+}
+
+//task buildJavaScript(type: Exec) {
+//    dependsOn
+//    commandLine "$projectDir/node_modules/.bin/webpack", "app/index.js", "$buildDir/js/bundle.js"
+//}

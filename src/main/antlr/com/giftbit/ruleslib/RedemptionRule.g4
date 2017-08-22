@@ -3,14 +3,6 @@
 
 grammar RedemptionRule;
 
-@lexer::header {
-    package com.giftbit.ruleslib;
-}
-
-@parser::header {
-    package com.giftbit.ruleslib;
-}
-
 // The root compilation unit.
 compileUnit: expr EOF;
 
