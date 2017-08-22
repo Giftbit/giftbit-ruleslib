@@ -1,7 +1,7 @@
 import antlr4 = require("antlr4");
-import {RedemptionRuleLexer} from "./RedemptionRuleLexer";
-import {RedemptionRuleVisitor} from "./RedemptionRuleVisitor";
-import {RedemptionRuleParser} from "./RedemptionRuleParser";
+import {RuleLexer} from "./RuleLexer";
+import {RuleVisitor} from "./RuleVisitor";
+import {RuleParser} from "./RuleParser";
 import {LiteralNode} from "./ast/LiteralNode";
 import {InfixNode} from "./ast/InfixNode";
 import {UnaryNode} from "./ast/UnaryNode";
@@ -12,13 +12,13 @@ import {MemberNode} from "./ast/MemberNode";
 import {TernaryNode} from "./ast/TernaryNode";
 import {ExpressionNode} from "./ast/ExpressionNode";
 
-export class AstVisitor extends RedemptionRuleVisitor {
+export class AstVisitor extends RuleVisitor {
 
     static buildAst(exp: string): ExpressionNode {
         const chars = new antlr4.InputStream(exp);
-        const lexer = new RedemptionRuleLexer(chars);
+        const lexer = new RuleLexer(chars);
         const tokens  = new antlr4.CommonTokenStream(lexer);
-        const parser = new RedemptionRuleParser(tokens);
+        const parser = new RuleParser(tokens);
         parser.buildParseTrees = true;
 
         const tree = parser.compileUnit();
@@ -56,34 +56,37 @@ export class AstVisitor extends RedemptionRuleVisitor {
 
     visitInfixExpr(ctx: any): any {
         switch (ctx.op.type) {
-            case RedemptionRuleLexer.OP_ADD: return new InfixNode(this.visitChildren(ctx.left), "+", this.visitChildren(ctx.right));
-            case RedemptionRuleLexer.OP_SUB: return new InfixNode(this.visitChildren(ctx.left), "-", this.visitChildren(ctx.right));
-            case RedemptionRuleLexer.OP_MUL: return new InfixNode(this.visitChildren(ctx.left), "*", this.visitChildren(ctx.right));
-            case RedemptionRuleLexer.OP_DIV: return new InfixNode(this.visitChildren(ctx.left), "/", this.visitChildren(ctx.right));
-            case RedemptionRuleLexer.OP_MOD: return new InfixNode(this.visitChildren(ctx.left), "%", this.visitChildren(ctx.right));
-            case RedemptionRuleLexer.OP_EQ: return new InfixNode(this.visitChildren(ctx.left), "==", this.visitChildren(ctx.right));
-            case RedemptionRuleLexer.OP_NEQ: return new UnaryNode("!", new InfixNode(this.visitChildren(ctx.left), "==", this.visitChildren(ctx.right)));
-            case RedemptionRuleLexer.OP_AND: return new InfixNode(this.visitChildren(ctx.left), "&&", this.visitChildren(ctx.right));
-            case RedemptionRuleLexer.OP_OR: return new InfixNode(this.visitChildren(ctx.left), "||", this.visitChildren(ctx.right));
-            case RedemptionRuleLexer.OP_GT: return new InfixNode(this.visitChildren(ctx.left), ">", this.visitChildren(ctx.right));
-            case RedemptionRuleLexer.OP_GTE: return new InfixNode(this.visitChildren(ctx.left), ">=", this.visitChildren(ctx.right));
-            case RedemptionRuleLexer.OP_LT: return new InfixNode(this.visitChildren(ctx.left), "<", this.visitChildren(ctx.right));
-            case RedemptionRuleLexer.OP_LTE: return new InfixNode(this.visitChildren(ctx.left), "<=", this.visitChildren(ctx.right));
+            case RuleLexer.OP_ADD: return new InfixNode(this.visitChildren(ctx.left), "+", this.visitChildren(ctx.right));
+            case RuleLexer.OP_SUB: return new InfixNode(this.visitChildren(ctx.left), "-", this.visitChildren(ctx.right));
+            case RuleLexer.OP_MUL: return new InfixNode(this.visitChildren(ctx.left), "*", this.visitChildren(ctx.right));
+            case RuleLexer.OP_DIV: return new InfixNode(this.visitChildren(ctx.left), "/", this.visitChildren(ctx.right));
+            case RuleLexer.OP_MOD: return new InfixNode(this.visitChildren(ctx.left), "%", this.visitChildren(ctx.right));
+            case RuleLexer.OP_EQ: return new InfixNode(this.visitChildren(ctx.left), "==", this.visitChildren(ctx.right));
+            case RuleLexer.OP_NEQ: return new UnaryNode("!", new InfixNode(this.visitChildren(ctx.left), "==", this.visitChildren(ctx.right)));
+            case RuleLexer.OP_AND: return new InfixNode(this.visitChildren(ctx.left), "&&", this.visitChildren(ctx.right));
+            case RuleLexer.OP_OR: return new InfixNode(this.visitChildren(ctx.left), "||", this.visitChildren(ctx.right));
+            case RuleLexer.OP_GT: return new InfixNode(this.visitChildren(ctx.left), ">", this.visitChildren(ctx.right));
+            case RuleLexer.OP_GTE: return new InfixNode(this.visitChildren(ctx.left), ">=", this.visitChildren(ctx.right));
+            case RuleLexer.OP_LT: return new InfixNode(this.visitChildren(ctx.left), "<", this.visitChildren(ctx.right));
+            case RuleLexer.OP_LTE: return new InfixNode(this.visitChildren(ctx.left), "<=", this.visitChildren(ctx.right));
             default: throw new UnsupportedOperationError();
         }
     }
 
     visitUnaryExpr(ctx: any): any {
         switch (ctx.op.type) {
-            case RedemptionRuleLexer.OP_ADD: return new UnaryNode("+", this.visitChildren(ctx.operand));
-            case RedemptionRuleLexer.OP_SUB: return new UnaryNode("-", this.visitChildren(ctx.operand));
-            case RedemptionRuleLexer.OP_NOT: return new UnaryNode("!", this.visitChildren(ctx.operand));
+            case RuleLexer.OP_ADD: return new UnaryNode("+", this.visitChildren(ctx.operand));
+            case RuleLexer.OP_SUB: return new UnaryNode("-", this.visitChildren(ctx.operand));
+            case RuleLexer.OP_NOT: return new UnaryNode("!", this.visitChildren(ctx.operand));
             default: throw new UnsupportedOperationError();
         }
     }
 
     visitTernaryExpr(ctx: any): any {
-        return new TernaryNode(this.visitChildren(ctx.condition), this.visitChildren(ctx.left), this.visitChildren(ctx.right))
+        if (ctx.condition && ctx.left && ctx.right) {
+            return new TernaryNode(this.visitChildren(ctx.condition), this.visitChildren(ctx.left), this.visitChildren(ctx.right));
+        }
+        return null;
     }
 
     visitFuncDotExpr(ctx: any): any {

@@ -6,7 +6,7 @@ import org.antlr.v4.runtime.CharStream
 import org.antlr.v4.runtime.CharStreams
 import org.antlr.v4.runtime.CommonTokenStream
 
-class BuildAstVisitor extends RedemptionRuleBaseVisitor<ExpressionNode> {
+class BuildAstVisitor extends RuleBaseVisitor<ExpressionNode> {
 
     static ExpressionNode buildAst(String exp) throws BuildAstException {
 
@@ -14,14 +14,14 @@ class BuildAstVisitor extends RedemptionRuleBaseVisitor<ExpressionNode> {
             BuildAstErrorListener errorListener = new BuildAstErrorListener(exp)
 
             CharStream stream = CharStreams.fromString(exp)
-            RedemptionRuleLexer lexer = new RedemptionRuleLexer(stream)
+            RuleLexer lexer = new RuleLexer(stream)
             CommonTokenStream tokenStream = new CommonTokenStream(lexer)
             lexer.removeErrorListeners()
             lexer.addErrorListener(errorListener)
-            RedemptionRuleParser parser = new RedemptionRuleParser(tokenStream)
+            RuleParser parser = new RuleParser(tokenStream)
             parser.removeErrorListeners()
             parser.addErrorListener(errorListener)
-            RedemptionRuleParser.CompileUnitContext cst = parser.compileUnit()
+            RuleParser.CompileUnitContext cst = parser.compileUnit()
             ExpressionNode expression = new BuildAstVisitor().visitCompileUnit(cst)
 
             if (!errorListener.errors.empty) {
@@ -36,77 +36,80 @@ class BuildAstVisitor extends RedemptionRuleBaseVisitor<ExpressionNode> {
     }
 
     @Override
-    ExpressionNode visitStringExpr(RedemptionRuleParser.StringExprContext ctx) {
+    ExpressionNode visitStringExpr(RuleParser.StringExprContext ctx) {
         return new LiteralNode(new Value(StringEscapeUtils.unescapeJava(ctx.value.text.substring(1, ctx.value.text.length() - 1))))
     }
 
     @Override
-    ExpressionNode visitCompileUnit(RedemptionRuleParser.CompileUnitContext ctx) {
+    ExpressionNode visitCompileUnit(RuleParser.CompileUnitContext ctx) {
         return visit(ctx.expr())
     }
 
     @Override
-    ExpressionNode visitIdentExpr(RedemptionRuleParser.IdentExprContext ctx) {
+    ExpressionNode visitIdentExpr(RuleParser.IdentExprContext ctx) {
         return new IdentifierNode(ctx.ident.text)
     }
 
     @Override
-    ExpressionNode visitInfixExpr(RedemptionRuleParser.InfixExprContext ctx) {
+    ExpressionNode visitInfixExpr(RuleParser.InfixExprContext ctx) {
         switch (ctx.op.type) {
-            case RedemptionRuleLexer.OP_ADD: return new AdditionNode(visit(ctx.left), visit(ctx.right))
-            case RedemptionRuleLexer.OP_SUB: return new SubtractionNode(visit(ctx.left), visit(ctx.right))
-            case RedemptionRuleLexer.OP_MUL: return new MultiplicationNode(visit(ctx.left), visit(ctx.right))
-            case RedemptionRuleLexer.OP_DIV: return new DivisionNode(visit(ctx.left), visit(ctx.right))
-            case RedemptionRuleLexer.OP_MOD: return new ModuloNode(visit(ctx.left), visit(ctx.right))
-            case RedemptionRuleLexer.OP_EQ: return new EqualityNode(visit(ctx.left), visit(ctx.right))
-            case RedemptionRuleLexer.OP_NEQ: return new NotNode(new EqualityNode(visit(ctx.left), visit(ctx.right)))
-            case RedemptionRuleLexer.OP_AND: return new AndNode(visit(ctx.left), visit(ctx.right))
-            case RedemptionRuleLexer.OP_OR: return new OrNode(visit(ctx.left), visit(ctx.right))
-            case RedemptionRuleLexer.OP_GT: return new ComparisonNode(visit(ctx.left), ">", visit(ctx.right))
-            case RedemptionRuleLexer.OP_GTE: return new ComparisonNode(visit(ctx.left), ">=", visit(ctx.right))
-            case RedemptionRuleLexer.OP_LT: return new ComparisonNode(visit(ctx.left), "<", visit(ctx.right))
-            case RedemptionRuleLexer.OP_LTE: return new ComparisonNode(visit(ctx.left), "<=", visit(ctx.right))
+            case RuleLexer.OP_ADD: return new AdditionNode(visit(ctx.left), visit(ctx.right))
+            case RuleLexer.OP_SUB: return new SubtractionNode(visit(ctx.left), visit(ctx.right))
+            case RuleLexer.OP_MUL: return new MultiplicationNode(visit(ctx.left), visit(ctx.right))
+            case RuleLexer.OP_DIV: return new DivisionNode(visit(ctx.left), visit(ctx.right))
+            case RuleLexer.OP_MOD: return new ModuloNode(visit(ctx.left), visit(ctx.right))
+            case RuleLexer.OP_EQ: return new EqualityNode(visit(ctx.left), visit(ctx.right))
+            case RuleLexer.OP_NEQ: return new NotNode(new EqualityNode(visit(ctx.left), visit(ctx.right)))
+            case RuleLexer.OP_AND: return new AndNode(visit(ctx.left), visit(ctx.right))
+            case RuleLexer.OP_OR: return new OrNode(visit(ctx.left), visit(ctx.right))
+            case RuleLexer.OP_GT: return new ComparisonNode(visit(ctx.left), ">", visit(ctx.right))
+            case RuleLexer.OP_GTE: return new ComparisonNode(visit(ctx.left), ">=", visit(ctx.right))
+            case RuleLexer.OP_LT: return new ComparisonNode(visit(ctx.left), "<", visit(ctx.right))
+            case RuleLexer.OP_LTE: return new ComparisonNode(visit(ctx.left), "<=", visit(ctx.right))
         }
         throw new UnsupportedOperationException()
     }
 
     @Override
-    ExpressionNode visitUnaryExpr(RedemptionRuleParser.UnaryExprContext ctx) {
+    ExpressionNode visitUnaryExpr(RuleParser.UnaryExprContext ctx) {
         switch (ctx.op.type) {
-            case RedemptionRuleLexer.OP_ADD: return new UnaryPlusNode(visit(ctx.operand))
-            case RedemptionRuleLexer.OP_SUB: return new UnaryMinusNode(visit(ctx.operand))
-            case RedemptionRuleLexer.OP_NOT: return new NotNode(visit(ctx.operand))
+            case RuleLexer.OP_ADD: return new UnaryPlusNode(visit(ctx.operand))
+            case RuleLexer.OP_SUB: return new UnaryMinusNode(visit(ctx.operand))
+            case RuleLexer.OP_NOT: return new NotNode(visit(ctx.operand))
         }
         throw new UnsupportedOperationException()
     }
 
     @Override
-    ExpressionNode visitFuncExpr(RedemptionRuleParser.FuncExprContext ctx) {
+    ExpressionNode visitFuncExpr(RuleParser.FuncExprContext ctx) {
         return new FuncCallNode(ctx.func.text, ctx.funcParam().collect({ arg -> visit(arg) }))
     }
 
     @Override
-    ExpressionNode visitArrayExpr(RedemptionRuleParser.ArrayExprContext ctx) {
+    ExpressionNode visitArrayExpr(RuleParser.ArrayExprContext ctx) {
         return new ArrayNode(ctx.expr().collect({ arg -> visit(arg) }))
     }
 
     @Override
-    ExpressionNode visitNullExpr(RedemptionRuleParser.NullExprContext ctx) {
+    ExpressionNode visitNullExpr(RuleParser.NullExprContext ctx) {
         return new LiteralNode(Value.NULL)
     }
 
     @Override
-    ExpressionNode visitTernaryExpr(RedemptionRuleParser.TernaryExprContext ctx) {
-        return new TernaryNode(visit(ctx.condition), visit(ctx.left), visit(ctx.right))
+    ExpressionNode visitTernaryExpr(RuleParser.TernaryExprContext ctx) {
+        if (ctx.condition && ctx.left && ctx.right) {
+            return new TernaryNode(visit(ctx.condition), visit(ctx.left), visit(ctx.right))
+        }
+        return null
     }
 
     @Override
-    ExpressionNode visitFuncDotExpr(RedemptionRuleParser.FuncDotExprContext ctx) {
+    ExpressionNode visitFuncDotExpr(RuleParser.FuncDotExprContext ctx) {
         return new FuncCallNode(ctx.func.text, visit(ctx.expr()), ctx.funcParam().collect({ arg -> visit(arg) }))
     }
 
     @Override
-    ExpressionNode visitNumberExpr(RedemptionRuleParser.NumberExprContext ctx) {
+    ExpressionNode visitNumberExpr(RuleParser.NumberExprContext ctx) {
         if (ctx.value.text == 'Inf') {
             return new LiteralNode(new Value(Double.POSITIVE_INFINITY))
         }
@@ -124,27 +127,27 @@ class BuildAstVisitor extends RedemptionRuleBaseVisitor<ExpressionNode> {
     }
 
     @Override
-    ExpressionNode visitMemberExpr(RedemptionRuleParser.MemberExprContext ctx) {
+    ExpressionNode visitMemberExpr(RuleParser.MemberExprContext ctx) {
         return new MemberNode(visit(ctx.source), visit(ctx.member), true)
     }
 
     @Override
-    ExpressionNode visitParensExpr(RedemptionRuleParser.ParensExprContext ctx) {
+    ExpressionNode visitParensExpr(RuleParser.ParensExprContext ctx) {
         return visit(ctx.expr())
     }
 
     @Override
-    ExpressionNode visitBoolExpr(RedemptionRuleParser.BoolExprContext ctx) {
+    ExpressionNode visitBoolExpr(RuleParser.BoolExprContext ctx) {
         new LiteralNode(new Value(ctx.value.text == "true"))
     }
 
     @Override
-    ExpressionNode visitMemberDotExpr(RedemptionRuleParser.MemberDotExprContext ctx) {
+    ExpressionNode visitMemberDotExpr(RuleParser.MemberDotExprContext ctx) {
         return new MemberNode(visit(ctx.source), new LiteralNode(new Value(ctx.member.text)), false)
     }
 
     @Override
-    ExpressionNode visitLambda(RedemptionRuleParser.LambdaContext ctx) {
+    ExpressionNode visitLambda(RuleParser.LambdaContext ctx) {
         return new LambdaNode(ctx.ID().collect({ id -> id.text }), visit(ctx.expr()))
     }
 }

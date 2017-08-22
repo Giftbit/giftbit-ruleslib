@@ -7,6 +7,7 @@ export class InfixNode implements ExpressionNode {
 
     constructor(private readonly left: ExpressionNode, private readonly operator: string, private readonly right: ExpressionNode) {}
 
+    /* tslint:disable:triple-equals*/
     getValue(context: Context): Value {
         switch (this.operator) {
             case "+": return this.left.getValue(context) + this.right.getValue(context);

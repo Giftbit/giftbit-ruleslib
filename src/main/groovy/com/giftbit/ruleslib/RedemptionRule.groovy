@@ -3,7 +3,7 @@ package com.giftbit.ruleslib
 import com.giftbit.ruleslib.ast.ExpressionNode
 import com.giftbit.ruleslib.functions.*
 
-class RedemptionRule {
+class Rule {
 
     final static defaultFunctions = [
             abs         : new Abs(),
@@ -34,12 +34,12 @@ class RedemptionRule {
     final ExpressionNode expression
     final Exception compileException
 
-    RedemptionRule(ExpressionNode expression) {
+    Rule(ExpressionNode expression) {
         this.expression = expression
         this.compileException = null
     }
 
-    RedemptionRule(Exception compileException) {
+    Rule(Exception compileException) {
         this.expression = null
         this.compileException = compileException
     }

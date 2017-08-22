@@ -426,7 +426,7 @@ class BuildAstVisitorTest extends Specification {
 
     def "arrays"() {
         given:
-        Context context = new MutableContext(RedemptionRule.defaultFunctions, [
+        Context context = new MutableContext(Rule.defaultFunctions, [
                 empty  : new Value([]),
                 anumber: new Value([new Value(1L)]),
                 numbers: new Value([new Value(1L), new Value(2L), new Value(3L)]),
@@ -493,7 +493,7 @@ class BuildAstVisitorTest extends Specification {
 
     def "maps"() {
         given:
-        Context context = new MutableContext(RedemptionRule.defaultFunctions, [
+        Context context = new MutableContext(Rule.defaultFunctions, [
                 empty     : new Value([:]),
                 flatmap   : Value.fromObject([
                         a     : "a",
@@ -581,7 +581,7 @@ class BuildAstVisitorTest extends Specification {
 
     def "functions"() {
         given:
-        Context context = new MutableContext(RedemptionRule.defaultFunctions, [
+        Context context = new MutableContext(Rule.defaultFunctions, [
                 someMap  : Value.fromObject([
                         a: 'alpha',
                         b: 'beta',
@@ -642,7 +642,7 @@ class BuildAstVisitorTest extends Specification {
 
     def "dot notation functions"() {
         given:
-        Context context = new MutableContext(RedemptionRule.defaultFunctions, [
+        Context context = new MutableContext(Rule.defaultFunctions, [
                 someMap  : Value.fromObject([
                         a: 'alpha',
                         b: 'beta',
@@ -694,7 +694,7 @@ class BuildAstVisitorTest extends Specification {
 
     def "math functions"() {
         given:
-        Context context = new MutableContext(RedemptionRule.defaultFunctions, [:])
+        Context context = new MutableContext(Rule.defaultFunctions, [:])
 
         expect:
         BuildAstVisitor.buildAst("max(null, null, null)").getValue(context).innerValue == 0L
@@ -713,7 +713,7 @@ class BuildAstVisitorTest extends Specification {
 
     def "string functions"() {
         given:
-        Context context = new MutableContext(RedemptionRule.defaultFunctions, [:])
+        Context context = new MutableContext(Rule.defaultFunctions, [:])
 
         expect:
         BuildAstVisitor.buildAst("null.substring()").getValue(context).innerValue == ""
@@ -743,7 +743,7 @@ class BuildAstVisitorTest extends Specification {
 
     def "reduce"() {
         given:
-        Context context = new MutableContext(RedemptionRule.defaultFunctions, [:])
+        Context context = new MutableContext(Rule.defaultFunctions, [:])
 
         expect:
         BuildAstVisitor.buildAst("[].reduce()").getValue(context).innerValue == NullValue.instance
@@ -768,7 +768,7 @@ class BuildAstVisitorTest extends Specification {
 
     def "member access precedence"() {
         given:
-        Context context = new MutableContext(RedemptionRule.defaultFunctions, [:])
+        Context context = new MutableContext(Rule.defaultFunctions, [:])
 
         expect:
         !BuildAstVisitor.buildAst("false && sum(1, 2, 3)").getValue(context).asBoolean()

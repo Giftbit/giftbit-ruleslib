@@ -10,7 +10,7 @@ import java.nio.file.Paths
 
 class FileDrivenTests {
 
-    Context context = new MutableContext(RedemptionRule.defaultFunctions, [
+    Context context = new MutableContext(Rule.defaultFunctions, [
             empty     : new Value([:]),
             flatmap   : Value.fromObject([
                     a     : "a",

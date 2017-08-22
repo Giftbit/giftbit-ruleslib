@@ -63,9 +63,8 @@ generateGrammarSource {
 }
 
 task generateJavaScriptGrammarSource(type: AntlrTask) {
-//    source = fileTree(dir: 'src/main/antlr/com/giftbit/ruleslib', include: '*.g4')
     source = sourceSets.main.antlr
-//    outputDirectory = file("${project.rootDir}/src/main/typescript/")
+    outputDirectory = file("${project.buildDir}/generated-src/antlr/js")
     maxHeapSize = "128m"
     arguments += ["-visitor", "-long-messages", "-Dlanguage=JavaScript", "-visitor"]
 }
