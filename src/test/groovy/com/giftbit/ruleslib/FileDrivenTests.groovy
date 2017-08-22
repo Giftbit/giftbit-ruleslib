@@ -50,7 +50,7 @@ class FileDrivenTests {
 
     @Test
     void testValueTests() {
-        List<String> lines = loadTestFile("ValueTests.csv")
+        List<String> lines = loadTestFile("ValueTests.txt")
 
         String lastComment = "file start"
         for (String line in lines) {
@@ -63,9 +63,9 @@ class FileDrivenTests {
                 }
 
                 ExpressionNode expression = BuildAstVisitor.buildAst(parts[0])
-                Value expressionValue = expression.getValue(context)
+                Value actualValue = expression.getValue(context)
                 Value expectedValue = parseValue(parts[1].trim())
-                assert expressionValue.innerValue == expectedValue.innerValue : "${lastComment}: ${parts[0]} ➡ ${expression.toString()} ➡ ${expressionValue.toString()} == ${parts[1]} ➡ ${expectedValue.toString()}"
+                assert actualValue.innerValue == expectedValue.innerValue : "${lastComment}: ${parts[0]} ➡ ${expression.toString()} ➡ ${actualValue.toString()} == ${parts[1]} ➡ ${expectedValue.toString()}"
             }
         }
     }

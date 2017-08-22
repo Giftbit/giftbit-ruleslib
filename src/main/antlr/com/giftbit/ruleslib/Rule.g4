@@ -1,7 +1,7 @@
 // Redemption rules grammar inspired by JavaScript.
 // see: https://github.com/antlr/grammars-v4/blob/master/ecmascript/ECMAScript.g4
 
-grammar RedemptionRule;
+grammar Rule;
 
 // The root compilation unit.
 compileUnit: expr EOF;
