@@ -1,5 +1,6 @@
 import * as chai from "chai";
 import * as fs from "fs";
+import * as path from "path";
 import {AstVisitor} from "../../main/typescript/AstVisitor";
 import {Value} from "../../main/typescript/Value";
 import {MutableContext} from "../../main/typescript/MutableContext";
@@ -42,7 +43,7 @@ const context = new MutableContext({
     }
 });
 
-const lines = fs.readFileSync("../resources/ValueTests.txt").toString("ascii").split("\n");
+const lines = fs.readFileSync(path.join(__dirname, "..", "resources", "ValueTests.txt")).toString("ascii").split("\n");
 let lastComment = "file start";
 
 for (let lineIx = 0; lineIx < lines.length; lineIx++) {
@@ -59,8 +60,9 @@ for (let lineIx = 0; lineIx < lines.length; lineIx++) {
                     lineIx--;
                     break;
                 } else {
-                    it(lines[lineIx], () => {
-                        const parts = lines[lineIx].split(",");
+                    const line = lines[lineIx];
+                    it(line, () => {
+                        const parts = line.split(",");
                         const expression = AstVisitor.buildAst(parts[0]);
                         const actualValue = expression.getValue(context);
                         const expectedValue = parseValue(parts[1]);

@@ -5,10 +5,10 @@
   "main": "distjs/index.js",
   "types": "distjs/index.d.ts",
   "scripts": {
-    "build": "npm run clean && tsc && cp -r ./build/generated-src/antlr/js/com/giftbit/ruleslib/* ./distjs",
+    "build": "npm run clean && tsc && cp -r ./src/main/typescript/*.js ./distjs",
     "clean": "rimraf ./distjs",
     "lint": "tslint --project tsconfig.json",
-    "test": "mocha --recursive --throw-deprecation --require ts-node/register \"src/test/**/*.ts\"",
+    "test": "mocha --recursive --throw-deprecation --require ts-node/register \"src/test/**/*.ts\" --bail",
     "test:watch": "npm run test -- --watch --watch-extensions ts,tsx --growl"
   },
   "repository": {
