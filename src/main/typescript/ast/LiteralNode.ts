@@ -4,6 +4,8 @@ import {Value} from "../Value";
 
 export class LiteralNode implements ExpressionNode {
 
+    readonly type = "Literal";
+
     constructor(private readonly value: Value) {}
 
     getValue(context: Context): Value {

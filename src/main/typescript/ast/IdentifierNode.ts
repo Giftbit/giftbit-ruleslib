@@ -4,6 +4,8 @@ import {Value} from "../Value";
 
 export class IdentifierNode implements ExpressionNode {
 
+    readonly type = "Identifier";
+
     constructor(private readonly identifier: string) {}
 
     getValue(context: Context): Value {

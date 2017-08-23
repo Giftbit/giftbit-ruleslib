@@ -5,6 +5,8 @@ import {UnsupportedOperationError} from "../UnsupportedOperationError";
 
 export class InfixNode implements ExpressionNode {
 
+    readonly type = "Infix";
+
     constructor(private readonly left: ExpressionNode, private readonly operator: string, private readonly right: ExpressionNode) {}
 
     /* tslint:disable:triple-equals*/
@@ -17,11 +19,11 @@ export class InfixNode implements ExpressionNode {
                 if (typeof left === "string" || typeof right === "string") {
                     return this.valueToString(left) + this.valueToString(right);
                 }
-                return left + right;
-            case "-": return (+left || 0) - (+right || 0);
-            case "*": return (+left || 0) * (+right || 0);
-            case "/": return (+left || 0) / (+right || 0);
-            case "%": return (+left || 0) % (+right || 0);
+                return this.valueToNumber(left) + this.valueToNumber(right);
+            case "-": return this.valueToNumber(left) - this.valueToNumber(right);
+            case "*": return this.valueToNumber(left) * this.valueToNumber(right);
+            case "/": return this.valueToNumber(left) / this.valueToNumber(right);
+            case "%": return this.valueToNumber(left) % this.valueToNumber(right);
             case "==": return this.areEqual(left, right);
             case "&&": return left && right;
             case "||": return left || right;
@@ -61,6 +63,7 @@ export class InfixNode implements ExpressionNode {
                     return false;
                 }
             }
+            return true;
         }
         return left == right;
     }
@@ -80,6 +83,25 @@ export class InfixNode implements ExpressionNode {
             return `[${v.map(x => this.valueToString(x)).join(", ")}]`;
         } else if (typeof v === "object") {
             return "{" + Object.keys(v).map(key => `${key}: ${this.valueToString(v[key])}`).join(", ") + "}";
+        }
+        throw new UnsupportedOperationError();
+    }
+
+    private valueToNumber(v: Value): number {
+        if (v === null) {
+            return 0;
+        } else if (v === false) {
+            return 0;
+        } else if (v === true) {
+            return 1;
+        } else if (typeof v === "string") {
+            return +v || 0;
+        } else if (typeof v === "number") {
+            return v;
+        } else if (Array.isArray(v)) {
+            return 0;
+        } else if (typeof v === "object") {
+            return 0;
         }
         throw new UnsupportedOperationError();
     }

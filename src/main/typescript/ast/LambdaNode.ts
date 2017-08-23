@@ -4,6 +4,8 @@ import {Value} from "../Value";
 
 export class LambdaNode implements ExpressionNode {
 
+    readonly type = "Lambda";
+
     constructor(private readonly paramNames: string[], private readonly body: ExpressionNode) {
         if (this.paramNames.length === 0) {
             throw new Error("paramNames must not be empty");

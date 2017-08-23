@@ -79,7 +79,7 @@ class FileDrivenTests {
                 ExpressionNode expression = BuildAstVisitor.buildAst(expressionString)
                 Value actualValue = expression.getValue(context)
                 Value expectedValue = parseValue(valueString)
-                assert actualValue.innerValue == expectedValue.innerValue: "${lastComment}: ${expressionString} ➡ ${expression.toString()} ➡ ${actualValue.toString()} == ${valueString} ➡ ${expectedValue.toString()}"
+                assert actualValue.innerValue == expectedValue.innerValue: "${lastComment} ➡ ${line} ➡ ${expression.toString()}=${valueString} ➡ ${actualValue.toString()}=${expectedValue.toString()}"
                 assertCount++
             }
         }

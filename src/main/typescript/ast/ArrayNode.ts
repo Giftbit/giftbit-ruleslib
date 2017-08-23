@@ -4,6 +4,8 @@ import {Value} from "../Value";
 
 export class ArrayNode implements ExpressionNode {
 
+    readonly type = "Array";
+
     constructor(private readonly elements: ExpressionNode[]) {}
 
     getValue(context: Context): Value {
