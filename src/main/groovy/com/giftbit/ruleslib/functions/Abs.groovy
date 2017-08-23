@@ -4,7 +4,7 @@ import com.giftbit.ruleslib.Context
 import com.giftbit.ruleslib.Value
 import com.giftbit.ruleslib.ast.ExpressionNode
 
-class Abs extends Function {
+class Abs extends RuleFunction {
 
     @Override
     Value invoke(List<ExpressionNode> args, Context context) {

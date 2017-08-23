@@ -11,6 +11,8 @@ import {IdentifierNode} from "./ast/IdentifierNode";
 import {MemberNode} from "./ast/MemberNode";
 import {TernaryNode} from "./ast/TernaryNode";
 import {ExpressionNode} from "./ast/ExpressionNode";
+import {FuncCallNode} from "./ast/FuncCallNode";
+import {LambdaNode} from "./ast/LambdaNode";
 
 export class AstVisitor extends RuleVisitor {
 
@@ -31,11 +33,11 @@ export class AstVisitor extends RuleVisitor {
     }
 
     visitFuncExpr(ctx: any): any {
-        throw new UnsupportedOperationError();  // TODO
+        return new FuncCallNode(ctx.func.text, ctx.funcParam().map(p => this.visit(p)), false);
     }
 
     visitArrayExpr(ctx: any): any {
-        return new ArrayNode(ctx.expr().map(arg => this.visit(arg)));   // TODO this might be shaky
+        return new ArrayNode(ctx.expr().map(arg => this.visit(arg)));
     }
 
     visitNullExpr(ctx: any): any {
@@ -101,15 +103,11 @@ export class AstVisitor extends RuleVisitor {
     }
 
     visitFuncDotExpr(ctx: any): any {
-        throw new UnsupportedOperationError();  // TODO
+        return new FuncCallNode(ctx.func.text, [this.visit(ctx.expr), ...ctx.funcParam().map(this.visit)], true);
     }
 
     visitBoolExpr(ctx: any): any {
-        switch (ctx.value.text) {
-            case "true": return new LiteralNode(true);
-            case "false": return new LiteralNode(false);
-            default: throw new UnsupportedOperationError(`not a boolean value: ${ctx.value.text}`);
-        }
+        return new LiteralNode(ctx.value.text === "true");
     }
 
     visitMemberDotExpr(ctx: any): any {
@@ -117,10 +115,11 @@ export class AstVisitor extends RuleVisitor {
     }
 
     visitFuncParam(ctx: any): any {
-        throw new UnsupportedOperationError();  // TODO
+        const lambda = ctx.lambda();
+        return lambda ? this.visitLambda(lambda) : this.visit(ctx.expr());
     }
 
     visitLambda(ctx: any): any {
-        throw new UnsupportedOperationError();  // TODO
+        return new LambdaNode(ctx.ID().map(id => id.text), this.visit(ctx.expr()));
     }
 }

@@ -58,15 +58,14 @@ class FileDrivenTests {
             if (line.startsWith("#")) {
                 lastComment = line.substring(1).trim()
             } else if (line.contains(",")) {
-                String[] parts = line.split(",")
-                if (parts.length != 2) {
-                    throw new Exception("Expected 2 line parts on line: ${line}")
-                }
+                int equalsIndex = line.lastIndexOf("=")
+                String expressionString = line.substring(0, equalsIndex).trim()
+                String valueString = line.substring(equalsIndex+1).trim()
 
-                ExpressionNode expression = BuildAstVisitor.buildAst(parts[0])
+                ExpressionNode expression = BuildAstVisitor.buildAst(expressionString)
                 Value actualValue = expression.getValue(context)
-                Value expectedValue = parseValue(parts[1].trim())
-                assert actualValue.innerValue == expectedValue.innerValue : "${lastComment}: ${parts[0]} ➡ ${expression.toString()} ➡ ${actualValue.toString()} == ${parts[1]} ➡ ${expectedValue.toString()}"
+                Value expectedValue = parseValue(valueString)
+                assert actualValue.innerValue == expectedValue.innerValue : "${lastComment}: ${expressionString} ➡ ${expression.toString()} ➡ ${actualValue.toString()} == ${valueString} ➡ ${expectedValue.toString()}"
                 assertCount++
             }
         }

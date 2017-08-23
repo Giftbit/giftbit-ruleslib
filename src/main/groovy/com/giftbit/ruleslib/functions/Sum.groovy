@@ -4,7 +4,7 @@ import com.giftbit.ruleslib.Context
 import com.giftbit.ruleslib.Value
 import com.giftbit.ruleslib.ast.ExpressionNode
 
-class Sum extends Function {
+class Sum extends RuleFunction {
 
     static Value getSum(List<Value> args) {
         Number sum = null

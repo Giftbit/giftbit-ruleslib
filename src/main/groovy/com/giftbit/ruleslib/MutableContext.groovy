@@ -1,19 +1,19 @@
 package com.giftbit.ruleslib
 
-import com.giftbit.ruleslib.functions.Function
+import com.giftbit.ruleslib.functions.RuleFunction
 
 class MutableContext implements Context {
 
-    private final Map<String, Function> functions = new HashMap<>()
+    private final Map<String, RuleFunction> functions = new HashMap<>()
     private final Map<String, Value> values = new HashMap<>()
 
-    MutableContext(Map<String, Function> functions = [:], Map<String, Value> values = [:]) {
+    MutableContext(Map<String, RuleFunction> functions = [:], Map<String, Value> values = [:]) {
         this.functions.putAll(functions)
         this.values.putAll(values)
     }
 
     @Override
-    Function getFunction(String name) {
+    RuleFunction getFunction(String name) {
         return functions[name]
     }
 
@@ -26,7 +26,7 @@ class MutableContext implements Context {
         return value
     }
 
-    void addFunction(String name, Function fxn) {
+    void addFunction(String name, RuleFunction fxn) {
         functions[name] = fxn
     }
 

@@ -14,7 +14,7 @@ class LambdaContext implements Context {
     }
 
     @Override
-    Function getFunction(String name) {
+    RuleFunction getFunction(String name) {
         return baseContext.getFunction(name)
     }
 

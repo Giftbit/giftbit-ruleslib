@@ -4,7 +4,7 @@ import com.giftbit.ruleslib.Context
 import com.giftbit.ruleslib.Value
 import com.giftbit.ruleslib.ast.ExpressionNode
 
-class Max extends Function {
+class Max extends RuleFunction {
 
     static Value getMax(List<Value> values) {
         Number max = null

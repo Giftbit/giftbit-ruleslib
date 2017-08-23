@@ -2,7 +2,7 @@ package com.giftbit.ruleslib.ast
 
 import com.giftbit.ruleslib.Context
 import com.giftbit.ruleslib.Value
-import com.giftbit.ruleslib.functions.Function
+import com.giftbit.ruleslib.functions.RuleFunction
 
 class FuncCallNode extends ExpressionNode {
 
@@ -24,7 +24,7 @@ class FuncCallNode extends ExpressionNode {
 
     @Override
     Value getValue(Context context) {
-        Function func = context.getFunction(funcName)
+        RuleFunction func = context.getFunction(funcName)
         if (!func) {
             return Value.NULL
         }

@@ -4,7 +4,7 @@ import com.giftbit.ruleslib.Context
 import com.giftbit.ruleslib.Value
 import com.giftbit.ruleslib.ast.ExpressionNode
 
-abstract class Function {
+abstract class RuleFunction {
 
     List<Value> resolveAllArgs(List<ExpressionNode> args, Context context) {
         return args.collect({arg -> arg.getValue(context)})

@@ -4,7 +4,7 @@ import com.giftbit.ruleslib.Context
 import com.giftbit.ruleslib.Value
 import com.giftbit.ruleslib.ast.ExpressionNode
 
-class Min extends Function {
+class Min extends RuleFunction {
 
     static Value getMin(List<Value> args) {
         Number min = null

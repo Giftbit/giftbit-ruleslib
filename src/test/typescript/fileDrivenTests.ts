@@ -4,8 +4,9 @@ import * as path from "path";
 import {AstVisitor} from "../../main/typescript/AstVisitor";
 import {Value} from "../../main/typescript/Value";
 import {MutableContext} from "../../main/typescript/MutableContext";
+import {Rule} from "../../main/typescript/Rule";
 
-const context = new MutableContext({
+const context = new MutableContext(Rule.defaultFunctions, {
     empty     : {},
     flatmap   : {
         a     : "a",
@@ -61,11 +62,14 @@ for (let lineIx = 0; lineIx < lines.length; lineIx++) {
                     break;
                 } else {
                     const line = lines[lineIx];
+                    const equalsIndex = line.lastIndexOf("=");
+                    const expressionString = line.substring(0, equalsIndex).trim();
+                    const valueString = line.substring(equalsIndex + 1).trim();
+
                     it(line, () => {
-                        const parts = line.split(",");
-                        const expression = AstVisitor.buildAst(parts[0]);
+                        const expression = AstVisitor.buildAst(expressionString);
                         const actualValue = expression.getValue(context);
-                        const expectedValue = parseValue(parts[1]);
+                        const expectedValue = parseValue(valueString);
 
                         if (typeof expectedValue === "number" && isNaN(expectedValue)) {
                             chai.assert.isNaN(actualValue, `${expression.toString()} == ${expectedValue}`);
