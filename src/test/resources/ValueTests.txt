@@ -321,7 +321,6 @@ false != ''=false
 0 != '0'=false
 '17' != 17=false
 17 != '17'=false
-
 null != true=true
 true != null=true
 null != false=true
@@ -331,7 +330,7 @@ null != 0=true
 null != 'null'=true
 null != 'null'=true
 
-# logcial and
+# logical and
 true && true=true
 true && false=false
 false && true=false
@@ -344,7 +343,7 @@ true && true && true && false && true=false
 null && 'potato'=null
 null && null=null
 
-# logcial or
+# logical or
 true || true=true
 true || false=true
 false || true=true
@@ -415,8 +414,68 @@ iamtrue && iamfalse=false
 [1][1][1]=null
 [1, 2, 3, 4].size()=4
 [1, 2, 3, 4][0]=1
+[1, 2, 3, 4][1]=2
+[1, 2, 3, 4][2]=3
 [1, 2, 3, 4][3]=4
+[1, 2, 3, 4]['1']=2
+[1, 2, 3, 4]['11']=null
+[1, 2, 3, 4]['eleven']=1
+[1, 2, 3, 4]['']=1
+[1, 2, 3, 4][null]=1
+[1, 2, 3, 4][0/0]=1
+[1, 2, 3, 4][Inf]=null
+[1, 2, 3, 4][false]=1
+[1, 2, 3, 4][true]=2
 ['foo', null, ['bar']].size()=3
 ['foo', null, ['bar']][0]="foo"
 ['foo', null, ['bar']][1]=null
 ['foo', null, ['bar']][2][0]="bar"
+[1, 2, 3, 4][0]=1
+[1, 2, 3, 4][2]=3
+[['a', 'b'], 2, ['c', 'd'], 4][0][1]="b"
+emptyarray[-1]=null
+emptyarray[0]=null
+emptyarray[1]=null
+anumber[-1]=null
+anumber[0]=1
+anumber[1]=null
+numbers[-12313]=null
+numbers[0]=1
+numbers[0.123]=1
+numbers[0.987]=1
+numbers[1]=2
+numbers[2]=3
+numbers[1233125641]=null
+foorbararray[0]="foo"
+foorbararray[1]="bar"
+mixedarray[0]=1
+mixedarray[1]="foo"
+mixedarray[2]=null
+nestedarray[0][1]=2
+nestedarray[1][0]=3
+nestedarray[100][99]=null
+(foorbararray[1] ? mixedarray : numbers)[1]="foo"
+sum([7, ['8'], 'eleven', numbers])=21
+![]=false
+[] == true=false
+[] == false=false
+[] == null=false
+[] == '[]'=false
+[false] == true=false
+[false] == false=false
+[123] ==123 =false
+[] == []=true
+[] == [1]=false
+[1] == [1]=true
+['1'] == [1]=true
+[1, 2, 3, 4] == [1, 2, 3, 4]=true
+[1, 2, 3, 4] == [1, 2, 3, [4]]=false
+[] + 'hello'="[]hello"
+'hello' + ['world']="hello[world]"
+'hello' + ['world', '!']="hello[world, !]"
+[] - 5=-5
+7 - []=7
+[] * 5=0
+6 * []=0
+4/[]=Inf
+[]/3=0

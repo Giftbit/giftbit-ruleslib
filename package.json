@@ -8,7 +8,7 @@
     "build": "npm run clean && tsc && cp -r ./src/main/typescript/*.js ./distjs",
     "clean": "rimraf ./distjs",
     "lint": "tslint --project tsconfig.json",
-    "test": "mocha --recursive --throw-deprecation --require ts-node/register \"src/test/**/*.ts\" --bail",
+    "test": "mocha --recursive --throw-deprecation --require ts-node/register \"src/test/**/*.ts\"",
     "test:watch": "npm run test -- --watch --watch-extensions ts,tsx --growl"
   },
   "repository": {

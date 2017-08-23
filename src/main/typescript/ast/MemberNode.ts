@@ -8,16 +8,12 @@ export class MemberNode implements ExpressionNode {
 
     getValue(context: Context): Value {
         const childValue = this.child.getValue(context);
-        if (childValue === null) {
-            return null;
-        }
-
         const parentValue = this.parent.getValue(context);
         if (parentValue === null) {
             return null;
         } else if (Array.isArray(parentValue)) {
-            const index = +childValue;
-            if (Number.isNaN(index) || index < 0 || index >= parentValue.length) {
+            const index = Math.floor(+childValue || 0);
+            if (index < 0 || index >= parentValue.length) {
                 return null;
             }
             return parentValue[index];

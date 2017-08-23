@@ -14,15 +14,15 @@ export class InfixNode implements ExpressionNode {
 
         switch (this.operator) {
             case "+":
-                if ((typeof left === "string" || typeof right === "string") && (left === null || right === null)) {
-                    return (left || "") + (right || "");
+                if (typeof left === "string" || typeof right === "string") {
+                    return this.valueToString(left) + this.valueToString(right);
                 }
                 return left + right;
             case "-": return (+left || 0) - (+right || 0);
             case "*": return (+left || 0) * (+right || 0);
             case "/": return (+left || 0) / (+right || 0);
             case "%": return (+left || 0) % (+right || 0);
-            case "==": return left == right;
+            case "==": return this.areEqual(left, right);
             case "&&": return left && right;
             case "||": return left || right;
             case ">": return left > right;
@@ -31,6 +31,57 @@ export class InfixNode implements ExpressionNode {
             case "<=": return left <= right;
             default: throw new UnsupportedOperationError();
         }
+    }
+
+    private areEqual(left: Value, right: Value): boolean {
+        if (Array.isArray(left)) {
+            if (Array.isArray(right)) {
+                if (left.length != right.length) {
+                    return false;
+                }
+                for (let i = 0; i < left.length; i++) {
+                    if (!this.areEqual(left[i], right[i])) {
+                        return false;
+                    }
+                }
+                return true;
+            } else {
+                return false;
+            }
+        } else if (Array.isArray(right)) {
+            return false;
+        } else if (left && typeof left === "object" && right && typeof right === "object") {
+            const leftKeys = Object.keys(left);
+            const rightKeys = Object.keys(right);
+            if (leftKeys.length !== rightKeys.length) {
+                return false;
+            }
+            for (const key of leftKeys) {
+                if (rightKeys.indexOf(key) === -1 || !this.areEqual(left[key], right[key])) {
+                    return false;
+                }
+            }
+        }
+        return left == right;
+    }
+
+    private valueToString(v: Value): string {
+        if (v === null) {
+            return "";
+        } else if (v === false) {
+            return "false";
+        } else if (v === true) {
+            return "true";
+        } else if (typeof v === "string") {
+            return v;
+        } else if (typeof v === "number") {
+            return v.toString();
+        } else if (Array.isArray(v)) {
+            return `[${v.map(x => this.valueToString(x)).join(", ")}]`;
+        } else if (typeof v === "object") {
+            return "{" + Object.keys(v).map(key => `${key}: ${this.valueToString(v[key])}`).join(", ") + "}";
+        }
+        throw new UnsupportedOperationError();
     }
 
     isComplex(): boolean {

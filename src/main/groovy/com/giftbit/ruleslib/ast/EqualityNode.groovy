@@ -43,7 +43,7 @@ class EqualityNode extends InfixNode {
             }
         } else if (left.innerValue instanceof List) {
             if (right.innerValue instanceof Boolean) {
-                return left.asBoolean() == right.asBoolean()
+                return false
             } else if (right.innerValue instanceof List) {
                 if ((left.innerValue as List).size() != (right.innerValue as List).size()) {
                     return false

@@ -13,6 +13,12 @@ const context = new MutableContext(Rule.defaultFunctions, {
     iamtrue: true,
     iamfalse: false,
     iamfoo: "foo",
+    emptyarray: [],
+    anumber: [1],
+    numbers: [1, 2, 3],
+    foorbararray: ["foo", "bar"],
+    mixedarray: [1, "foo", null],
+    nestedarray: [[1, 2], [3, 4]],
     empty: {},
     flatmap: {
         a: "a",
@@ -50,43 +56,50 @@ const context = new MutableContext(Rule.defaultFunctions, {
     }
 });
 
-const lines = fs.readFileSync(path.join(__dirname, "..", "resources", "ValueTests.txt")).toString("ascii").split("\n");
-let lastComment = "file start";
+runTestFile("ValueTests.txt");
 
-for (let lineIx = 0; lineIx < lines.length; lineIx++) {
-    if (lines[lineIx].trim().length == 0) {
-        // no-op
-    } else if (lines[lineIx][0] === "#") {
-        lastComment = lines[lineIx].substring(1).trim();
-    } else {
-        describe(lastComment, () => {
-            for (; lineIx < lines.length; lineIx++) {
-                if (lines[lineIx].trim().length == 0) {
-                    // no-op
-                } else if (lines[lineIx][0] === "#") {
-                    lineIx--;
-                    break;
-                } else {
-                    const line = lines[lineIx];
-                    const equalsIndex = line.lastIndexOf("=");
-                    const expressionString = line.substring(0, equalsIndex).trim();
-                    const valueString = line.substring(equalsIndex + 1).trim();
+function runTestFile(fileName: string): void {
+    const lines = fs.readFileSync(path.join(__dirname, "..", "resources", fileName)).toString("ascii").split("\n");
 
-                    it(line, () => {
-                        const expression = AstVisitor.buildAst(expressionString);
-                        const actualValue = expression.getValue(context);
-                        const expectedValue = parseValue(valueString);
+    describe(fileName, () => {
+        let lastComment = "file start";
 
-                        if (typeof expectedValue === "number" && isNaN(expectedValue)) {
-                            chai.assert.isNaN(actualValue, `${expression.toString()} == ${expectedValue}`);
+        for (let lineIx = 0; lineIx < lines.length; lineIx++) {
+            if (lines[lineIx].trim().length == 0) {
+                // no-op
+            } else if (lines[lineIx][0] === "#") {
+                lastComment = lines[lineIx].substring(1).trim();
+            } else {
+                describe(lastComment, () => {
+                    for (; lineIx < lines.length; lineIx++) {
+                        if (lines[lineIx].trim().length == 0) {
+                            // no-op
+                        } else if (lines[lineIx][0] === "#") {
+                            lineIx--;
+                            break;
                         } else {
-                            chai.assert.equal(actualValue, expectedValue, `${expression.toString()} == ${expectedValue}`)
+                            const line = lines[lineIx];
+                            const equalsIndex = line.lastIndexOf("=");
+                            const expressionString = line.substring(0, equalsIndex).trim();
+                            const valueString = line.substring(equalsIndex + 1).trim();
+
+                            it(line, () => {
+                                const expression = AstVisitor.buildAst(expressionString);
+                                const actualValue = expression.getValue(context);
+                                const expectedValue = parseValue(valueString);
+
+                                if (typeof expectedValue === "number" && isNaN(expectedValue)) {
+                                    chai.assert.isNaN(actualValue, `${expression.toString()} == ${expectedValue}`);
+                                } else {
+                                    chai.assert.equal(actualValue, expectedValue, `${expression.toString()} == ${expectedValue}`)
+                                }
+                            });
                         }
-                    });
-                }
+                    }
+                });
             }
-        });
-    }
+        }
+    });
 }
 
 function parseValue(text: string): Value {

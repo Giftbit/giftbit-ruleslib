@@ -17,6 +17,12 @@ class FileDrivenTests {
             iamtrue        : new Value(true),
             iamfalse       : new Value(false),
             iamfoo         : new Value("foo"),
+            emptyarray     : new Value([]),
+            anumber        : new Value([new Value(1L)]),
+            numbers        : new Value([new Value(1L), new Value(2L), new Value(3L)]),
+            foorbararray   : new Value([new Value('foo'), new Value('bar')]),
+            mixedarray     : new Value([new Value(1L), new Value('foo'), Value.NULL]),
+            nestedarray    : new Value([new Value([new Value(1L), new Value(2L)]), new Value([new Value(3L), new Value(4L)])]),
             empty          : new Value([:]),
             flatmap        : Value.fromObject([
                     a     : "a",
@@ -61,9 +67,11 @@ class FileDrivenTests {
         int assertCount = 0
 
         for (String line in lines) {
+            line = line.trim()
+
             if (line.startsWith("#")) {
                 lastComment = line.substring(1).trim()
-            } else if (line.contains(",")) {
+            } else if (line.size() > 0) {
                 int equalsIndex = line.lastIndexOf("=")
                 String expressionString = line.substring(0, equalsIndex).trim()
                 String valueString = line.substring(equalsIndex + 1).trim()
