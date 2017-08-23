@@ -388,3 +388,35 @@ min(max(1, 2, 3), max(4, 5, 6), max(7, 8, 9))=3
 !false && sum(1, -1)=0
 true && sum(1, 2, 3)=6
 !true && sum(1, -1)=false
+
+# variables
+iamnull=null
+iamone=1
+iamonepointfive=1.5
+iamtrue=true
+iamfalse=false
+iamfoo="foo"
+iamunset=null
+iamone + iamone=2
+iamonepointfive * 4.5=6.75
+iamfoo + iamfalse + iamnull + 'bar'="foofalsebar"
+iamtrue || iamfalse=true
+iamtrue && iamfalse=false
+
+# arrays
+[].size()=0
+[][0]=null
+[][10000]=null
+[][-1]=null
+[1].size()=1
+[1][0]=1
+[1][-1]=null
+[1][1]=null
+[1][1][1]=null
+[1, 2, 3, 4].size()=4
+[1, 2, 3, 4][0]=1
+[1, 2, 3, 4][3]=4
+['foo', null, ['bar']].size()=3
+['foo', null, ['bar']][0]="foo"
+['foo', null, ['bar']][1]=null
+['foo', null, ['bar']][2][0]="bar"

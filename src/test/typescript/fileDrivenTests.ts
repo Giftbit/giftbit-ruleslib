@@ -7,20 +7,26 @@ import {MutableContext} from "../../main/typescript/MutableContext";
 import {Rule} from "../../main/typescript/Rule";
 
 const context = new MutableContext(Rule.defaultFunctions, {
-    empty     : {},
-    flatmap   : {
-        a     : "a",
-        one   : 1,
-        '2'   : 'two',
+    iamnull: null,
+    iamone: 1,
+    iamonepointfive: 1.5,
+    iamtrue: true,
+    iamfalse: false,
+    iamfoo: "foo",
+    empty: {},
+    flatmap: {
+        a: "a",
+        one: 1,
+        '2': 'two',
         isnull: null
     },
     complexmap: {
-        ismap        : {
+        ismap: {
             a: 'alpha',
             b: 'beta',
             c: 'charlie'
         },
-        isarrayofmap : [
+        isarrayofmap: [
             {
                 d: 'delta',
                 e: 'echo'
@@ -36,9 +42,9 @@ const context = new MutableContext(Rule.defaultFunctions, {
             }
         ],
         nestedflatmap: {
-            a     : "a",
-            one   : 1,
-            '2'   : 'two',
+            a: "a",
+            one: 1,
+            '2': 'two',
             isnull: null
         }
     }

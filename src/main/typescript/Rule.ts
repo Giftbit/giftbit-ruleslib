@@ -6,6 +6,7 @@ import {Ceil} from "./functions/Ceil";
 import {Floor} from "./functions/Floor";
 import {ExpressionNode} from "./ast/ExpressionNode";
 import {Sum} from "./functions/Sum";
+import {Size} from "./functions/Size";
 
 export class Rule {
 
@@ -15,6 +16,7 @@ export class Rule {
         floor: new Floor(),
         max: new Max(),
         min: new Min(),
+        size: new Size(),
         sum: new Sum(),
     };
 

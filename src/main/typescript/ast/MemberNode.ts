@@ -13,8 +13,14 @@ export class MemberNode implements ExpressionNode {
         }
 
         const parentValue = this.parent.getValue(context);
-        if (Array.isArray(parentValue)) {
-            return parentValue[+childValue];
+        if (parentValue === null) {
+            return null;
+        } else if (Array.isArray(parentValue)) {
+            const index = +childValue;
+            if (Number.isNaN(index) || index < 0 || index >= parentValue.length) {
+                return null;
+            }
+            return parentValue[index];
         } else if (typeof parentValue === "object" && parentValue.hasOwnProperty(childValue)) {
             return parentValue[childValue];
         }

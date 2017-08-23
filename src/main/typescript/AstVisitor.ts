@@ -103,7 +103,7 @@ export class AstVisitor extends RuleVisitor {
     }
 
     visitFuncDotExpr(ctx: any): any {
-        return new FuncCallNode(ctx.func.text, [this.visit(ctx.expr), ...ctx.funcParam().map(this.visit)], true);
+        return new FuncCallNode(ctx.func.text, [this.visit(ctx.expr()), ...ctx.funcParam().map(this.visit)], true);
     }
 
     visitBoolExpr(ctx: any): any {

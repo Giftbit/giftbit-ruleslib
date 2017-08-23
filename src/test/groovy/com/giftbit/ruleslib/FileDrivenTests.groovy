@@ -11,14 +11,20 @@ import java.nio.file.Paths
 class FileDrivenTests {
 
     Context context = new MutableContext(Rule.defaultFunctions, [
-            empty     : new Value([:]),
-            flatmap   : Value.fromObject([
+            iamnull        : Value.NULL,
+            iamone         : new Value(1L),
+            iamonepointfive: new Value(1.5D),
+            iamtrue        : new Value(true),
+            iamfalse       : new Value(false),
+            iamfoo         : new Value("foo"),
+            empty          : new Value([:]),
+            flatmap        : Value.fromObject([
                     a     : "a",
                     one   : 1,
                     '2'   : 'two',
                     isnull: null
             ]),
-            complexmap: Value.fromObject([
+            complexmap     : Value.fromObject([
                     ismap        : [
                             a: 'alpha',
                             b: 'beta',
@@ -60,12 +66,12 @@ class FileDrivenTests {
             } else if (line.contains(",")) {
                 int equalsIndex = line.lastIndexOf("=")
                 String expressionString = line.substring(0, equalsIndex).trim()
-                String valueString = line.substring(equalsIndex+1).trim()
+                String valueString = line.substring(equalsIndex + 1).trim()
 
                 ExpressionNode expression = BuildAstVisitor.buildAst(expressionString)
                 Value actualValue = expression.getValue(context)
                 Value expectedValue = parseValue(valueString)
-                assert actualValue.innerValue == expectedValue.innerValue : "${lastComment}: ${expressionString} ➡ ${expression.toString()} ➡ ${actualValue.toString()} == ${valueString} ➡ ${expectedValue.toString()}"
+                assert actualValue.innerValue == expectedValue.innerValue: "${lastComment}: ${expressionString} ➡ ${expression.toString()} ➡ ${actualValue.toString()} == ${valueString} ➡ ${expectedValue.toString()}"
                 assertCount++
             }
         }
