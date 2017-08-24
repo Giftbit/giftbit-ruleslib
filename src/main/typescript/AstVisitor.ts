@@ -13,19 +13,30 @@ import {TernaryNode} from "./ast/TernaryNode";
 import {ExpressionNode} from "./ast/ExpressionNode";
 import {FuncCallNode} from "./ast/FuncCallNode";
 import {LambdaNode} from "./ast/LambdaNode";
+import {AstErrorListener} from "./AstErrorListener";
 
 export class AstVisitor extends RuleVisitor {
 
     static buildAst(exp: string): ExpressionNode {
+        const errorListener = new AstErrorListener(exp);
         const chars = new antlr4.InputStream(exp);
         const lexer = new RuleLexer(chars);
-        const tokens  = new antlr4.CommonTokenStream(lexer);
+        lexer.removeErrorListeners();
+        lexer.addErrorListener(errorListener);
+        const tokens = new antlr4.CommonTokenStream(lexer);
         const parser = new RuleParser(tokens);
+        parser.removeErrorListeners();
+        parser.addErrorListener(errorListener);
         parser.buildParseTrees = true;
 
         const tree = parser.compileUnit();
         const visitor = new AstVisitor();
-        return visitor.visitCompileUnit(tree);
+        const astNode = visitor.visitCompileUnit(tree);
+
+        if (errorListener.errors.length > 0) {
+            throw errorListener.errors[0];
+        }
+        return astNode;
     }
 
     visitCompileUnit(ctx: any): any {

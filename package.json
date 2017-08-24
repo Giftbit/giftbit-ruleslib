@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/Giftbit/giftbit-ruleslib#readme",
   "dependencies": {
-    "antlr4": "^4.7.0"
+    "antlr4": "4.7.0"
   },
   "devDependencies": {
     "@types/chai": "^4.0.4",

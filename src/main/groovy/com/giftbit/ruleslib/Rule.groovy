@@ -44,15 +44,15 @@ class Rule {
         this.compileException = compileException
     }
 
-    boolean evaluate(Context context) {
+    boolean evaluateBoolean(Context context) {
         if (compileException) {
             throw compileException
         }
         return expression.getValue(context).asBoolean()
     }
 
-    boolean evaluate(Map contextValues) {
+    boolean evaluateBoolean(Map contextValues) {
         MutableContext mutableContext = new MutableContext(defaultFunctions, Value.fromObject(contextValues).asMap())
-        return evaluate(mutableContext)
+        return evaluateBoolean(mutableContext)
     }
 }

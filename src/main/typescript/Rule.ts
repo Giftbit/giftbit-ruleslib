@@ -1,28 +1,30 @@
-import {RuleFunction} from "./functions/RuleFunction";
-import {Max} from "./functions/Max";
-import {Min} from "./functions/Min";
 import {Abs} from "./functions/Abs";
 import {Ceil} from "./functions/Ceil";
-import {Floor} from "./functions/Floor";
+import {Every} from "./functions/Every";
 import {ExpressionNode} from "./ast/ExpressionNode";
-import {Sum} from "./functions/Sum";
-import {Size} from "./functions/Size";
-import {Substring} from "./functions/Substring";
-import {ToLowerCase} from "./functions/ToLowerCase";
-import {ToUpperCase} from "./functions/ToUpperCase";
-import {Round} from "./functions/Round";
-import {RoundBankers} from "./functions/RoundBankers";
-import {Keys} from "./functions/Keys";
-import {Values} from "./functions/Values";
+import {Filter} from "./functions/Filter";
+import {FindIndex} from "./functions/FindIndex";
+import {Find} from "./functions/Find";
+import {Floor} from "./functions/Floor";
 import {IsNaN} from "./functions/IsNaN";
 import {IsNull} from "./functions/IsNull";
-import {Every} from "./functions/Every";
-import {Some} from "./functions/Some";
-import {Find} from "./functions/Find";
-import {FindIndex} from "./functions/FindIndex";
-import {Filter} from "./functions/Filter";
+import {Keys} from "./functions/Keys";
 import {MapFxn} from "./functions/MapFxn";
+import {Max} from "./functions/Max";
+import {Min} from "./functions/Min";
 import {Reduce} from "./functions/Reduce";
+import {RoundBankers} from "./functions/RoundBankers";
+import {Round} from "./functions/Round";
+import {RuleFunction} from "./functions/RuleFunction";
+import {Size} from "./functions/Size";
+import {Some} from "./functions/Some";
+import {Substring} from "./functions/Substring";
+import {Sum} from "./functions/Sum";
+import {ToLowerCase} from "./functions/ToLowerCase";
+import {ToUpperCase} from "./functions/ToUpperCase";
+import {Values} from "./functions/Values";
+import {valueToNumber} from "./Value";
+import {MutableContext} from "./MutableContext";
 
 export class Rule {
 
@@ -58,5 +60,12 @@ export class Rule {
     constructor(expressionOrError: ExpressionNode | Error) {
         this.expression = (expressionOrError as ExpressionNode).getValue && (expressionOrError as ExpressionNode).isComplex ? (expressionOrError as ExpressionNode) : null;
         this.compileError = this.expression ? null : expressionOrError as Error;
+    }
+
+    evaluateBoolean(contextValues: object): boolean {
+        if (this.compileError) {
+            throw this.compileError;
+        }
+        return !!this.expression.getValue(new MutableContext(Rule.defaultFunctions, contextValues));
     }
 }

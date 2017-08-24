@@ -15,10 +15,10 @@ class BuildAstErrorListener extends BaseErrorListener {
 
     @Override
     void syntaxError(Recognizer<?, ?> recognizer, Object offendingSymbol, int line, int charPositionInLine, String msg, RecognitionException e) {
-        errors.push(new BuildAstException(line, charPositionInLine, expression, replaceEof(msg), e))
+        errors.push(new BuildAstException(line, charPositionInLine, expression, sanitizeErrorMessage(msg), e))
     }
 
-    private String replaceEof(String msg) {
+    private String sanitizeErrorMessage(String msg) {
         return msg.replaceAll("'<EOF>'", "at the end of the rule").replaceAll("<EOF>", "the end of the rule")
     }
 

@@ -14,7 +14,7 @@ export class Size extends RuleFunction {
         if (Array.isArray(value)) {
             return value.length;
         } else if (typeof value === "string") {
-            return value.length
+            return value.length;
         }
 
         return 0;

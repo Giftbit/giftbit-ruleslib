@@ -1,29 +1,25 @@
-import {ExpressionNode} from "./ExpressionNode";
-import {Context} from "../Context";
-import {Value} from "../Value";
-
-export class LambdaNode implements ExpressionNode {
-
-    readonly type = "Lambda";
-
-    constructor(public readonly paramNames: string[], public readonly body: ExpressionNode) {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+class LambdaNode {
+    constructor(paramNames, body) {
+        this.paramNames = paramNames;
+        this.body = body;
+        this.type = "Lambda";
         if (this.paramNames.length === 0) {
             throw new Error("paramNames must not be empty");
         }
     }
-
-    getValue(context: Context): Value {
+    getValue(context) {
         return this.body.getValue(context);
     }
-
-    isComplex(): boolean {
+    isComplex() {
         return true;
     }
-
-    toString(): string {
+    toString() {
         if (this.paramNames.length === 1) {
             return `${this.paramNames[0]} => ${this.body.toString()}`;
         }
         return `(${this.paramNames.join(", ")}) => ${this.body.toString()}`;
     }
 }
+exports.LambdaNode = LambdaNode;

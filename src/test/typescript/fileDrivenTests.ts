@@ -88,14 +88,13 @@ function runTestFile(fileName: string): void {
                             it(line, () => {
                                 if (valueString[0] === "@") {
                                     const messageRegex = valueString.substring(1);
-                                    // chai.assert.throws(() => AstVisitor.buildAst(expressionString), messageRegex, `${expressionString} throws ${messageRegex}`);
                                     let er: Error = null;
                                     try {
                                         AstVisitor.buildAst(expressionString)
                                     } catch (e) {
                                         er = e;
                                     }
-                                    chai.assert.isObject(er, "throws Error");
+                                    chai.assert.isNotNull(er, "throws Error");
                                     if (messageRegex) {
                                         chai.assert(er.message.match(messageRegex), `${er.message} matches ${messageRegex}`);
                                     }
