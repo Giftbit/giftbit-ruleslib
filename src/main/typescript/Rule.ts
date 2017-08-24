@@ -7,6 +7,11 @@ import {Floor} from "./functions/Floor";
 import {ExpressionNode} from "./ast/ExpressionNode";
 import {Sum} from "./functions/Sum";
 import {Size} from "./functions/Size";
+import {Substring} from "./functions/Substring";
+import {ToLowerCase} from "./functions/ToLowerCase";
+import {ToUpperCase} from "./functions/ToUpperCase";
+import {Round} from "./functions/Round";
+import {RoundBankers} from "./functions/RoundBankers";
 
 export class Rule {
 
@@ -16,8 +21,13 @@ export class Rule {
         floor: new Floor(),
         max: new Max(),
         min: new Min(),
+        round: new Round(),
+        roundBankers: new RoundBankers(),
         size: new Size(),
+        substring: new Substring(),
         sum: new Sum(),
+        toLowerCase: new ToLowerCase(),
+        toUpperCase: new ToUpperCase(),
     };
 
     private readonly expression: ExpressionNode;

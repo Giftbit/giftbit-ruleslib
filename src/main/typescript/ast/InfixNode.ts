@@ -1,6 +1,6 @@
 import {ExpressionNode} from "./ExpressionNode";
 import {Context} from "../Context";
-import {Value} from "../Value";
+import {Value, valueToNumber, valueToString} from "../Value";
 import {UnsupportedOperationError} from "../UnsupportedOperationError";
 
 export class InfixNode implements ExpressionNode {
@@ -17,13 +17,13 @@ export class InfixNode implements ExpressionNode {
         switch (this.operator) {
             case "+":
                 if (typeof left === "string" || typeof right === "string") {
-                    return this.valueToString(left) + this.valueToString(right);
+                    return valueToString(left) + valueToString(right);
                 }
-                return this.valueToNumber(left) + this.valueToNumber(right);
-            case "-": return this.valueToNumber(left) - this.valueToNumber(right);
-            case "*": return this.valueToNumber(left) * this.valueToNumber(right);
-            case "/": return this.valueToNumber(left) / this.valueToNumber(right);
-            case "%": return this.valueToNumber(left) % this.valueToNumber(right);
+                return valueToNumber(left) + valueToNumber(right);
+            case "-": return valueToNumber(left) - valueToNumber(right);
+            case "*": return valueToNumber(left) * valueToNumber(right);
+            case "/": return valueToNumber(left) / valueToNumber(right);
+            case "%": return valueToNumber(left) % valueToNumber(right);
             case "==": return this.areEqual(left, right);
             case "&&": return left && right;
             case "||": return left || right;
@@ -66,44 +66,6 @@ export class InfixNode implements ExpressionNode {
             return true;
         }
         return left == right;
-    }
-
-    private valueToString(v: Value): string {
-        if (v === null) {
-            return "";
-        } else if (v === false) {
-            return "false";
-        } else if (v === true) {
-            return "true";
-        } else if (typeof v === "string") {
-            return v;
-        } else if (typeof v === "number") {
-            return v.toString();
-        } else if (Array.isArray(v)) {
-            return `[${v.map(x => this.valueToString(x)).join(", ")}]`;
-        } else if (typeof v === "object") {
-            return "{" + Object.keys(v).map(key => `${key}: ${this.valueToString(v[key])}`).join(", ") + "}";
-        }
-        throw new UnsupportedOperationError();
-    }
-
-    private valueToNumber(v: Value): number {
-        if (v === null) {
-            return 0;
-        } else if (v === false) {
-            return 0;
-        } else if (v === true) {
-            return 1;
-        } else if (typeof v === "string") {
-            return +v || 0;
-        } else if (typeof v === "number") {
-            return v;
-        } else if (Array.isArray(v)) {
-            return 0;
-        } else if (typeof v === "object") {
-            return 0;
-        }
-        throw new UnsupportedOperationError();
     }
 
     isComplex(): boolean {

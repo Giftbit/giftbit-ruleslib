@@ -1,0 +1,170 @@
+# abs
+abs(123)=123
+abs(-123)=123
+abs(123.456)=123.456
+abs(-123.456)=123.456
+abs(null)=0
+abs(false)=0
+abs(true)=true
+abs('123')=123
+abs('-123')=123
+abs('minus one hundred and twenty-three')=0
+abs(flatmap)=0
+
+# ceil
+ceil(123)=123
+ceil(-123)=-123
+ceil(123.456)=124
+ceil(-123.456)=-123
+ceil(0.0001)=1
+ceil(Inf)=Inf
+ceil(null)=0
+ceil(false)=0
+ceil(true)=true
+ceil('123')=123
+ceil('-123')=-123
+ceil('minus one hundred and twenty-three')=0
+ceil(flatmap)=0
+
+# floor
+floor(123)=123
+floor(-123)=-123
+floor(123.456)=123
+floor(-123.456)=-124
+floor(0.0001)=0
+floor(Inf)=Inf
+floor(null)=0
+floor(false)=0
+floor(true)=true
+floor('123')=123
+floor('-123')=-123
+floor('minus one hundred and twenty-three')=0
+floor(flatmap)=0
+
+# max
+max(null, null, null)=0
+max(null, null, 5, null)=5
+max(5)=5
+max(5, 10)=10
+max(5, 10, 30, 40)=40
+max(5, [10, 30, 40])=40
+max(5, [10, [30, 40]])=40
+5.max()=5
+5.max(2)=5
+5.max(11, 2)=11
+'afskjhasd'.max()=0
+max(1, 2, '3')=3
+max(flatmap)=0
+
+# min
+min(null, null, null)=0
+min(null, null, 5, null)=0
+min(5)=5
+min(5, 10)=5
+min(5, 10, 30, 40)=5
+min(5, [10, 30, 40])=5
+min(5, [10, [30, 40]])=5
+5.min()=5
+5.min(2)=2
+5.min(11, 2)=2
+'afskjhasd'.min()=0
+min(1, 2, '3')=1
+min(flatmap)=0
+
+# round
+round(-134.1223)=-134
+round(-21.5)=-21
+round(-20.5)=-20
+round(-0.00001)=0
+round(0)=0
+round(0.00001)=0
+round(1)=1
+round(1.1)=1
+round(1.49999)=1
+round(1.5)=2
+round(1.500001)=2
+round(1.535)=2
+round(2.5)=3
+round(3.5)=4
+round(20.5)=21
+round(21.5)=22
+round(134.1223)=134
+
+# roundBankers
+round(-134.1223)=-134
+round(-21.5)=-20
+round(-20.5)=-20
+round(-0.00001)=0
+round(0)=0
+round(0.00001)=0
+round(1)=1
+round(1.1)=1
+round(1.49999)=1
+round(1.5)=2
+round(1.500001)=2
+round(1.535)=2
+round(2.5)=2
+round(3.5)=4
+round(20.5)=20
+round(21.5)=22
+round(134.1223)=134
+
+# size
+size("12345")=5
+"12345".size()=5
+size([1, 2, 3, 4, 5])=5
+[1, 2, 3, 4, 5].size()=5
+size("")=0
+size([])=0
+size(false)=0
+size(true)=0
+size(null)=0
+size(12345)=0
+size([1, 2, 3, [4, 5, 6, 7]])=4
+size(flatmap)=0
+
+# substring
+null.substring()=""
+3.substring()="3"
+1234.substring(1,2)="2"
+false.substring()="false"
+false.substring(2,4)="ls"
+true.substring()="true"
+['asdf'].substring()="[asdf]"
+'foobarbaz'.substring()="foobarbaz"
+'foobarbaz'.substring(0)="foobarbaz"
+'foobarbaz'.substring(3)="barbaz"
+'foobarbaz'.substring(-3)="foobarbaz"
+'foobarbaz'.substring(0, 6)="foobar"
+'foobarbaz'.substring(3, 6)="bar"
+'foobarbaz'.substring(6, 3)="bar"
+'foobarbaz'.substring(-6, 3)="foo"
+'foobarbaz'.substring(3, 3)=""
+
+# sum
+sum(1, 2, 3)=6
+sum([1, 2, 3])=6
+sum([1, [2, 3]])=6
+sum([[1, [2], [[3]]]])=6
+[1, 2, 3].sum()=6
+sum('a', 'b', null, true, true)=2
+sum(flatmap)=0
+
+# toLowerCase
+'foo'.toLowerCase()="foo"
+'FoO'.toLowerCase()="foo"
+'FOO'.toLowerCase()="foo"
+null.toLowerCase()=""
+false.toLowerCase()="false"
+true.toLowerCase()="true"
+[].toLowerCase()="[]"
+
+# toUpperCase
+'foo'.toUpperCase()="FOO"
+'FoO'.toUpperCase()="FOO"
+'FOO'.toUpperCase()="FOO"
+null.toUpperCase()=""
+1.toUpperCase()="1"
+false.toUpperCase()="FALSE"
+true.toUpperCase()="TRUE"
+[].toUpperCase()="[]"

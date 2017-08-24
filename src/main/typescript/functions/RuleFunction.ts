@@ -1,6 +1,6 @@
 import {ExpressionNode} from "../ast/ExpressionNode";
 import {Context} from "../Context";
-import {Value} from "../Value";
+import {Value, valueToNumber, valueToString} from "../Value";
 
 export abstract class RuleFunction {
 
@@ -11,9 +11,24 @@ export abstract class RuleFunction {
     }
 
     resolveFirstAsNumber(args: ExpressionNode[], context: Context): number {
-        if (args.length < 0) {
+        return this.resolveAsNumber(0, args, context);
+    }
+
+    resolveAsNumber(index: number, args: ExpressionNode[], context: Context): number {
+        if (index >= args.length) {
             return 0;
         }
-        return +args[0].getValue(context) || 0;
+        return valueToNumber(args[index].getValue(context));
+    }
+
+    resolveFirstAsString(args: ExpressionNode[], context: Context): string {
+        return this.resolveAsString(0, args, context);
+    }
+
+    resolveAsString(index: number, args: ExpressionNode[], context: Context): string {
+        if (index >= args.length) {
+            return "";
+        }
+        return valueToString(args[index].getValue(context));
     }
 }

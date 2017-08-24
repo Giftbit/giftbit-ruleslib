@@ -56,7 +56,8 @@ const context = new MutableContext(Rule.defaultFunctions, {
     }
 });
 
-runTestFile("ValueTests.txt");
+runTestFile("SyntaxTests.txt");
+runTestFile("FunctionTests.txt");
 
 function runTestFile(fileName: string): void {
     const lines = fs.readFileSync(path.join(__dirname, "..", "resources", fileName)).toString("ascii").split("\n");

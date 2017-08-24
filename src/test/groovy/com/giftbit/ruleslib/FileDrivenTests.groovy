@@ -10,7 +10,7 @@ import java.nio.file.Paths
 
 class FileDrivenTests {
 
-    Context context = new MutableContext(Rule.defaultFunctions, [
+    private static Context context = new MutableContext(Rule.defaultFunctions, [
             iamnull        : Value.NULL,
             iamone         : new Value(1L),
             iamonepointfive: new Value(1.5D),
@@ -61,8 +61,17 @@ class FileDrivenTests {
     ])
 
     @Test
-    void testValueTests() {
-        List<String> lines = loadTestFile("ValueTests.txt")
+    void "SyntaxTests"() {
+        runTestFile("SyntaxTests.txt")
+    }
+
+    @Test
+    void "FunctionTests"() {
+        runTestFile("FunctionTests.txt")
+    }
+
+    static void runTestFile(String fileName) {
+        List<String> lines = loadTestFile(fileName)
         String lastComment = "file start"
         int assertCount = 0
 
