@@ -14,6 +14,8 @@ import {Round} from "./functions/Round";
 import {RoundBankers} from "./functions/RoundBankers";
 import {Keys} from "./functions/Keys";
 import {Values} from "./functions/Values";
+import {IsNaN} from "./functions/IsNaN";
+import {IsNull} from "./functions/IsNull";
 
 export class Rule {
 
@@ -21,6 +23,8 @@ export class Rule {
         abs: new Abs(),
         ceil: new Ceil,
         floor: new Floor(),
+        isNaN: new IsNaN(),
+        isNull: new IsNull(),
         keys: new Keys(),
         max: new Max(),
         min: new Min(),

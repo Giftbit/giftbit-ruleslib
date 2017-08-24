@@ -12,6 +12,7 @@ class IsNull extends RuleFunction {
             return Value.TRUE
         }
 
-        return args[0].getValue(context).isNull() ? Value.TRUE : Value.FALSE
+        Value value = args[0].getValue(context)
+        return value.isNull() ? Value.TRUE : Value.FALSE
     }
 }

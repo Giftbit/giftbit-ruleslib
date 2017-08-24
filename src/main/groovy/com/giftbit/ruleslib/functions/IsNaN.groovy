@@ -8,6 +8,11 @@ class IsNaN extends RuleFunction {
 
     @Override
     Value invoke(List<ExpressionNode> args, Context context) {
-        return new Value(Double.isNaN(resolveFirstAsNumber(args, context) as Double))
+        if (args.size() < 1) {
+            return Value.FALSE
+        }
+
+        Value value = args[0].getValue(context)
+        return new Value(value.isNumber() && Double.isNaN(value.asNumber() as double))
     }
 }

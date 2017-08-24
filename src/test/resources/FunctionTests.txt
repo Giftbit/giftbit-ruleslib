@@ -41,6 +41,32 @@ floor('-123')=-123
 floor('minus one hundred and twenty-three')=0
 floor(flatmap)=0
 
+# isNaN
+isNaN(null)=false
+isNaN(false)=false
+isNaN(true)=false
+isNaN(1)=false
+isNaN(100)=false
+isNaN(0/0)=true
+isNaN(iamnull)=false
+isNaN(xxxxxx)=false
+isNaN(empty)=false
+isNaN(emptyarray)=false
+isNaN(flatmap)=false
+
+# isNull
+isNull(null)=true
+isNull(false)=false
+isNull(true)=false
+isNull(1)=false
+isNull(100)=false
+isNull(0/0)=false
+isNull(iamnull)=true
+isNull(xxxxxx)=true
+isNull(empty)=false
+isNull(emptyarray)=false
+isNull(flatmap)=false
+
 # keys
 keys('asdasd') == []=true
 keys(true) == []=true

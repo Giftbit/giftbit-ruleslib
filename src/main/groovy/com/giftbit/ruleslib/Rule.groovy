@@ -13,7 +13,7 @@ class Rule {
             find        : new Find(),
             findIndex   : new FindIndex(),
             floor       : new Floor(),
-            isNan       : new IsNaN(),
+            isNaN       : new IsNaN(),
             isNull      : new IsNull(),
             keys        : new Keys(),
             map         : new MapFxn(),

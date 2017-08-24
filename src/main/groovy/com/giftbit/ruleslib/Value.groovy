@@ -108,8 +108,12 @@ class Value {
         return innerValue instanceof Map
     }
 
+    boolean isNumber() {
+        return innerValue instanceof Long || innerValue instanceof Double
+    }
+
     boolean isNull() {
-        return innerValue == NULL
+        return innerValue instanceof NullValue
     }
 
     Boolean asBoolean() {
