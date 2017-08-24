@@ -70,6 +70,11 @@ class FileDrivenTests {
         runTestFile("FunctionTests.txt")
     }
 
+    @Test
+    void "SyntaxErrorTests"() {
+        runTestFile("SyntaxErrorTests.txt")
+    }
+
     static void runTestFile(String fileName) {
         List<String> lines = loadTestFile(fileName)
         String lastComment = "file start"
@@ -85,10 +90,24 @@ class FileDrivenTests {
                 String expressionString = line.substring(0, equalsIndex).trim()
                 String valueString = line.substring(equalsIndex + 1).trim()
 
-                ExpressionNode expression = BuildAstVisitor.buildAst(expressionString)
-                Value actualValue = expression.getValue(context)
-                Value expectedValue = parseValue(valueString)
-                assert actualValue.innerValue == expectedValue.innerValue: "${lastComment} ➡ ${line} ➡ ${expression.toString()}=${valueString} ➡ ${actualValue.toString()}=${expectedValue.toString()}"
+                if (valueString.startsWith("@")) {
+                    String messageRegex = valueString.substring(1)
+                    Exception ex = null
+                    try {
+                        BuildAstVisitor.buildAst(expressionString)
+                    } catch (Exception e) {
+                        ex = e
+                    }
+                    assert ex != null : "${lastComment} ➡ ${line} ➡ throws exception"
+                    if (messageRegex) {
+                        assert ex.message.matches(messageRegex) : "${lastComment} ➡ ${line} ➡ ${ex.message} matches ${messageRegex}"
+                    }
+                } else {
+                    ExpressionNode expression = BuildAstVisitor.buildAst(expressionString)
+                    Value actualValue = expression.getValue(context)
+                    Value expectedValue = parseValue(valueString)
+                    assert actualValue.innerValue == expectedValue.innerValue: "${lastComment} ➡ ${line} ➡ ${expression.toString()}=${valueString} ➡ ${actualValue.toString()}=${expectedValue.toString()}"
+                }
                 assertCount++
             }
         }

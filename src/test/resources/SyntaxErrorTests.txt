@@ -1,0 +1,45 @@
+# mismatched quotes
+'unclosed * leftquote=@
+unclosed * rightquote'=@
+random' * middlequote=@
+random * 'middlequote=@
+\"unclosed * leftquote=@
+unclosed * rightquote\"=@
+random\" * middlequote=@
+random * \"middlequote=@
+
+# mismatched parenthesis
+(unclosed * leftparenthesis=@
+unclosed * rightparenthesis)=@
+((unclosed * leftparenthesis)=@
+(unclosed * rightparenthesis))=@
+hey) && (what=@
+brokenfunctioncall(=@
+()notafunctioncall=@
+
+# misused operators
+this is just words=@
+1 = 1=@
+1=1=@
+== 1=@
+1 ===@
+1==@
+*1=@
+1 +=@
+1 + 11 111=@
+*=@
+1 ^ 1=@
+1 ?=@
+? 1=@
+1 ? 1=@
+1 :=@
+: 1=@
+1 : 1=@
+1 ? 1 :=@
+1 ?: 1=@
+1 ? : 1=@
+? 1 : 1=@
+
+# misused lambda
+metadata.hats.some(hat -> hat.color == 'that should be a fat arrow')=@
+metadata.hats.some(hat =>)=@

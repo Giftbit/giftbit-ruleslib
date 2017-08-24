@@ -58,6 +58,7 @@ const context = new MutableContext(Rule.defaultFunctions, {
 
 runTestFile("SyntaxTests.txt");
 runTestFile("FunctionTests.txt");
+runTestFile("SyntaxErrorTests.txt");
 
 function runTestFile(fileName: string): void {
     const lines = fs.readFileSync(path.join(__dirname, "..", "resources", fileName)).toString("ascii").split("\n");
@@ -85,14 +86,28 @@ function runTestFile(fileName: string): void {
                             const valueString = line.substring(equalsIndex + 1).trim();
 
                             it(line, () => {
-                                const expression = AstVisitor.buildAst(expressionString);
-                                const actualValue = expression.getValue(context);
-                                const expectedValue = parseValue(valueString);
-
-                                if (typeof expectedValue === "number" && isNaN(expectedValue)) {
-                                    chai.assert.isNaN(actualValue, `${expression.toString()} == ${expectedValue}`);
+                                if (valueString[0] === "@") {
+                                    const messageRegex = valueString.substring(1);
+                                    // chai.assert.throws(() => AstVisitor.buildAst(expressionString), messageRegex, `${expressionString} throws ${messageRegex}`);
+                                    let er: Error = null;
+                                    try {
+                                        AstVisitor.buildAst(expressionString)
+                                    } catch (e) {
+                                        er = e;
+                                    }
+                                    chai.assert.isObject(er, "throws Error");
+                                    if (messageRegex) {
+                                        chai.assert(er.message.match(messageRegex), `${er.message} matches ${messageRegex}`);
+                                    }
                                 } else {
-                                    chai.assert.strictEqual(actualValue, expectedValue, `${expression.toString()} == ${expectedValue}`)
+                                    const expression = AstVisitor.buildAst(expressionString);
+                                    const expectedValue = parseValue(valueString);
+                                    const actualValue = expression.getValue(context);
+                                    if (typeof expectedValue === "number" && isNaN(expectedValue)) {
+                                        chai.assert.isNaN(actualValue, `${expression.toString()} == ${expectedValue}`);
+                                    } else {
+                                        chai.assert.strictEqual(actualValue, expectedValue, `${expression.toString()} == ${expectedValue}`)
+                                    }
                                 }
                             });
                         }

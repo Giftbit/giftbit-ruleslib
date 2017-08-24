@@ -302,7 +302,7 @@ sum([1, 2, 3])=6
 sum([1, [2, 3]])=6
 sum([[1, [2], [[3]]]])=6
 [1, 2, 3].sum()=6
-sum('a', 'b', null, true, true)=2
+sum('a', 'b', null, true, false, true)=2
 sum(flatmap)=0
 
 # toLowerCase
