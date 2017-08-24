@@ -6,14 +6,14 @@ export class LambdaNode implements ExpressionNode {
 
     readonly type = "Lambda";
 
-    constructor(private readonly paramNames: string[], private readonly body: ExpressionNode) {
+    constructor(public readonly paramNames: string[], public readonly body: ExpressionNode) {
         if (this.paramNames.length === 0) {
             throw new Error("paramNames must not be empty");
         }
     }
 
     getValue(context: Context): Value {
-        return undefined;
+        return this.body.getValue(context);
     }
 
     isComplex(): boolean {

@@ -26,6 +26,67 @@ ceil('-123')=-123
 ceil('minus one hundred and twenty-three')=0
 ceil(flatmap)=0
 
+# every
+every(['a', 'b', 'c'], p => p == 'a')=false
+every(['a', 'b', 'c'], p => p != '1')=true
+every(['a', 'b', 'c'], p => true)=true
+every([], p => false)=true
+every(11)=false
+every(null)=false
+['a', 'b', 'c'].every(p => p == 'a')=false
+['a', 'b', 'c'].every(p => p != '1')=true
+['a', 'b', 'c'].every(p => true)=true
+foorbararray.every(p => p)=true
+mixedarray.every(p => p)=false
+
+# filter
+filter([1, 2, 3, 4, 5, 6, 7, 8, 9], p => p % 4 == 0) == [4, 8]=true
+filter([1, 2, 3, 4, 5, 6, 7, 8, 9], p => p % 10 == 0).size()=0
+filter(['a', 'b', 'c'], p => p == 'd').size()=0
+filter(['a', 'b', 'c'], p => p == 'a')[0]="a"
+size(filter([1, 2, 3, 4, 5, 6, 7, 8, 9], p => p % 2 == 0))=4
+filter([1, 2, 3, 4, 5, 6, 7, 8, 9], p => p % 2 == 0) == [2, 4, 6, 8]=true
+filter([], p => p % 2 == 0) == []=true
+filter(null) == []=true
+filter(null).size()=0
+filter(null, p => true).size()=0
+filter(1).size()=0
+filter(1, p => true).size()=0
+filter(false).size()=0
+filter(false, p => true).size()=0
+filter(true).size()=0
+filter(true, p => true).size()=0
+filter("asdasdffa").size()=0
+filter("asdasdffa", p => true).size()=0
+
+# find
+find([1, 2, 3, 4, 5, 6, 7, 8, 9], p => p % 4 == 0)=4
+find([1, 2, 3, 4, 5, 6, 7, 8, 9], p => p % 10 == 0)=null
+find(null)=null
+find(null, p => true)=null
+find(1)=null
+find(1, p => true)=null
+find(false)=null
+find(false, p => true)=null
+find(true)=null
+find(true, p => true)=null
+find("asdasdffa")=null
+find("asdasdffa", p => true)=null
+
+# findIndex
+findIndex([1, 2, 3, 4, 5, 6, 7, 8, 9], p => p % 4 == 0)=3
+findIndex([1, 2, 3, 4, 5, 6, 7, 8, 9], p => p % 10 == 0)=-1
+findIndex(null)=-1
+findIndex(null, p => true)=-1
+findIndex(1)=-1
+findIndex(1, p => true)=-1
+findIndex(false)=-1
+findIndex(false, p => true)=-1
+findIndex(true)=-1
+findIndex(true, p => true)=-1
+findIndex("asdasdffa")=-1
+findIndex("asdasdffa", p => true)=-1
+
 # floor
 floor(123)=123
 floor(-123)=-123
@@ -77,6 +138,22 @@ foorbararray.keys() == []=true
 flatmap.keys() == ['a', 'one', '2', 'isnull'] || flatmap.keys() == ['2', 'a', 'one', 'isnull']=true
 complexmap.keys() == ['ismap', 'isarrayofmap', 'nestedflatmap']=true
 
+# map
+map([1, 2, 3, 4, 5, 6, 7, 8, 9], p => p % 4 == 0) == [false, false, false, true, false, false, false, true, false]=true
+map([1, 2, 3, 4, 5, 6, 7, 8, 9], p => p % 10 == 0) == [false, false, false, false, false, false, false, false, false]=true
+map([1, 2, 3, 4, 5, 6, 7, 8, 9], p => p * 2) == [2, 4, 6, 8, 10, 12, 14, 16, 18]=true
+map([], p => p * 2) == []=true
+map(null).size() == 0=true
+map(null, p => true).size() == 0=true
+map(1).size() == 0=true
+map(1, p => true).size() == 0=true
+map(false).size() == 0=true
+map(false, p => true).size() == 0=true
+map(true).size() == 0=true
+map(true, p => true).size() == 0=true
+map("asdasdffa").size() == 0=true
+map("asdasdffa", p => true).size() == 0=true
+
 # max
 max(null, null, null)=0
 max(null, null, 5, null)=5
@@ -106,6 +183,31 @@ min(5, [10, [30, 40]])=5
 'afskjhasd'.min()=0
 min(1, 2, '3')=1
 min(flatmap)=0
+
+# nonexistantfunction
+nonexistantfunction(1)=null
+[1, 2, 3].nonexistantfunction()=null
+
+# reduce
+[].reduce()=null
+[0, 1, 2, 3].reduce()=null
+[].reduce(x => 10)=null
+reduce(null, x => 10)=null
+reduce(4, x => 10)=null
+reduce(true, x => 10)=null
+reduce(false, x => 10)=null
+reduce('kwyjibo', x => 10)=null
+['a'].reduce(x => 'c')="c"
+[0, 1, 2, 3].reduce(x => x)=null
+[0, 1, 2, 3].reduce(x => x, 5)=5
+[0, 1, 2, 3].reduce((x) => x)=null
+[0, 1, 2, 3].reduce((x) => x, 5)=5
+[0, 1, 2, 3].reduce((x, y) => x + y)=6
+[0, 1, 2, 3].reduce((x, y) => x + y, 5)=11
+[0, 1, 2, 3].reduce((x, y, z) => x + y + z)=12
+[0, 1, 2, 3].reduce((x, y, z) => x + y + z, 5)=17
+[0, 1, 2, 3].reduce((x, y, z, array) => x + y + array[z])=12
+[0, 1, 2, 3].reduce((x, y, z, array) => x + y + array[z], 5)=17
 
 # round
 round(-134.1223)=-134
@@ -148,6 +250,7 @@ roundBankers(134.1223)=134
 # size
 size("12345")=5
 "12345".size()=5
+size('kwyjibo')=7
 size([1, 2, 3, 4, 5])=5
 [1, 2, 3, 4, 5].size()=5
 size("")=0
@@ -160,6 +263,20 @@ size([1, 2, 3, [4, 5, 6, 7]])=4
 size(flatmap)=0
 mixedarray.size()=3
 nestedarray.size()=2
+
+# some
+some(['a', 'b', 'c'], p => p == 'a')=true
+some(['a', 'b', 'c'], p => p == '1')=false
+some(['a', 'b', 'c'], p => p != '1')=true
+some(['a', 'b', 'c'], p => true)=true
+some([], p => false)=false
+some(11)=false
+some(null)=false
+['a', 'b', 'c'].some(p => p == 'a')=true
+['a', 'b', 'c'].some(p => p != '1')=true
+['a', 'b', 'c'].some(p => true)=true
+foorbararray.some(p => p)=true
+mixedarray.some(p => p)=true
 
 # substring
 null.substring()=""

@@ -120,6 +120,6 @@ export class AstVisitor extends RuleVisitor {
     }
 
     visitLambda(ctx: any): any {
-        return new LambdaNode(ctx.ID().map(id => id.text), this.visit(ctx.expr()));
+        return new LambdaNode(ctx.ID().map(id => id.symbol.text), this.visit(ctx.expr()));
     }
 }
