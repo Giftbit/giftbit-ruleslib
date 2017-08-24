@@ -16,7 +16,7 @@ apply plugin: 'idea'
 apply plugin: 'antlr'
 
 group 'com.giftbit'
-version '1.0'
+version new groovy.json.JsonSlurper().parseText(new File("package.json").text)["version"]
 sourceCompatibility = JavaVersion.VERSION_1_8
 
 repositories {
