@@ -13,6 +13,7 @@ export class InfixNode implements ExpressionNode {
     getValue(context: Context): Value {
         const left = this.left.getValue(context);
         const right = this.right.getValue(context);
+        // console.log(left, this.operator, right);
 
         switch (this.operator) {
             case "+":

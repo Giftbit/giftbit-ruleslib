@@ -12,6 +12,8 @@ import {ToLowerCase} from "./functions/ToLowerCase";
 import {ToUpperCase} from "./functions/ToUpperCase";
 import {Round} from "./functions/Round";
 import {RoundBankers} from "./functions/RoundBankers";
+import {Keys} from "./functions/Keys";
+import {Values} from "./functions/Values";
 
 export class Rule {
 
@@ -19,6 +21,7 @@ export class Rule {
         abs: new Abs(),
         ceil: new Ceil,
         floor: new Floor(),
+        keys: new Keys(),
         max: new Max(),
         min: new Min(),
         round: new Round(),
@@ -28,6 +31,7 @@ export class Rule {
         sum: new Sum(),
         toLowerCase: new ToLowerCase(),
         toUpperCase: new ToUpperCase(),
+        values: new Values(),
     };
 
     private readonly expression: ExpressionNode;

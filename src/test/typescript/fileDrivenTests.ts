@@ -92,7 +92,7 @@ function runTestFile(fileName: string): void {
                                 if (typeof expectedValue === "number" && isNaN(expectedValue)) {
                                     chai.assert.isNaN(actualValue, `${expression.toString()} == ${expectedValue}`);
                                 } else {
-                                    chai.assert.equal(actualValue, expectedValue, `${expression.toString()} == ${expectedValue}`)
+                                    chai.assert.strictEqual(actualValue, expectedValue, `${expression.toString()} == ${expectedValue}`)
                                 }
                             });
                         }

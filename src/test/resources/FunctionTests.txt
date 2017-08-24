@@ -5,7 +5,7 @@ abs(123.456)=123.456
 abs(-123.456)=123.456
 abs(null)=0
 abs(false)=0
-abs(true)=true
+abs(true)=1
 abs('123')=123
 abs('-123')=123
 abs('minus one hundred and twenty-three')=0
@@ -20,7 +20,7 @@ ceil(0.0001)=1
 ceil(Inf)=Inf
 ceil(null)=0
 ceil(false)=0
-ceil(true)=true
+ceil(true)=1
 ceil('123')=123
 ceil('-123')=-123
 ceil('minus one hundred and twenty-three')=0
@@ -35,11 +35,21 @@ floor(0.0001)=0
 floor(Inf)=Inf
 floor(null)=0
 floor(false)=0
-floor(true)=true
+floor(true)=1
 floor('123')=123
 floor('-123')=-123
 floor('minus one hundred and twenty-three')=0
 floor(flatmap)=0
+
+# keys
+keys('asdasd') == []=true
+keys(true) == []=true
+keys(false) == []=true
+keys(123) == []=true
+null.keys() == []=true
+foorbararray.keys() == []=true
+flatmap.keys() == ['a', 'one', '2', 'isnull'] || flatmap.keys() == ['2', 'a', 'one', 'isnull']=true
+complexmap.keys() == ['ismap', 'isarrayofmap', 'nestedflatmap']=true
 
 # max
 max(null, null, null)=0
@@ -91,23 +101,23 @@ round(21.5)=22
 round(134.1223)=134
 
 # roundBankers
-round(-134.1223)=-134
-round(-21.5)=-20
-round(-20.5)=-20
-round(-0.00001)=0
-round(0)=0
-round(0.00001)=0
-round(1)=1
-round(1.1)=1
-round(1.49999)=1
-round(1.5)=2
-round(1.500001)=2
-round(1.535)=2
-round(2.5)=2
-round(3.5)=4
-round(20.5)=20
-round(21.5)=22
-round(134.1223)=134
+roundBankers(-134.1223)=-134
+roundBankers(-21.5)=-22
+roundBankers(-20.5)=-20
+roundBankers(-0.00001)=0
+roundBankers(0)=0
+roundBankers(0.00001)=0
+roundBankers(1)=1
+roundBankers(1.1)=1
+roundBankers(1.49999)=1
+roundBankers(1.5)=2
+roundBankers(1.500001)=2
+roundBankers(1.535)=2
+roundBankers(2.5)=2
+roundBankers(3.5)=4
+roundBankers(20.5)=20
+roundBankers(21.5)=22
+roundBankers(134.1223)=134
 
 # size
 size("12345")=5
@@ -122,6 +132,8 @@ size(null)=0
 size(12345)=0
 size([1, 2, 3, [4, 5, 6, 7]])=4
 size(flatmap)=0
+mixedarray.size()=3
+nestedarray.size()=2
 
 # substring
 null.substring()=""
@@ -168,3 +180,13 @@ null.toUpperCase()=""
 false.toUpperCase()="FALSE"
 true.toUpperCase()="TRUE"
 [].toUpperCase()="[]"
+
+# values
+values('asdasd') == []=true
+values(true) == []=true
+values(false) == []=true
+values(123) == []=true
+null.values() == []=true
+foorbararray.values() == []=true
+flatmap.values() == ['a', 1, "two", null] || flatmap.values() == ["two", 'a', 1, null]=true
+complexmap.values()[0].a="alpha"
