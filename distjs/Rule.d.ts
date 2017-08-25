@@ -4,8 +4,8 @@ export declare class Rule {
     static readonly defaultFunctions: {
         [name: string]: RuleFunction;
     };
-    private readonly expression;
-    private readonly compileError;
+    readonly expression: ExpressionNode;
+    readonly compileError: Error;
     constructor(expressionOrError: ExpressionNode | Error);
     evaluateBoolean(contextValues: object): boolean;
 }
