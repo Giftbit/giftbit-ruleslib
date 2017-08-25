@@ -54,8 +54,8 @@ export class Rule {
         values: new Values(),
     };
 
-    private readonly expression: ExpressionNode;
-    private readonly compileError: Error;
+    public readonly expression: ExpressionNode;
+    public readonly compileError: Error;
 
     constructor(expressionOrError: ExpressionNode | Error) {
         this.expression = (expressionOrError as ExpressionNode).getValue && (expressionOrError as ExpressionNode).isComplex ? (expressionOrError as ExpressionNode) : null;
