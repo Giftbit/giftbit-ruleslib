@@ -460,6 +460,9 @@ mixedarray[2]=null
 nestedarray[0][1]=2
 nestedarray[1][0]=3
 nestedarray[100][99]=null
+[emptyarray, mixedarray[0], nestedarray[0]][0] == []=true
+[emptyarray, mixedarray[0], nestedarray[0]][1] == 1=true
+[emptyarray, mixedarray[0], nestedarray[0]][2][1] == 2=true
 (foorbararray[1] ? mixedarray : numbers)[1]="foo"
 sum([7, ['8'], 'eleven', numbers])=21
 ![]=false
