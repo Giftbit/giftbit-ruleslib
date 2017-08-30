@@ -1,3 +1,4 @@
+import * as astAnalysis from "./astAnalysis";
 import {Abs} from "./functions/Abs";
 import {Ceil} from "./functions/Ceil";
 import {Every} from "./functions/Every";
@@ -23,7 +24,6 @@ import {Sum} from "./functions/Sum";
 import {ToLowerCase} from "./functions/ToLowerCase";
 import {ToUpperCase} from "./functions/ToUpperCase";
 import {Values} from "./functions/Values";
-import {valueToNumber} from "./Value";
 import {MutableContext} from "./MutableContext";
 
 export class Rule {
@@ -96,7 +96,10 @@ export class Rule {
      * is necessarily optimistic.  False is only returned if the value
      * type definitely cannot be returned.
      */
-    canEvaluateToType(type: "null" | "boolean" | "string" | "number" | "array" | "object"): boolean {
-        throw new Error("todo");
+    canEvaluateToType(type: "boolean" | "string" | "number" | "array" | "object"): boolean {
+        if (this.compileError) {
+            throw this.compileError;
+        }
+        return astAnalysis.canEvaluateToType(this.expression, type);
     }
 }

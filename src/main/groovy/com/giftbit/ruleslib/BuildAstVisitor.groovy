@@ -87,7 +87,7 @@ class BuildAstVisitor extends RuleBaseVisitor<ExpressionNode> {
 
     @Override
     ExpressionNode visitArrayExpr(RuleParser.ArrayExprContext ctx) {
-        return new ArrayNode(ctx.expr().collect({ arg -> visit(arg) }))
+        return new ListNode(ctx.expr().collect({ arg -> visit(arg) }))
     }
 
     @Override

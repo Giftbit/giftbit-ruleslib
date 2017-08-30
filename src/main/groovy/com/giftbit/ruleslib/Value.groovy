@@ -96,6 +96,10 @@ class Value {
         return NULL
     }
 
+    boolean isBoolean() {
+        return innerValue instanceof Boolean
+    }
+
     boolean isString() {
         return innerValue instanceof String
     }

@@ -79,4 +79,11 @@ class Rule {
         MutableContext mutableContext = new MutableContext(defaultFunctions, Value.fromObject(contextValues).asMap())
         return evaluateToString(mutableContext)
     }
+
+    boolean canEvaluateToType(AstAnalysisType t) {
+        if (compileException) {
+            throw compileException
+        }
+        return AstAnalysis.canEvaluateToType(expression, t)
+    }
 }

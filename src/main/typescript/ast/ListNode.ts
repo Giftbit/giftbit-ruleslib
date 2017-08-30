@@ -2,12 +2,12 @@ import {ExpressionNode} from "./ExpressionNode";
 import {Context} from "../Context";
 import {Value} from "../Value";
 
-export class ArrayNode implements ExpressionNode {
+export class ListNode implements ExpressionNode {
 
-    static readonly type = "Array";
-    readonly type = ArrayNode.type;
+    static readonly type = "List";
+    readonly type = ListNode.type;
 
-    constructor(private readonly elements: ExpressionNode[]) {}
+    constructor(public readonly elements: ExpressionNode[]) {}
 
     getValue(context: Context): Value {
         return this.elements.map(e => e.getValue(context));

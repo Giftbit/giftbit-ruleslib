@@ -3,11 +3,11 @@ package com.giftbit.ruleslib.ast
 import com.giftbit.ruleslib.Context
 import com.giftbit.ruleslib.Value
 
-class ArrayNode extends ExpressionNode {
+class ListNode extends ExpressionNode {
 
     final List<ExpressionNode> elements
 
-    ArrayNode(List<ExpressionNode> elements) {
+    ListNode(List<ExpressionNode> elements) {
         this.elements = elements
     }
 

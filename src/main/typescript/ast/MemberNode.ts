@@ -7,7 +7,7 @@ export class MemberNode implements ExpressionNode {
     static readonly type = "Member";
     readonly type = MemberNode.type;
 
-    constructor(private readonly parent: ExpressionNode, private readonly child: ExpressionNode, private readonly isCalculated: boolean) {}
+    constructor(public readonly parent: ExpressionNode, public readonly child: ExpressionNode, public readonly isCalculated: boolean) {}
 
     getValue(context: Context): Value {
         const childValue = this.child.getValue(context);

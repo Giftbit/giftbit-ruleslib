@@ -7,7 +7,7 @@ export class IdentifierNode implements ExpressionNode {
     static readonly type = "Identifier";
     readonly type = IdentifierNode.type;
 
-    constructor(private readonly identifier: string) {}
+    constructor(public readonly identifier: string) {}
 
     getValue(context: Context): Value {
         return context.getValue(this.identifier);

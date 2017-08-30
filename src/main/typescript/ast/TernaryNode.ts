@@ -7,7 +7,7 @@ export class TernaryNode implements ExpressionNode {
     static readonly type = "Ternary";
     readonly type = TernaryNode.type;
 
-    constructor(private readonly condition: ExpressionNode, private readonly consequent: ExpressionNode, private readonly alternative: ExpressionNode) {}
+    constructor(public readonly condition: ExpressionNode, public readonly consequent: ExpressionNode, public readonly alternative: ExpressionNode) {}
 
     getValue(context: Context): Value {
         return this.condition.getValue(context) ? this.consequent.getValue(context) : this.alternative.getValue(context);

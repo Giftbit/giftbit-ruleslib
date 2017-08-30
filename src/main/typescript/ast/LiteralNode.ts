@@ -7,7 +7,7 @@ export class LiteralNode implements ExpressionNode {
     static readonly type = "Literal";
     readonly type = LiteralNode.type;
 
-    constructor(private readonly value: Value) {}
+    constructor(public readonly value: Value) {}
 
     getValue(context: Context): Value {
         return this.value;

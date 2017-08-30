@@ -8,7 +8,7 @@ export class UnaryNode implements ExpressionNode {
     static readonly type = "Unary";
     readonly type = UnaryNode.type;
 
-    constructor(private readonly operator: string, private readonly child: ExpressionNode) {}
+    constructor(public readonly operator: string, public readonly child: ExpressionNode) {}
 
     getValue(context: Context): Value {
         const child = this.child.getValue(context);

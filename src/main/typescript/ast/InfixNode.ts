@@ -8,7 +8,7 @@ export class InfixNode implements ExpressionNode {
     static readonly type = "Infix";
     readonly type = InfixNode.type;
 
-    constructor(private readonly left: ExpressionNode, private readonly operator: string, private readonly right: ExpressionNode) {}
+    constructor(public readonly left: ExpressionNode, public readonly operator: string, public readonly right: ExpressionNode) {}
 
     /* tslint:disable:triple-equals*/
     getValue(context: Context): Value {

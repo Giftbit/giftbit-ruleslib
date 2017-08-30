@@ -6,7 +6,7 @@ import {LiteralNode} from "./ast/LiteralNode";
 import {InfixNode} from "./ast/InfixNode";
 import {UnaryNode} from "./ast/UnaryNode";
 import {UnsupportedOperationError} from "./UnsupportedOperationError";
-import {ArrayNode} from "./ast/ArrayNode";
+import {ListNode} from "./ast/ListNode";
 import {IdentifierNode} from "./ast/IdentifierNode";
 import {MemberNode} from "./ast/MemberNode";
 import {TernaryNode} from "./ast/TernaryNode";
@@ -48,7 +48,7 @@ export class AstVisitor extends RuleVisitor {
     }
 
     visitArrayExpr(ctx: any): any {
-        return new ArrayNode(ctx.expr().map(arg => this.visit(arg)));
+        return new ListNode(ctx.expr().map(arg => this.visit(arg)));
     }
 
     visitNullExpr(ctx: any): any {

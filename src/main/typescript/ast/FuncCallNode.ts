@@ -8,7 +8,7 @@ export class FuncCallNode implements ExpressionNode {
     static readonly type = "FuncCall";
     readonly type = FuncCallNode.type;
 
-    constructor(private readonly funcName, private readonly args: ExpressionNode[], private readonly isMethodCall: boolean) {
+    constructor(public readonly funcName, public readonly args: ExpressionNode[], public readonly isMethodCall: boolean) {
         if (this.isMethodCall && args.length === 0) {
             throw new Error("Method call must have at least 1 argument.  The first argument is the 'this' argument.");
         }
