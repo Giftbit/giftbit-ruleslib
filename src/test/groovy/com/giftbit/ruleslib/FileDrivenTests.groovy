@@ -112,7 +112,7 @@ class FileDrivenTests {
             }
         }
 
-        println("Made ${assertCount} asserts")
+        println("${fileName} passed ${assertCount} asserts")
     }
 
     static List<String> loadTestFile(String fileName) {

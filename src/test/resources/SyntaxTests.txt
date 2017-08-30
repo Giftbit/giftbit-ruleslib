@@ -481,6 +481,11 @@ sum([7, ['8'], 'eleven', numbers])=21
 [] + 'hello'="[]hello"
 'hello' + ['world']="hello[world]"
 'hello' + ['world', '!']="hello[world, !]"
+['a'] + null=0
+['a'] + ['b'] == ['a', 'b']=true
+['a', null] + ['b', 1] == ['a', null, 'b', 1]=true
+[] + ['b', 'c'] == ['b', 'c']=true
+[] + [] == []=true
 [123] - 5=-5
 7 - [123]=7
 [123] * 5=0

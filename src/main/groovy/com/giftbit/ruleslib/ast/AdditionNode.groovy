@@ -18,6 +18,9 @@ class AdditionNode extends InfixNode {
     Value getValue(Context context) {
         Value leftValue = left.getValue(context)
         Value rightValue = right.getValue(context)
+        if (leftValue.isList() && rightValue.isList()) {
+            return new Value(leftValue.asList() + rightValue.asList())
+        }
         if (leftValue.isString() || rightValue.isString()) {
             return new Value(leftValue.asString() + rightValue.asString())
         }

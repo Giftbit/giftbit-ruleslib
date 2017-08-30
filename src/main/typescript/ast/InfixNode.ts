@@ -18,6 +18,9 @@ export class InfixNode implements ExpressionNode {
 
         switch (this.operator) {
             case "+":
+                if (Array.isArray(left) && Array.isArray(right)) {
+                    return [...left, ...right];
+                }
                 if (typeof left === "string" || typeof right === "string") {
                     return valueToString(left) + valueToString(right);
                 }
