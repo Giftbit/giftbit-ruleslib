@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const antlr4 = require("antlr4");
-const RuleLexer_1 = require("./RuleLexer");
-const RuleVisitor_1 = require("./RuleVisitor");
-const RuleParser_1 = require("./RuleParser");
+const RuleLexer_1 = require("./antlrgen/RuleLexer");
+const RuleVisitor_1 = require("./antlrgen/RuleVisitor");
+const RuleParser_1 = require("./antlrgen/RuleParser");
 const LiteralNode_1 = require("./ast/LiteralNode");
 const InfixNode_1 = require("./ast/InfixNode");
 const UnaryNode_1 = require("./ast/UnaryNode");

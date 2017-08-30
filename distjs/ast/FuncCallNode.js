@@ -5,7 +5,7 @@ class FuncCallNode {
         this.funcName = funcName;
         this.args = args;
         this.isMethodCall = isMethodCall;
-        this.type = "FuncCall";
+        this.type = FuncCallNode.type;
         if (this.isMethodCall && args.length === 0) {
             throw new Error("Method call must have at least 1 argument.  The first argument is the 'this' argument.");
         }
@@ -27,4 +27,5 @@ class FuncCallNode {
         return `${this.funcName}(${this.args.map(arg => arg.toString()).join(", ")})`;
     }
 }
+FuncCallNode.type = "FuncCall";
 exports.FuncCallNode = FuncCallNode;

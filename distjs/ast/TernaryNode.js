@@ -5,7 +5,7 @@ class TernaryNode {
         this.condition = condition;
         this.consequent = consequent;
         this.alternative = alternative;
-        this.type = "Ternary";
+        this.type = TernaryNode.type;
     }
     getValue(context) {
         return this.condition.getValue(context) ? this.consequent.getValue(context) : this.alternative.getValue(context);
@@ -20,4 +20,5 @@ class TernaryNode {
         return `${a} ? ${b} : ${c}`;
     }
 }
+TernaryNode.type = "Ternary";
 exports.TernaryNode = TernaryNode;

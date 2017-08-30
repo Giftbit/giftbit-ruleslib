@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 class LiteralNode {
     constructor(value) {
         this.value = value;
-        this.type = "Literal";
+        this.type = LiteralNode.type;
     }
     getValue(context) {
         return this.value;
@@ -15,4 +15,5 @@ class LiteralNode {
         return JSON.stringify(this.value);
     }
 }
+LiteralNode.type = "Literal";
 exports.LiteralNode = LiteralNode;

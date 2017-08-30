@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 class ArrayNode {
     constructor(elements) {
         this.elements = elements;
-        this.type = "Array";
+        this.type = ArrayNode.type;
     }
     getValue(context) {
         return this.elements.map(e => e.getValue(context));
@@ -15,4 +15,5 @@ class ArrayNode {
         return `[${this.elements.map(e => e.toString()).join(", ")}]`;
     }
 }
+ArrayNode.type = "Array";
 exports.ArrayNode = ArrayNode;

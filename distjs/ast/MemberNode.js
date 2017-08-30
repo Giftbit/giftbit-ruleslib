@@ -5,7 +5,7 @@ class MemberNode {
         this.parent = parent;
         this.child = child;
         this.isCalculated = isCalculated;
-        this.type = "Member";
+        this.type = MemberNode.type;
     }
     getValue(context) {
         const childValue = this.child.getValue(context);
@@ -42,4 +42,5 @@ class MemberNode {
         return s;
     }
 }
+MemberNode.type = "Member";
 exports.MemberNode = MemberNode;

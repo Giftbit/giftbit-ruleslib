@@ -4,7 +4,7 @@ class LambdaNode {
     constructor(paramNames, body) {
         this.paramNames = paramNames;
         this.body = body;
-        this.type = "Lambda";
+        this.type = LambdaNode.type;
         if (this.paramNames.length === 0) {
             throw new Error("paramNames must not be empty");
         }
@@ -22,4 +22,5 @@ class LambdaNode {
         return `(${this.paramNames.join(", ")}) => ${this.body.toString()}`;
     }
 }
+LambdaNode.type = "Lambda";
 exports.LambdaNode = LambdaNode;

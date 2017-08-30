@@ -1,4 +1,4 @@
-import { RuleVisitor } from "./RuleVisitor";
+import { RuleVisitor } from "./antlrgen/RuleVisitor";
 import { ExpressionNode } from "./ast/ExpressionNode";
 export declare class AstVisitor extends RuleVisitor {
     static buildAst(exp: string): ExpressionNode;

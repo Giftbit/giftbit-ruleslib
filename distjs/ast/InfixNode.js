@@ -7,7 +7,7 @@ class InfixNode {
         this.left = left;
         this.operator = operator;
         this.right = right;
-        this.type = "Infix";
+        this.type = InfixNode.type;
     }
     /* tslint:disable:triple-equals*/
     getValue(context) {
@@ -16,6 +16,9 @@ class InfixNode {
         // console.log(left, this.operator, right);
         switch (this.operator) {
             case "+":
+                if (Array.isArray(left) && Array.isArray(right)) {
+                    return [...left, ...right];
+                }
                 if (typeof left === "string" || typeof right === "string") {
                     return Value_1.valueToString(left) + Value_1.valueToString(right);
                 }
@@ -76,4 +79,5 @@ class InfixNode {
         return (this.left.isComplex() ? `(${this.left.toString()}) ` : `${this.left.toString()} `) + this.operator + (this.right.isComplex() ? ` (${this.right.toString()})` : ` ${this.right.toString()}`);
     }
 }
+InfixNode.type = "Infix";
 exports.InfixNode = InfixNode;

@@ -5,6 +5,7 @@ export declare class TernaryNode implements ExpressionNode {
     private readonly condition;
     private readonly consequent;
     private readonly alternative;
+    static readonly type: string;
     readonly type: string;
     constructor(condition: ExpressionNode, consequent: ExpressionNode, alternative: ExpressionNode);
     getValue(context: Context): Value;

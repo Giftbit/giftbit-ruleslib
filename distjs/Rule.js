@@ -29,11 +29,38 @@ class Rule {
         this.expression = expressionOrError.getValue && expressionOrError.isComplex ? expressionOrError : null;
         this.compileError = this.expression ? null : expressionOrError;
     }
-    evaluateBoolean(contextValues) {
+    evaluate(contextValues) {
+        if (this.compileError) {
+            throw this.compileError;
+        }
+        return this.expression.getValue(new MutableContext_1.MutableContext(Rule.defaultFunctions, contextValues));
+    }
+    evaluateToBoolean(contextValues) {
         if (this.compileError) {
             throw this.compileError;
         }
         return !!this.expression.getValue(new MutableContext_1.MutableContext(Rule.defaultFunctions, contextValues));
+    }
+    evaluateToNumber(contextValues) {
+        if (this.compileError) {
+            throw this.compileError;
+        }
+        return +this.expression.getValue(new MutableContext_1.MutableContext(Rule.defaultFunctions, contextValues));
+    }
+    evaluateToString(contextValues) {
+        if (this.compileError) {
+            throw this.compileError;
+        }
+        return this.expression.getValue(new MutableContext_1.MutableContext(Rule.defaultFunctions, contextValues)) + "";
+    }
+    /**
+     * Determine through static analysis whether the rule *might* evaluate
+     * to the given type.  This is accomplished through static analysis and
+     * is necessarily optimistic.  False is only returned if the value
+     * type definitely cannot be returned.
+     */
+    canEvaluateToType(type) {
+        throw new Error("todo");
     }
 }
 Rule.defaultFunctions = {

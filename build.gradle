@@ -64,19 +64,14 @@ generateGrammarSource {
 
 task generateJavaScriptGrammarSource(type: AntlrTask) {
     source = sourceSets.main.antlr
-    outputDirectory = file("${project.buildDir}/generated-src/antlr/jsmain")
+    outputDirectory = file("${project.buildDir}/generated-src/antlr/js")
     maxHeapSize = "128m"
     arguments += ["-visitor", "-long-messages", "-Dlanguage=JavaScript"]
 }
 
 task copyJavaScriptGrammarSource(type: Copy) {
     dependsOn generateJavaScriptGrammarSource
-    from "${project.buildDir}/generated-src/antlr/jsmain/com/giftbit/ruleslib"
+    from "${project.buildDir}/generated-src/antlr/js/com/giftbit/ruleslib"
     include "*.js"
-    into "${project.rootDir}/src/main/typescript"
+    into "${project.rootDir}/src/main/typescript/antlrgen"
 }
-
-//task buildJavaScript(type: Exec) {
-//    dependsOn
-//    commandLine "$projectDir/node_modules/.bin/webpack", "app/index.js", "$buildDir/js/bundle.js"
-//}

@@ -5,6 +5,7 @@ export declare class InfixNode implements ExpressionNode {
     private readonly left;
     private readonly operator;
     private readonly right;
+    static readonly type: string;
     readonly type: string;
     constructor(left: ExpressionNode, operator: string, right: ExpressionNode);
     getValue(context: Context): Value;

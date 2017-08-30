@@ -4,6 +4,7 @@ import { Value } from "../Value";
 export declare class UnaryNode implements ExpressionNode {
     private readonly operator;
     private readonly child;
+    static readonly type: string;
     readonly type: string;
     constructor(operator: string, child: ExpressionNode);
     getValue(context: Context): Value;

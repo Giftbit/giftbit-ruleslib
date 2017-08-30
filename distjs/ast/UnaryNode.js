@@ -5,7 +5,7 @@ class UnaryNode {
     constructor(operator, child) {
         this.operator = operator;
         this.child = child;
-        this.type = "Unary";
+        this.type = UnaryNode.type;
     }
     getValue(context) {
         const child = this.child.getValue(context);
@@ -35,4 +35,5 @@ class UnaryNode {
         return this.child.isComplex() ? `${this.operator}(${this.child.toString()})` : `${this.operator}${this.child.toString()}`;
     }
 }
+UnaryNode.type = "Unary";
 exports.UnaryNode = UnaryNode;
