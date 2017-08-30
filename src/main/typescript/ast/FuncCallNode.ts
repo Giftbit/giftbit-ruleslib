@@ -5,7 +5,8 @@ import {RuleFunction} from "../functions/RuleFunction";
 
 export class FuncCallNode implements ExpressionNode {
 
-    readonly type = "FuncCall";
+    static readonly type = "FuncCall";
+    readonly type = FuncCallNode.type;
 
     constructor(private readonly funcName, private readonly args: ExpressionNode[], private readonly isMethodCall: boolean) {
         if (this.isMethodCall && args.length === 0) {

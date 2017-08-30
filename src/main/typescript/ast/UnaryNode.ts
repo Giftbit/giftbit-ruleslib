@@ -5,7 +5,8 @@ import {UnsupportedOperationError} from "../UnsupportedOperationError";
 
 export class UnaryNode implements ExpressionNode {
 
-    readonly type = "Unary";
+    static readonly type = "Unary";
+    readonly type = UnaryNode.type;
 
     constructor(private readonly operator: string, private readonly child: ExpressionNode) {}
 

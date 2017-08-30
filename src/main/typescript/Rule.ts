@@ -62,10 +62,31 @@ export class Rule {
         this.compileError = this.expression ? null : expressionOrError as Error;
     }
 
-    evaluateBoolean(contextValues: object): boolean {
+    evaluate(contextValues: object): any {
+        if (this.compileError) {
+            throw this.compileError;
+        }
+        return this.expression.getValue(new MutableContext(Rule.defaultFunctions, contextValues));
+    }
+
+    evaluateToBoolean(contextValues: object): boolean {
         if (this.compileError) {
             throw this.compileError;
         }
         return !!this.expression.getValue(new MutableContext(Rule.defaultFunctions, contextValues));
+    }
+
+    evaluateToNumber(contextValues: object): number {
+        if (this.compileError) {
+            throw this.compileError;
+        }
+        return +this.expression.getValue(new MutableContext(Rule.defaultFunctions, contextValues));
+    }
+
+    evaluateToString(contextValues: object): string {
+        if (this.compileError) {
+            throw this.compileError;
+        }
+        return this.expression.getValue(new MutableContext(Rule.defaultFunctions, contextValues)) + "";
     }
 }

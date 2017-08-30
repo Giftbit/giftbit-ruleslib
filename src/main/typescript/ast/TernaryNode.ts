@@ -4,7 +4,8 @@ import {Value} from "../Value";
 
 export class TernaryNode implements ExpressionNode {
 
-    readonly type = "Ternary";
+    static readonly type = "Ternary";
+    readonly type = TernaryNode.type;
 
     constructor(private readonly condition: ExpressionNode, private readonly consequent: ExpressionNode, private readonly alternative: ExpressionNode) {}
 

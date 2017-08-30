@@ -44,15 +44,39 @@ class Rule {
         this.compileException = compileException
     }
 
-    boolean evaluateBoolean(Context context) {
+    def evaluate(Context context) {
+        if (compileException) {
+            throw compileException
+        }
+        return expression.getValue(context).asNativeValue()
+    }
+
+    def evaluate(Map contextValues) {
+        MutableContext mutableContext = new MutableContext(defaultFunctions, Value.fromObject(contextValues).asMap())
+        return evaluate(mutableContext)
+    }
+
+    boolean evaluateToBoolean(Context context) {
         if (compileException) {
             throw compileException
         }
         return expression.getValue(context).asBoolean()
     }
 
-    boolean evaluateBoolean(Map contextValues) {
+    boolean evaluateToBoolean(Map contextValues) {
         MutableContext mutableContext = new MutableContext(defaultFunctions, Value.fromObject(contextValues).asMap())
-        return evaluateBoolean(mutableContext)
+        return evaluateToBoolean(mutableContext)
+    }
+
+    String evaluateToString(Context context) {
+        if (compileException) {
+            throw compileException
+        }
+        return expression.getValue(context).asString()
+    }
+
+    String evaluateToString(Map contextValues) {
+        MutableContext mutableContext = new MutableContext(defaultFunctions, Value.fromObject(contextValues).asMap())
+        return evaluateToString(mutableContext)
     }
 }

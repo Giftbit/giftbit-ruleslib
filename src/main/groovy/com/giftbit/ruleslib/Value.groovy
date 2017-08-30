@@ -10,7 +10,7 @@ class Value {
     final static Value TRUE = new Value(true)
     final static Value EMPTY = new Value([])
 
-    final Object innerValue
+    final protected Object innerValue
 
     private Value(NullValue n) {
         innerValue = n
@@ -165,6 +165,13 @@ class Value {
             return [:]
         }
         throw new UnsupportedOperationException()
+    }
+
+    def asNativeValue() {
+        if (innerValue instanceof NullValue) {
+            return null
+        }
+        return innerValue
     }
 
     Number asNumber() {

@@ -4,7 +4,8 @@ import {Value} from "../Value";
 
 export class LiteralNode implements ExpressionNode {
 
-    readonly type = "Literal";
+    static readonly type = "Literal";
+    readonly type = LiteralNode.type;
 
     constructor(private readonly value: Value) {}
 

@@ -4,7 +4,8 @@ import {Value} from "../Value";
 
 export class LambdaNode implements ExpressionNode {
 
-    readonly type = "Lambda";
+    static readonly type = "Lambda";
+    readonly type = LambdaNode.type;
 
     constructor(public readonly paramNames: string[], public readonly body: ExpressionNode) {
         if (this.paramNames.length === 0) {

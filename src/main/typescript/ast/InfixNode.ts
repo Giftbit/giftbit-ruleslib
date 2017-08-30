@@ -5,7 +5,8 @@ import {UnsupportedOperationError} from "../UnsupportedOperationError";
 
 export class InfixNode implements ExpressionNode {
 
-    readonly type = "Infix";
+    static readonly type = "Infix";
+    readonly type = InfixNode.type;
 
     constructor(private readonly left: ExpressionNode, private readonly operator: string, private readonly right: ExpressionNode) {}
 

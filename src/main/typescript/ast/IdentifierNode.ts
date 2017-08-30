@@ -4,7 +4,8 @@ import {Value} from "../Value";
 
 export class IdentifierNode implements ExpressionNode {
 
-    readonly type = "Identifier";
+    static readonly type = "Identifier";
+    readonly type = IdentifierNode.type;
 
     constructor(private readonly identifier: string) {}
 

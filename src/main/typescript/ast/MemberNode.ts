@@ -4,7 +4,8 @@ import {Value} from "../Value";
 
 export class MemberNode implements ExpressionNode {
 
-    readonly type = "Member";
+    static readonly type = "Member";
+    readonly type = MemberNode.type;
 
     constructor(private readonly parent: ExpressionNode, private readonly child: ExpressionNode, private readonly isCalculated: boolean) {}
 

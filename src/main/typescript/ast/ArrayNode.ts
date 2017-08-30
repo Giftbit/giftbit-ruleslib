@@ -4,7 +4,8 @@ import {Value} from "../Value";
 
 export class ArrayNode implements ExpressionNode {
 
-    readonly type = "Array";
+    static readonly type = "Array";
+    readonly type = ArrayNode.type;
 
     constructor(private readonly elements: ExpressionNode[]) {}
 
