@@ -53,15 +53,6 @@ class Rule {
         }
         return this.expression.getValue(new MutableContext_1.MutableContext(Rule.defaultFunctions, contextValues)) + "";
     }
-    /**
-     * Determine through static analysis whether the rule *might* evaluate
-     * to the given type.  This is accomplished through static analysis and
-     * is necessarily optimistic.  False is only returned if the value
-     * type definitely cannot be returned.
-     */
-    canEvaluateToType(type) {
-        throw new Error("todo");
-    }
 }
 Rule.defaultFunctions = {
     abs: new Abs_1.Abs(),

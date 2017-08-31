@@ -1,8 +1,8 @@
 import { ExpressionNode } from "./ExpressionNode";
 import { Context } from "../Context";
 import { Value } from "../Value";
-export declare class ArrayNode implements ExpressionNode {
-    private readonly elements;
+export declare class ListNode implements ExpressionNode {
+    readonly elements: ExpressionNode[];
     static readonly type: string;
     readonly type: string;
     constructor(elements: ExpressionNode[]);

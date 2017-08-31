@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-class ArrayNode {
+class ListNode {
     constructor(elements) {
         this.elements = elements;
-        this.type = ArrayNode.type;
+        this.type = ListNode.type;
     }
     getValue(context) {
         return this.elements.map(e => e.getValue(context));
@@ -15,5 +15,5 @@ class ArrayNode {
         return `[${this.elements.map(e => e.toString()).join(", ")}]`;
     }
 }
-ArrayNode.type = "Array";
-exports.ArrayNode = ArrayNode;
+ListNode.type = "List";
+exports.ListNode = ListNode;

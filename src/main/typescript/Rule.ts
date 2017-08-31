@@ -1,4 +1,3 @@
-import * as astAnalysis from "./astAnalysis";
 import {Abs} from "./functions/Abs";
 import {Ceil} from "./functions/Ceil";
 import {Every} from "./functions/Every";
@@ -88,18 +87,5 @@ export class Rule {
             throw this.compileError;
         }
         return this.expression.getValue(new MutableContext(Rule.defaultFunctions, contextValues)) + "";
-    }
-
-    /**
-     * Determine through static analysis whether the rule *might* evaluate
-     * to the given type.  This is accomplished through static analysis and
-     * is necessarily optimistic.  False is only returned if the value
-     * type definitely cannot be returned.
-     */
-    canEvaluateToType(type: "boolean" | "string" | "number" | "array" | "object"): boolean {
-        if (this.compileError) {
-            throw this.compileError;
-        }
-        return astAnalysis.canEvaluateToType(this.expression, type);
     }
 }

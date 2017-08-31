@@ -8,7 +8,7 @@ const LiteralNode_1 = require("./ast/LiteralNode");
 const InfixNode_1 = require("./ast/InfixNode");
 const UnaryNode_1 = require("./ast/UnaryNode");
 const UnsupportedOperationError_1 = require("./UnsupportedOperationError");
-const ArrayNode_1 = require("./ast/ArrayNode");
+const ListNode_1 = require("./ast/ListNode");
 const IdentifierNode_1 = require("./ast/IdentifierNode");
 const MemberNode_1 = require("./ast/MemberNode");
 const TernaryNode_1 = require("./ast/TernaryNode");
@@ -42,7 +42,7 @@ class AstVisitor extends RuleVisitor_1.RuleVisitor {
         return new FuncCallNode_1.FuncCallNode(ctx.func.text, ctx.funcParam().map(p => this.visit(p)), false);
     }
     visitArrayExpr(ctx) {
-        return new ArrayNode_1.ArrayNode(ctx.expr().map(arg => this.visit(arg)));
+        return new ListNode_1.ListNode(ctx.expr().map(arg => this.visit(arg)));
     }
     visitNullExpr(ctx) {
         return new LiteralNode_1.LiteralNode(null);
