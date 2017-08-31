@@ -1,0 +1,102 @@
+# boolean true
+true
+false
+a
+a == b
+1 == 2
+['a'] == ['b']
+a > b
+'a' > 'b'
+a >= b
+'a' >= 'b'
+a < b
+'a' < 'b'
+a <= b
+'a' <= 'b'
+(a == b) || (c == d)
+(a == b) && (c == d)
+a ? true : false
+!['a']
+
+# boolean false
+1
+null
+['a']
+"asdf"
+"asdf" || "asdf"
+"asdf" && "asdf"
+a ? "asdf" : "asdf"
+1 + 2
+1 + '2'
+
+# number true
+a
+0
+1
+11 + 12
+a + b
+a - b
+'11' - '12'
+a / b
+'11' / '12'
+a * b
+'11' * '12'
+a % b
+'11' % '12'
+a ? 1 : 2
+
+# number false
+true
+false
+['a']
+"asdf"
+"asdf" || "asdf"
+"asdf" && "asdf"
+a ? "asdf" : "asdf"
+1 + '2'
+
+# string true
+a
+''
+'asdf'
+'asdf' + 'asdf'
+'asdf' + 1
+1 + 'asdf'
+'asdf' + true
+false + 'asdf'
+['a'] + 'asdf'
+'asdf' + ['a']
+a ? 'asdf' : 123
+a ? 123 : 'asdf'
+
+# string false
+null
+1
+true
+false
+['a']
+1 + 2
+a ? 1 : 2
+a ? ['a'] : ['b']
+a - b
+a * b
+
+# list true
+a
+[]
+['a']
+[1, 2, 3]
+[1, 2, 3] + [4]
+a + b
+
+# list false
+null
+1
+'asdf'
+true
+false
+'1' + [1, 2, 3]
+[1, 2, 3] + 4
+1 + 4
+a - b
+a * b

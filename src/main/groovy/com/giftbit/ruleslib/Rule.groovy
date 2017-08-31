@@ -34,14 +34,12 @@ class Rule {
     final ExpressionNode expression
     final Exception compileException
 
-    Rule(ExpressionNode expression) {
-        this.expression = expression
-        this.compileException = null
-    }
-
-    Rule(Exception compileException) {
-        this.expression = null
-        this.compileException = compileException
+    Rule(String expression) {
+        try {
+            this.expression = BuildAstVisitor.buildAst(expression)
+        } catch (Exception e) {
+            this.compileException = e
+        }
     }
 
     def evaluate(Context context) {
@@ -78,5 +76,31 @@ class Rule {
     String evaluateToString(Map contextValues) {
         MutableContext mutableContext = new MutableContext(defaultFunctions, Value.fromObject(contextValues).asMap())
         return evaluateToString(mutableContext)
+    }
+
+    /**
+     * Determine through static analysis whether the rule *might* evaluate
+     * to the given type.  This is accomplished through static analysis and
+     * is necessarily optimistic.  False is only returned if the value
+     * type definitely cannot be returned.
+     */
+    boolean canEvaluateToType(AstAnalysisDataType t) {
+        if (compileException) {
+            throw compileException
+        }
+        return AstAnalysis.canEvaluateToType(expression, t)
+    }
+
+    /**
+     * Determine through static analysis whether the rule *must* evaluate
+     * to the given type.  This is accomplished through static analysis and
+     * is necessarily pessimistic.  True is only returned if the value
+     * type definitely will be returned.
+     */
+    boolean mustEvaluateToType(AstAnalysisDataType t) {
+        if (compileException) {
+            throw compileException
+        }
+        return AstAnalysis.mustEvaluateToType(expression, t)
     }
 }

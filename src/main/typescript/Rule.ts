@@ -1,3 +1,4 @@
+import * as astAnalysis from "./astAnalysis";
 import {Abs} from "./functions/Abs";
 import {Ceil} from "./functions/Ceil";
 import {Every} from "./functions/Every";
@@ -24,6 +25,7 @@ import {ToLowerCase} from "./functions/ToLowerCase";
 import {ToUpperCase} from "./functions/ToUpperCase";
 import {Values} from "./functions/Values";
 import {MutableContext} from "./MutableContext";
+import {AstVisitor} from "./AstVisitor";
 
 export class Rule {
 
@@ -56,9 +58,12 @@ export class Rule {
     public readonly expression: ExpressionNode;
     public readonly compileError: Error;
 
-    constructor(expressionOrError: ExpressionNode | Error) {
-        this.expression = (expressionOrError as ExpressionNode).getValue && (expressionOrError as ExpressionNode).isComplex ? (expressionOrError as ExpressionNode) : null;
-        this.compileError = this.expression ? null : expressionOrError as Error;
+    constructor(expression: string) {
+        try {
+            this.expression = AstVisitor.buildAst(expression);
+        } catch (e) {
+            this.compileError = e;
+        }
     }
 
     evaluate(contextValues: object): any {
@@ -87,5 +92,31 @@ export class Rule {
             throw this.compileError;
         }
         return this.expression.getValue(new MutableContext(Rule.defaultFunctions, contextValues)) + "";
+    }
+
+    /**
+     * Determine through static analysis whether the rule *might* evaluate
+     * to the given type.  This is accomplished through static analysis and
+     * is necessarily optimistic.  False is only returned if the value
+     * type definitely cannot be returned.
+     */
+    canEvaluateToType(type: astAnalysis.AstAnalysisDataType): boolean {
+        if (this.compileError) {
+            throw this.compileError;
+        }
+        return astAnalysis.canEvaluateToType(this.expression, type);
+    }
+
+    /**
+     * Determine through static analysis whether the rule *must* evaluate
+     * to the given type.  This is accomplished through static analysis and
+     * is necessarily pessimistic.  True is only returned if the value
+     * type definitely will be returned.
+     */
+    mustEvaluateToType(type: astAnalysis.AstAnalysisDataType): boolean {
+        if (this.compileError) {
+            throw this.compileError;
+        }
+        return astAnalysis.mustEvaluateToType(this.expression, type);
     }
 }

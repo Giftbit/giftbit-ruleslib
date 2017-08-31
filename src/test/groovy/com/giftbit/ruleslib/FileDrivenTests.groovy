@@ -75,6 +75,16 @@ class FileDrivenTests {
         runTestFile("SyntaxErrorTests.txt")
     }
 
+    @Test
+    void "CanEvaluateToTests"() {
+        runEvaluateToTypeTestFile("CanEvaluateToTests.txt", true)
+    }
+
+    @Test
+    void "MustEvaluateToTests"() {
+        runEvaluateToTypeTestFile("MustEvaluateToTests.txt", false)
+    }
+
     static void runTestFile(String fileName) {
         List<String> lines = loadTestFile(fileName)
         String lastComment = "file start"
@@ -107,6 +117,37 @@ class FileDrivenTests {
                     Value actualValue = expression.getValue(context)
                     Value expectedValue = parseValue(valueString)
                     assert actualValue.innerValue == expectedValue.innerValue: "${lastComment} ➡ ${line} ➡ ${expression.toString()}=${valueString} ➡ ${actualValue.toString()}=${expectedValue.toString()}"
+                }
+                assertCount++
+            }
+        }
+
+        println("${fileName} passed ${assertCount} asserts")
+    }
+
+    static void runEvaluateToTypeTestFile(String fileName, boolean can) {
+        List<String> lines = loadTestFile(fileName)
+        String lastComment = "file start"
+        AstAnalysisDataType type = null
+        Boolean assertTrue = true
+        int assertCount = 0
+
+        for (String line in lines) {
+            line = line.trim()
+
+            if (line.startsWith("#")) {
+                lastComment = line.substring(1).trim()
+
+                String[] directiveParts = lastComment.split(" ")
+                type = AstAnalysisDataType.valueOf(directiveParts[0].trim().toUpperCase())
+                assertTrue = directiveParts[1].trim() == "true"
+            } else if (line.size() > 0) {
+                Rule rule = new Rule(line)
+
+                if (can) {
+                    assert rule.canEvaluateToType(type) == assertTrue : "${lastComment} ➡ ${line}"
+                } else {
+                    assert rule.mustEvaluateToType(type) == assertTrue : "${lastComment} ➡ ${line}"
                 }
                 assertCount++
             }

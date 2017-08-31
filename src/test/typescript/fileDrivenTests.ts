@@ -59,7 +59,18 @@ const context = new MutableContext(Rule.defaultFunctions, {
 runTestFile("SyntaxTests.txt");
 runTestFile("FunctionTests.txt");
 runTestFile("SyntaxErrorTests.txt");
+runEvaluateToTypeTestFile("CanEvaluateToTests.txt", true);
+runEvaluateToTypeTestFile("MustEvaluateToTests.txt", false);
 
+/**
+ * Evaluate a test file with the format:
+ *  - empty lines are ignored
+ *  - lines starting with # are like comments that split the test into sections
+ *  - otherwise the lines are tests:
+ *    - everything before the last = is an expression to evaluate
+ *    - everything after the last = is te value it must evaluate to
+ *    - if the value to evaluate to is an @ then it must throw a compile exception
+ */
 function runTestFile(fileName: string): void {
     const lines = fs.readFileSync(path.join(__dirname, "..", "resources", fileName)).toString("ascii").split("\n");
 
@@ -107,6 +118,54 @@ function runTestFile(fileName: string): void {
                                     } else {
                                         chai.assert.strictEqual(actualValue, expectedValue, `${expression.toString()} == ${expectedValue}`)
                                     }
+                                }
+                            });
+                        }
+                    }
+                });
+            }
+        }
+    });
+}
+
+/**
+ * Evaluate a test file with the following format:
+ *  - empty lines are ignored
+ *  - lines starting with # give the type and truthiness
+ *  - otherwise the lines are checked to see if they can evaluate to that type
+ */
+function runEvaluateToTypeTestFile(fileName: string, can: boolean): void {
+    const lines = fs.readFileSync(path.join(__dirname, "..", "resources", fileName)).toString("ascii").split("\n");
+
+    describe(fileName, () => {
+        let lastComment = "file start";
+
+        for (let lineIx = 0; lineIx < lines.length; lineIx++) {
+            if (lines[lineIx].trim().length == 0) {
+                // no-op
+            } else if (lines[lineIx][0] === "#") {
+                lastComment = lines[lineIx].substring(1).trim();
+            } else {
+                describe(lastComment, () => {
+                    const directiveParts = lastComment.split(" ");
+                    const type = directiveParts[0];
+                    const assertTrue = directiveParts[1] === "true";
+
+                    for (; lineIx < lines.length; lineIx++) {
+                        if (lines[lineIx].trim().length == 0) {
+                            // no-op
+                        } else if (lines[lineIx][0] === "#") {
+                            lineIx--;
+                            break;
+                        } else {
+                            const line = lines[lineIx].trim();
+
+                            it(line, () => {
+                                const rule = new Rule(line);
+                                if (can) {
+                                    chai.assert.equal(rule.canEvaluateToType(type as any), assertTrue);
+                                } else {
+                                    chai.assert.equal(rule.mustEvaluateToType(type as any), assertTrue);
                                 }
                             });
                         }

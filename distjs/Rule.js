@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const astAnalysis = require("./astAnalysis");
 const Abs_1 = require("./functions/Abs");
 const Ceil_1 = require("./functions/Ceil");
 const Every_1 = require("./functions/Every");
@@ -24,10 +25,15 @@ const ToLowerCase_1 = require("./functions/ToLowerCase");
 const ToUpperCase_1 = require("./functions/ToUpperCase");
 const Values_1 = require("./functions/Values");
 const MutableContext_1 = require("./MutableContext");
+const AstVisitor_1 = require("./AstVisitor");
 class Rule {
-    constructor(expressionOrError) {
-        this.expression = expressionOrError.getValue && expressionOrError.isComplex ? expressionOrError : null;
-        this.compileError = this.expression ? null : expressionOrError;
+    constructor(expression) {
+        try {
+            this.expression = AstVisitor_1.AstVisitor.buildAst(expression);
+        }
+        catch (e) {
+            this.compileError = e;
+        }
     }
     evaluate(contextValues) {
         if (this.compileError) {
@@ -52,6 +58,30 @@ class Rule {
             throw this.compileError;
         }
         return this.expression.getValue(new MutableContext_1.MutableContext(Rule.defaultFunctions, contextValues)) + "";
+    }
+    /**
+     * Determine through static analysis whether the rule *might* evaluate
+     * to the given type.  This is accomplished through static analysis and
+     * is necessarily optimistic.  False is only returned if the value
+     * type definitely cannot be returned.
+     */
+    canEvaluateToType(type) {
+        if (this.compileError) {
+            throw this.compileError;
+        }
+        return astAnalysis.canEvaluateToType(this.expression, type);
+    }
+    /**
+     * Determine through static analysis whether the rule *must* evaluate
+     * to the given type.  This is accomplished through static analysis and
+     * is necessarily pessimistic.  True is only returned if the value
+     * type definitely will be returned.
+     */
+    mustEvaluateToType(type) {
+        if (this.compileError) {
+            throw this.compileError;
+        }
+        return astAnalysis.mustEvaluateToType(this.expression, type);
     }
 }
 Rule.defaultFunctions = {
