@@ -6,7 +6,7 @@ import org.antlr.v4.runtime.Recognizer
 
 class BuildAstErrorListener extends BaseErrorListener {
 
-    private final List<BuildAstException> errors = []
+    private final List<AstException> errors = []
     final String expression
 
     BuildAstErrorListener(String exp) {
@@ -15,14 +15,14 @@ class BuildAstErrorListener extends BaseErrorListener {
 
     @Override
     void syntaxError(Recognizer<?, ?> recognizer, Object offendingSymbol, int line, int charPositionInLine, String msg, RecognitionException e) {
-        errors.push(new BuildAstException(line, charPositionInLine, expression, sanitizeErrorMessage(msg), e))
+        errors.push(new AstException(line, charPositionInLine, expression, sanitizeErrorMessage(msg), e))
     }
 
     private String sanitizeErrorMessage(String msg) {
         return msg.replaceAll("'<EOF>'", "at the end of the rule").replaceAll("<EOF>", "the end of the rule")
     }
 
-    List<BuildAstException> getErrors() {
+    List<AstException> getErrors() {
         return errors
     }
 }

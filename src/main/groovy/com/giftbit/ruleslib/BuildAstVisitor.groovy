@@ -8,7 +8,7 @@ import org.antlr.v4.runtime.CommonTokenStream
 
 class BuildAstVisitor extends RuleBaseVisitor<ExpressionNode> {
 
-    static ExpressionNode buildAst(String exp) throws BuildAstException {
+    static ExpressionNode buildAst(String exp) throws AstException {
 
         try {
             BuildAstErrorListener errorListener = new BuildAstErrorListener(exp)
@@ -31,7 +31,7 @@ class BuildAstVisitor extends RuleBaseVisitor<ExpressionNode> {
         } catch (StringIndexOutOfBoundsException e) {
             // This happens in Antlr4.7 when the error is right at the end of the expression
             String[] lines = exp.split("\n")
-            throw new BuildAstException(lines.length, lines[lines.length - 1].length(), exp, "unexpected character at end of rule", e)
+            throw new AstException(lines.length, lines[lines.length - 1].length(), exp, "unexpected character at end of rule", e)
         }
     }
 

@@ -32,13 +32,15 @@ class Rule {
     ].asImmutable()
 
     final ExpressionNode expression
-    final Exception compileException
+    final AstException compileException
 
     Rule(String expression) {
         try {
             this.expression = BuildAstVisitor.buildAst(expression)
-        } catch (Exception e) {
+        } catch (AstException e) {
             this.compileException = e
+        } catch (Exception e) {
+            this.compileException = new AstException(-1, -1, expression, e.message, e)
         }
     }
 

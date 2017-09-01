@@ -26,6 +26,7 @@ import {ToUpperCase} from "./functions/ToUpperCase";
 import {Values} from "./functions/Values";
 import {MutableContext} from "./MutableContext";
 import {AstVisitor} from "./AstVisitor";
+import {AstError} from "./AstError";
 
 export class Rule {
 
@@ -56,13 +57,17 @@ export class Rule {
     };
 
     public readonly expression: ExpressionNode;
-    public readonly compileError: Error;
+    public readonly compileError: AstError;
 
     constructor(expression: string) {
         try {
             this.expression = AstVisitor.buildAst(expression);
         } catch (e) {
-            this.compileError = e;
+            if (e instanceof AstError) {
+                this.compileError = e;
+            } else {
+                this.compileError = new AstError(0, 0, expression, e.message);
+            }
         }
     }
 
