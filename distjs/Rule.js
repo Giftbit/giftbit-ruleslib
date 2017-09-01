@@ -26,13 +26,19 @@ const ToUpperCase_1 = require("./functions/ToUpperCase");
 const Values_1 = require("./functions/Values");
 const MutableContext_1 = require("./MutableContext");
 const AstVisitor_1 = require("./AstVisitor");
+const AstError_1 = require("./AstError");
 class Rule {
     constructor(expression) {
         try {
             this.expression = AstVisitor_1.AstVisitor.buildAst(expression);
         }
         catch (e) {
-            this.compileError = e;
+            if (e instanceof AstError_1.AstError) {
+                this.compileError = e;
+            }
+            else {
+                this.compileError = new AstError_1.AstError(0, 0, expression, e.message);
+            }
         }
     }
     evaluate(contextValues) {

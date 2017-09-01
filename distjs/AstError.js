@@ -1,10 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 class AstError extends Error {
-    constructor(line, character, expression, msg) {
+    constructor(row, column, expression, msg) {
         super(msg);
-        this.line = line;
-        this.character = character;
+        this.row = row;
+        this.column = column;
         this.expression = expression;
         this.msg = msg;
     }

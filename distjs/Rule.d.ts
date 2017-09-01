@@ -1,12 +1,13 @@
 import * as astAnalysis from "./astAnalysis";
 import { ExpressionNode } from "./ast/ExpressionNode";
 import { RuleFunction } from "./functions/RuleFunction";
+import { AstError } from "./AstError";
 export declare class Rule {
     static readonly defaultFunctions: {
         [name: string]: RuleFunction;
     };
     readonly expression: ExpressionNode;
-    readonly compileError: Error;
+    readonly compileError: AstError;
     constructor(expression: string);
     evaluate(contextValues: object): any;
     evaluateToBoolean(contextValues: object): boolean;
