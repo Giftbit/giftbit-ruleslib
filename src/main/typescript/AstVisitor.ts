@@ -39,6 +39,16 @@ export class AstVisitor extends RuleVisitor {
         return astNode;
     }
 
+    visit(ctx: any): any {
+        // Not sure why the super class doesn't make this check but this
+        // prevents things from blowing up.  The antlr project is intimidating
+        // and I don't want to make a PR.
+        if (ctx === null) {
+            return null;
+        }
+        return super.visit(ctx);
+    }
+
     visitCompileUnit(ctx: any): any {
         return this.visit(ctx.children[0]);
     }

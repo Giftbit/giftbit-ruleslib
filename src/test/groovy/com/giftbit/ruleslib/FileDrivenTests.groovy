@@ -108,7 +108,8 @@ class FileDrivenTests {
                     } catch (Exception e) {
                         ex = e
                     }
-                    assert ex != null : "${lastComment} ➡ ${line} ➡ throws exception"
+                    assert ex != null : "${lastComment} ➡ ${line} ➡ throws Exception"
+                    assert ex instanceof AstException : "${lastComment} ➡ ${line} ➡ throws AstException"
                     if (messageRegex) {
                         assert ex.message.matches(messageRegex) : "${lastComment} ➡ ${line} ➡ ${ex.message} matches ${messageRegex}"
                     }

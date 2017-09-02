@@ -5,6 +5,7 @@ import {AstVisitor} from "../../main/typescript/AstVisitor";
 import {Value} from "../../main/typescript/Value";
 import {MutableContext} from "../../main/typescript/MutableContext";
 import {Rule} from "../../main/typescript/Rule";
+import {AstError} from "../../main/typescript/AstError";
 
 const context = new MutableContext(Rule.defaultFunctions, {
     iamnull: null,
@@ -106,6 +107,7 @@ function runTestFile(fileName: string): void {
                                         er = e;
                                     }
                                     chai.assert.isNotNull(er, "throws Error");
+                                    chai.assert.instanceOf(er, AstError, er.stack);
                                     if (messageRegex) {
                                         chai.assert(er.message.match(messageRegex), `${er.message} matches ${messageRegex}`);
                                     }

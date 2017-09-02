@@ -2,6 +2,7 @@ import { RuleVisitor } from "./antlrgen/RuleVisitor";
 import { ExpressionNode } from "./ast/ExpressionNode";
 export declare class AstVisitor extends RuleVisitor {
     static buildAst(exp: string): ExpressionNode;
+    visit(ctx: any): any;
     visitCompileUnit(ctx: any): any;
     visitFuncExpr(ctx: any): any;
     visitArrayExpr(ctx: any): any;

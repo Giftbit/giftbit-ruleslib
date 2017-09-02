@@ -35,6 +35,15 @@ class AstVisitor extends RuleVisitor_1.RuleVisitor {
         }
         return astNode;
     }
+    visit(ctx) {
+        // Not sure why the super class doesn't make this check but this
+        // prevents things from blowing up.  The antlr project is intimidating
+        // and I don't want to make a PR.
+        if (ctx === null) {
+            return null;
+        }
+        return super.visit(ctx);
+    }
     visitCompileUnit(ctx) {
         return this.visit(ctx.children[0]);
     }
