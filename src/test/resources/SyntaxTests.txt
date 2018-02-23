@@ -19,6 +19,8 @@ Inf=Inf
 'foo"'="foo\""
 'f\'o\'o'="f'o'o"
 "f\"o\"o"="f\"o\"o"
+"back\\slash"="back\\slash"
+'back\\slash'="back\\slash"
 
 # boolean parsing
 true=true
