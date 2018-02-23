@@ -70,8 +70,8 @@ Number
     | [0-9]+ (DOT [0-9]+)? ([eE] [+-]? [0-9]+)?
     ;
 String
-    : DOUBLE_QUOTE (~('\\'|'"'))* DOUBLE_QUOTE
-    | SINGLE_QUOTE (~('\''|'\\'))* SINGLE_QUOTE
+    : DOUBLE_QUOTE ('\\"'|~'"')* DOUBLE_QUOTE
+    | SINGLE_QUOTE ('\\\''|~'\'')* SINGLE_QUOTE
     ;
 Boolean : 'false' | 'true';
 Null    : 'null';

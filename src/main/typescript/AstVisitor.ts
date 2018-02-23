@@ -81,7 +81,22 @@ export class AstVisitor extends RuleVisitor {
     }
 
     visitStringExpr(ctx: any): any {
-        return new LiteralNode(ctx.value.text.substring(1, ctx.value.text.length - 1));
+        const s = ctx.value.text.substring(1, ctx.value.text.length - 1)
+            .replace(/\\(.)/g, (match, p1) => {
+                switch (p1) {
+                    case "b": return "\b";
+                    case "f": return "\f";
+                    case "n": return "\n";
+                    case "r": return "\r";
+                    case "t": return "\t";
+                    case "v": return "\v";
+                    case "'": return "'";
+                    case "\"": return "\"";
+                    case "\\": return "\\";
+                    default: return p1;
+                }
+            });
+        return new LiteralNode(s);
     }
 
     visitIdentExpr(ctx: any): any {

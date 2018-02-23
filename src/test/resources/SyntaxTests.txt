@@ -17,6 +17,8 @@ Inf=Inf
 "f'o'o"="f'o'o"
 '"foo'="\"foo"
 'foo"'="foo\""
+'f\'o\'o'="f'o'o"
+"f\"o\"o"="f\"o\"o"
 
 # boolean parsing
 true=true

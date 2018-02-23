@@ -38,6 +38,7 @@ Generated Java is *not* checked into the repo because the build system doesn't r
 Grammar changes should be extremely rare, reviewed and unit tested thoroughly.
 
 - Generate JS files: `gradle generateJavaScriptGrammarSource`
+- Copy generated JS files: `gradle copyJavaScriptGrammarSource`
 - Add test statements to `src/test/resources/SyntaxTests.txt`
 - Release
 

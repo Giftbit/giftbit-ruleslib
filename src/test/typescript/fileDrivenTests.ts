@@ -70,7 +70,7 @@ runEvaluateToTypeTestFile("MustEvaluateToTests.txt", false);
  *  - otherwise the lines are tests:
  *    - everything before the last = is an expression to evaluate
  *    - everything after the last = is te value it must evaluate to
- *    - if the value to evaluate to is an @ then it must throw a compile exception
+ *    - if the value to evaluate to is an @ then it must throw a syntax exception
  */
 function runTestFile(fileName: string): void {
     const lines = fs.readFileSync(path.join(__dirname, "..", "resources", fileName)).toString("ascii").split("\n");
@@ -112,6 +112,7 @@ function runTestFile(fileName: string): void {
                                         chai.assert(er.message.match(messageRegex), `${er.message} matches ${messageRegex}`);
                                     }
                                 } else {
+                                    console.log("compiling...", expressionString);
                                     const expression = AstVisitor.buildAst(expressionString);
                                     const expectedValue = parseValue(valueString);
                                     const actualValue = expression.getValue(context);
@@ -196,7 +197,7 @@ function parseValue(text: string): Value {
     } else if (text.match(/^-?[0-9]+.[0-9]+$/)) {
         return parseFloat(text);
     } else if (text.match(/^".*"$/)) {
-        return text.substring(1, text.length - 1).replace("\\\"", "\"");
+        return text.substring(1, text.length - 1).replace(/\\"/g, "\"");
     }
 
     throw new Error(`Unsupported value: ${text}`)
