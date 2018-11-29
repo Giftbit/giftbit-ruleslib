@@ -1,6 +1,6 @@
 {
   "name": "giftbit-ruleslib",
-  "version": "4.1.0",
+  "version": "4.1.1",
   "description": "Expression-evaluation library for Redemption Rules, Reaction Rules, et al",
   "main": "distjs/index.js",
   "types": "distjs/index.d.ts",
