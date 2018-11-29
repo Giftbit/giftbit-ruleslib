@@ -41,29 +41,29 @@ class Rule {
             }
         }
     }
-    evaluate(contextValues) {
+    evaluate(contextValues, customFunctions) {
         if (this.compileError) {
             throw this.compileError;
         }
-        return this.expression.getValue(new MutableContext_1.MutableContext(Rule.defaultFunctions, contextValues));
+        return this.expression.getValue(new MutableContext_1.MutableContext(Object.assign({}, Rule.defaultFunctions, customFunctions), contextValues));
     }
-    evaluateToBoolean(contextValues) {
+    evaluateToBoolean(contextValues, customFunctions) {
         if (this.compileError) {
             throw this.compileError;
         }
-        return !!this.expression.getValue(new MutableContext_1.MutableContext(Rule.defaultFunctions, contextValues));
+        return !!this.expression.getValue(new MutableContext_1.MutableContext(Object.assign({}, Rule.defaultFunctions, customFunctions), contextValues));
     }
-    evaluateToNumber(contextValues) {
+    evaluateToNumber(contextValues, customFunctions) {
         if (this.compileError) {
             throw this.compileError;
         }
-        return +this.expression.getValue(new MutableContext_1.MutableContext(Rule.defaultFunctions, contextValues));
+        return +this.expression.getValue(new MutableContext_1.MutableContext(Object.assign({}, Rule.defaultFunctions, customFunctions), contextValues));
     }
-    evaluateToString(contextValues) {
+    evaluateToString(contextValues, customFunctions) {
         if (this.compileError) {
             throw this.compileError;
         }
-        return this.expression.getValue(new MutableContext_1.MutableContext(Rule.defaultFunctions, contextValues)) + "";
+        return this.expression.getValue(new MutableContext_1.MutableContext(Object.assign({}, Rule.defaultFunctions, customFunctions), contextValues)) + "";
     }
     /**
      * Determine through static analysis whether the rule *might* evaluate
