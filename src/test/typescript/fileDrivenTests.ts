@@ -5,9 +5,23 @@ import {AstVisitor} from "../../main/typescript/AstVisitor";
 import {Value} from "../../main/typescript/Value";
 import {MutableContext} from "../../main/typescript/MutableContext";
 import {Rule} from "../../main/typescript/Rule";
+import {RuleFunction} from "../../main/typescript/functions/RuleFunction";
+import {ExpressionNode} from "../../main/typescript/ast/ExpressionNode";
+import {Context} from "../../main/typescript/Context";
 import {AstError} from "../../main/typescript/AstError";
 
-const context = new MutableContext(Rule.defaultFunctions, {
+
+class CustomFunction extends RuleFunction {
+    invoke(args: ExpressionNode[], context: Context): Value {
+        return `extracted ${this.resolveFirstAsString(args, context)} from custom function`;
+    }
+}
+
+const customFunctions: {[name: string]: RuleFunction} = {
+    customFunction: new CustomFunction()
+};
+
+const context = new MutableContext({...Rule.defaultFunctions, ...customFunctions}, {
     iamnull: null,
     iamone: 1,
     iamonepointfive: 1.5,

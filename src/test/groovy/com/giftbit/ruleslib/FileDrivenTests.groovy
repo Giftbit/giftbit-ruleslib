@@ -1,6 +1,7 @@
 package com.giftbit.ruleslib
 
 import com.giftbit.ruleslib.ast.ExpressionNode
+import com.giftbit.ruleslib.functions.RuleFunction
 import groovy.json.StringEscapeUtils
 import org.junit.Test
 
@@ -10,7 +11,19 @@ import java.nio.file.Paths
 
 class FileDrivenTests {
 
-    private static Context context = new MutableContext(Rule.defaultFunctions, [
+    private static class CustomFunction extends RuleFunction {
+
+        @Override
+        Value invoke(List<ExpressionNode> args, Context context) {
+            return new Value("extracted ${resolveFirstAsNumber(args, context)} from custom function")
+        }
+    }
+
+    private static Map<String, RuleFunction> customFunctions = [
+            customFunction: new CustomFunction()
+    ]
+
+    private static Context context = new MutableContext(Rule.defaultFunctions + customFunctions, [
             iamnull        : Value.NULL,
             iamone         : new Value(1L),
             iamonepointfive: new Value(1.5D),
@@ -117,6 +130,7 @@ class FileDrivenTests {
                     ExpressionNode expression = BuildAstVisitor.buildAst(expressionString)
                     Value actualValue = expression.getValue(context)
                     Value expectedValue = parseValue(valueString)
+                    System.out.print("Expected value: " + expectedValue)
                     assert actualValue.innerValue == expectedValue.innerValue: "${lastComment} ➡ ${line} ➡ ${expression.toString()}=${valueString} ➡ ${actualValue.toString()}=${expectedValue.toString()}"
                 }
                 assertCount++

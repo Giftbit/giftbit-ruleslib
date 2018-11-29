@@ -51,8 +51,8 @@ class Rule {
         return expression.getValue(context).asNativeValue()
     }
 
-    def evaluate(Map contextValues) {
-        MutableContext mutableContext = new MutableContext(defaultFunctions, Value.fromObject(contextValues).asMap())
+    def evaluate(Map contextValues, Map<String, RuleFunction> customFunctions = [:]) {
+        MutableContext mutableContext = new MutableContext(defaultFunctions + customFunctions, Value.fromObject(contextValues).asMap())
         return evaluate(mutableContext)
     }
 
@@ -63,8 +63,8 @@ class Rule {
         return expression.getValue(context).asBoolean()
     }
 
-    boolean evaluateToBoolean(Map contextValues) {
-        MutableContext mutableContext = new MutableContext(defaultFunctions, Value.fromObject(contextValues).asMap())
+    boolean evaluateToBoolean(Map contextValues, Map<String, RuleFunction> customFunctions = [:]) {
+        MutableContext mutableContext = new MutableContext(defaultFunctions + customFunctions, Value.fromObject(contextValues).asMap())
         return evaluateToBoolean(mutableContext)
     }
 
@@ -75,8 +75,8 @@ class Rule {
         return expression.getValue(context).asString()
     }
 
-    String evaluateToString(Map contextValues) {
-        MutableContext mutableContext = new MutableContext(defaultFunctions, Value.fromObject(contextValues).asMap())
+    String evaluateToString(Map contextValues, Map<String, RuleFunction> customFunctions = [:]) {
+        MutableContext mutableContext = new MutableContext(defaultFunctions + customFunctions, Value.fromObject(contextValues).asMap())
         return evaluateToString(mutableContext)
     }
 

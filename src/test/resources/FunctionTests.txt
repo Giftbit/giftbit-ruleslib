@@ -333,3 +333,7 @@ null.values() == []=true
 foorbararray.values() == []=true
 flatmap.values() == ['a', 1, "two", null] || flatmap.values() == ["two", 'a', 1, null]=true
 complexmap.values()[0].a="alpha"
+
+# custom function
+customFunction(5)="extracted 5 from custom function"
+customFunction(2)="extracted 2 from custom function"

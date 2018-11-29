@@ -71,32 +71,32 @@ export class Rule {
         }
     }
 
-    evaluate(contextValues: object): any {
+    evaluate(contextValues: object, customFunctions?: {[key: string]: RuleFunction}): any {
         if (this.compileError) {
             throw this.compileError;
         }
-        return this.expression.getValue(new MutableContext(Rule.defaultFunctions, contextValues));
+        return this.expression.getValue(new MutableContext({...Rule.defaultFunctions, ...customFunctions}, contextValues));
     }
 
-    evaluateToBoolean(contextValues: object): boolean {
+    evaluateToBoolean(contextValues: object, customFunctions?: {[key: string]: RuleFunction}): boolean {
         if (this.compileError) {
             throw this.compileError;
         }
-        return !!this.expression.getValue(new MutableContext(Rule.defaultFunctions, contextValues));
+        return !!this.expression.getValue(new MutableContext({...Rule.defaultFunctions, ...customFunctions}, contextValues));
     }
 
-    evaluateToNumber(contextValues: object): number {
+    evaluateToNumber(contextValues: object, customFunctions?: {[key: string]: RuleFunction}): number {
         if (this.compileError) {
             throw this.compileError;
         }
-        return +this.expression.getValue(new MutableContext(Rule.defaultFunctions, contextValues));
+        return +this.expression.getValue(new MutableContext({...Rule.defaultFunctions, ...customFunctions}, contextValues));
     }
 
-    evaluateToString(contextValues: object): string {
+    evaluateToString(contextValues: object, customFunctions?: {[key: string]: RuleFunction}): string {
         if (this.compileError) {
             throw this.compileError;
         }
-        return this.expression.getValue(new MutableContext(Rule.defaultFunctions, contextValues)) + "";
+        return this.expression.getValue(new MutableContext({...Rule.defaultFunctions, ...customFunctions}, contextValues)) + "";
     }
 
     /**
