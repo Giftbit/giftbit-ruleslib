@@ -9,10 +9,18 @@ export declare class Rule {
     readonly expression: ExpressionNode;
     readonly compileError: AstError;
     constructor(expression: string);
-    evaluate(contextValues: object): any;
-    evaluateToBoolean(contextValues: object): boolean;
-    evaluateToNumber(contextValues: object): number;
-    evaluateToString(contextValues: object): string;
+    evaluate(contextValues: object, customFunctions?: {
+        [key: string]: RuleFunction;
+    }): any;
+    evaluateToBoolean(contextValues: object, customFunctions?: {
+        [key: string]: RuleFunction;
+    }): boolean;
+    evaluateToNumber(contextValues: object, customFunctions?: {
+        [key: string]: RuleFunction;
+    }): number;
+    evaluateToString(contextValues: object, customFunctions?: {
+        [key: string]: RuleFunction;
+    }): string;
     /**
      * Determine through static analysis whether the rule *might* evaluate
      * to the given type.  This is accomplished through static analysis and

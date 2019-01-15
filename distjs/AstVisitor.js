@@ -69,7 +69,22 @@ class AstVisitor extends RuleVisitor_1.RuleVisitor {
         return this.visit(ctx.children[1]);
     }
     visitStringExpr(ctx) {
-        return new LiteralNode_1.LiteralNode(ctx.value.text.substring(1, ctx.value.text.length - 1));
+        const s = ctx.value.text.substring(1, ctx.value.text.length - 1)
+            .replace(/\\(.)/g, (match, p1) => {
+            switch (p1) {
+                case "b": return "\b";
+                case "f": return "\f";
+                case "n": return "\n";
+                case "r": return "\r";
+                case "t": return "\t";
+                case "v": return "\v";
+                case "'": return "'";
+                case "\"": return "\"";
+                case "\\": return "\\";
+                default: return p1;
+            }
+        });
+        return new LiteralNode_1.LiteralNode(s);
     }
     visitIdentExpr(ctx) {
         return new IdentifierNode_1.IdentifierNode(ctx.ident.text);
