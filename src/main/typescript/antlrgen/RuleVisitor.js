@@ -30,6 +30,12 @@ RuleVisitor.prototype.visitArrayExpr = function(ctx) {
 };
 
 
+// Visit a parse tree produced by RuleParser#objectExpr.
+RuleVisitor.prototype.visitObjectExpr = function(ctx) {
+  return this.visitChildren(ctx);
+};
+
+
 // Visit a parse tree produced by RuleParser#nullExpr.
 RuleVisitor.prototype.visitNullExpr = function(ctx) {
   return this.visitChildren(ctx);
@@ -98,6 +104,18 @@ RuleVisitor.prototype.visitBoolExpr = function(ctx) {
 
 // Visit a parse tree produced by RuleParser#memberDotExpr.
 RuleVisitor.prototype.visitMemberDotExpr = function(ctx) {
+  return this.visitChildren(ctx);
+};
+
+
+// Visit a parse tree produced by RuleParser#propertyAssignment.
+RuleVisitor.prototype.visitPropertyAssignment = function(ctx) {
+  return this.visitChildren(ctx);
+};
+
+
+// Visit a parse tree produced by RuleParser#propertyKey.
+RuleVisitor.prototype.visitPropertyKey = function(ctx) {
   return this.visitChildren(ctx);
 };
 

@@ -126,7 +126,7 @@ function runTestFile(fileName: string): void {
                                         chai.assert(er.message.match(messageRegex), `${er.message} matches ${messageRegex}`);
                                     }
                                 } else {
-                                    console.log("compiling...", expressionString);
+                                    // console.log("compiling...", expressionString);
                                     const expression = AstVisitor.buildAst(expressionString);
                                     const expectedValue = parseValue(valueString);
                                     const actualValue = expression.getValue(context);

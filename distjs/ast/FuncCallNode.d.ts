@@ -5,8 +5,8 @@ export declare class FuncCallNode implements ExpressionNode {
     readonly funcName: any;
     readonly args: ExpressionNode[];
     readonly isMethodCall: boolean;
-    static readonly type: string;
-    readonly type: string;
+    static readonly type = "FuncCall";
+    readonly type = "FuncCall";
     constructor(funcName: any, args: ExpressionNode[], isMethodCall: boolean);
     getValue(context: Context): Value;
     isComplex(): boolean;

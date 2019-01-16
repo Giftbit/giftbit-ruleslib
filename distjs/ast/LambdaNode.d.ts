@@ -4,8 +4,8 @@ import { Value } from "../Value";
 export declare class LambdaNode implements ExpressionNode {
     readonly paramNames: string[];
     readonly body: ExpressionNode;
-    static readonly type: string;
-    readonly type: string;
+    static readonly type = "Lambda";
+    readonly type = "Lambda";
     constructor(paramNames: string[], body: ExpressionNode);
     getValue(context: Context): Value;
     isComplex(): boolean;

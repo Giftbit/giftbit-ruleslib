@@ -14,6 +14,7 @@ import {ExpressionNode} from "./ast/ExpressionNode";
 import {FuncCallNode} from "./ast/FuncCallNode";
 import {LambdaNode} from "./ast/LambdaNode";
 import {AstErrorListener} from "./AstErrorListener";
+import {ObjectNode} from "./ast/ObjectNode";
 
 export class AstVisitor extends RuleVisitor {
 
@@ -61,6 +62,31 @@ export class AstVisitor extends RuleVisitor {
         return new ListNode(ctx.expr().map(arg => this.visit(arg)));
     }
 
+    visitObjectExpr(ctx: any): any {
+        // console.log("ctx=", ctx);
+        const pa = ctx.propertyAssignment();
+        // console.log("pa=", pa);
+
+        const o: {[key: string]: ExpressionNode} = {};
+        for (const arg of pa) {
+            // console.log("arg.key=", arg.key);
+            const key: string = arg.key.ident ? arg.key.ident.text : this.getStringContent(arg.key.string.text);
+            console.log("key=", key);
+            const value = this.visit(arg.value);
+            console.log("value=", value);
+
+            o[key] = value;
+        }
+
+        return new ObjectNode(o);
+    }
+
+    visitPropertyKey(ctx: any): any {
+        console.log("visitPropertyKey id", ctx.ident);
+        console.log("visitPropertyKey id.text", ctx.ident.text);
+        // console.log("visitPropertyKey id", ctx.ident());
+    }
+
     visitNullExpr(ctx: any): any {
         return new LiteralNode(null);
     }
@@ -81,22 +107,7 @@ export class AstVisitor extends RuleVisitor {
     }
 
     visitStringExpr(ctx: any): any {
-        const s = ctx.value.text.substring(1, ctx.value.text.length - 1)
-            .replace(/\\(.)/g, (match, p1) => {
-                switch (p1) {
-                    case "b": return "\b";
-                    case "f": return "\f";
-                    case "n": return "\n";
-                    case "r": return "\r";
-                    case "t": return "\t";
-                    case "v": return "\v";
-                    case "'": return "'";
-                    case "\"": return "\"";
-                    case "\\": return "\\";
-                    default: return p1;
-                }
-            });
-        return new LiteralNode(s);
+        return new LiteralNode(this.getStringContent(ctx.value.text));
     }
 
     visitIdentExpr(ctx: any): any {
@@ -157,5 +168,23 @@ export class AstVisitor extends RuleVisitor {
 
     visitLambda(ctx: any): any {
         return new LambdaNode(ctx.ID().map(id => id.symbol.text), this.visit(ctx.expr()));
+    }
+
+    getStringContent(s: string): string {
+        return s.substring(1, s.length - 1)
+            .replace(/\\(.)/g, (match, p1) => {
+                switch (p1) {
+                    case "b": return "\b";
+                    case "f": return "\f";
+                    case "n": return "\n";
+                    case "r": return "\r";
+                    case "t": return "\t";
+                    case "v": return "\v";
+                    case "'": return "'";
+                    case "\"": return "\"";
+                    case "\\": return "\\";
+                    default: return p1;
+                }
+            });
     }
 }
