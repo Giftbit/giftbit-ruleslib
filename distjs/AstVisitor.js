@@ -15,6 +15,7 @@ const TernaryNode_1 = require("./ast/TernaryNode");
 const FuncCallNode_1 = require("./ast/FuncCallNode");
 const LambdaNode_1 = require("./ast/LambdaNode");
 const AstErrorListener_1 = require("./AstErrorListener");
+const ObjectNode_1 = require("./ast/ObjectNode");
 class AstVisitor extends RuleVisitor_1.RuleVisitor {
     static buildAst(exp) {
         const errorListener = new AstErrorListener_1.AstErrorListener(exp);
@@ -53,6 +54,14 @@ class AstVisitor extends RuleVisitor_1.RuleVisitor {
     visitArrayExpr(ctx) {
         return new ListNode_1.ListNode(ctx.expr().map(arg => this.visit(arg)));
     }
+    visitObjectExpr(ctx) {
+        const o = {};
+        for (const assignment of ctx.propertyAssignment()) {
+            const key = assignment.key.ident ? assignment.key.ident.text : this.getStringContent(assignment.key.string.text);
+            o[key] = this.visit(assignment.value);
+        }
+        return new ObjectNode_1.ObjectNode(o);
+    }
     visitNullExpr(ctx) {
         return new LiteralNode_1.LiteralNode(null);
     }
@@ -69,22 +78,7 @@ class AstVisitor extends RuleVisitor_1.RuleVisitor {
         return this.visit(ctx.children[1]);
     }
     visitStringExpr(ctx) {
-        const s = ctx.value.text.substring(1, ctx.value.text.length - 1)
-            .replace(/\\(.)/g, (match, p1) => {
-            switch (p1) {
-                case "b": return "\b";
-                case "f": return "\f";
-                case "n": return "\n";
-                case "r": return "\r";
-                case "t": return "\t";
-                case "v": return "\v";
-                case "'": return "'";
-                case "\"": return "\"";
-                case "\\": return "\\";
-                default: return p1;
-            }
-        });
-        return new LiteralNode_1.LiteralNode(s);
+        return new LiteralNode_1.LiteralNode(this.getStringContent(ctx.value.text));
     }
     visitIdentExpr(ctx) {
         return new IdentifierNode_1.IdentifierNode(ctx.ident.text);
@@ -136,6 +130,23 @@ class AstVisitor extends RuleVisitor_1.RuleVisitor {
     }
     visitLambda(ctx) {
         return new LambdaNode_1.LambdaNode(ctx.ID().map(id => id.symbol.text), this.visit(ctx.expr()));
+    }
+    getStringContent(s) {
+        return s.substring(1, s.length - 1)
+            .replace(/\\(.)/g, (match, p1) => {
+            switch (p1) {
+                case "b": return "\b";
+                case "f": return "\f";
+                case "n": return "\n";
+                case "r": return "\r";
+                case "t": return "\t";
+                case "v": return "\v";
+                case "'": return "'";
+                case "\"": return "\"";
+                case "\\": return "\\";
+                default: return p1;
+            }
+        });
     }
 }
 exports.AstVisitor = AstVisitor;

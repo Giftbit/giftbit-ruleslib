@@ -38,6 +38,15 @@ RuleListener.prototype.exitArrayExpr = function(ctx) {
 };
 
 
+// Enter a parse tree produced by RuleParser#objectExpr.
+RuleListener.prototype.enterObjectExpr = function(ctx) {
+};
+
+// Exit a parse tree produced by RuleParser#objectExpr.
+RuleListener.prototype.exitObjectExpr = function(ctx) {
+};
+
+
 // Enter a parse tree produced by RuleParser#nullExpr.
 RuleListener.prototype.enterNullExpr = function(ctx) {
 };
@@ -143,6 +152,24 @@ RuleListener.prototype.enterMemberDotExpr = function(ctx) {
 
 // Exit a parse tree produced by RuleParser#memberDotExpr.
 RuleListener.prototype.exitMemberDotExpr = function(ctx) {
+};
+
+
+// Enter a parse tree produced by RuleParser#propertyAssignment.
+RuleListener.prototype.enterPropertyAssignment = function(ctx) {
+};
+
+// Exit a parse tree produced by RuleParser#propertyAssignment.
+RuleListener.prototype.exitPropertyAssignment = function(ctx) {
+};
+
+
+// Enter a parse tree produced by RuleParser#propertyKey.
+RuleListener.prototype.enterPropertyKey = function(ctx) {
+};
+
+// Exit a parse tree produced by RuleParser#propertyKey.
+RuleListener.prototype.exitPropertyKey = function(ctx) {
 };
 
 
