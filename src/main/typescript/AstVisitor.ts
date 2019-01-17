@@ -72,12 +72,6 @@ export class AstVisitor extends RuleVisitor {
         return new ObjectNode(o);
     }
 
-    visitPropertyKey(ctx: any): any {
-        console.log("visitPropertyKey id", ctx.ident);
-        console.log("visitPropertyKey id.text", ctx.ident.text);
-        // console.log("visitPropertyKey id", ctx.ident());
-    }
-
     visitNullExpr(ctx: any): any {
         return new LiteralNode(null);
     }
