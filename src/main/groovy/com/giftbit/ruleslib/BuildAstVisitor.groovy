@@ -95,8 +95,8 @@ class BuildAstVisitor extends RuleBaseVisitor<ExpressionNode> {
         def expressionMap = new HashMap<String, ExpressionNode>()
         for (def assignment : ctx.propertyAssignment()) {
             if (!assignment.value) {
-                // Catch {a}.  This should be a parser error.  The JavaScript version doesn't get
-                // this far and I'm not sure why this one does.
+                // Catch object assignments without values (eg: {a}).  This should be a parser error.
+                // The JavaScript version doesn't get this far and I'm not sure why this one does.
                 throw new AstException(ctx.start.line, ctx.start.charPositionInLine, ctx.text, "object key without value")
             }
             def key = assignment.key.ident ? assignment.key.ident.text : getStringContent(assignment.key.string.text)
