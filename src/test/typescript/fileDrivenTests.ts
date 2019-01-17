@@ -126,7 +126,7 @@ function runTestFile(fileName: string): void {
                                         chai.assert(er.message.match(messageRegex), `${er.message} matches ${messageRegex}`);
                                     }
                                 } else {
-                                    console.log("compiling...", expressionString);
+                                    // console.log("compiling...", expressionString);
                                     const expression = AstVisitor.buildAst(expressionString);
                                     const expectedValue = parseValue(valueString);
                                     const actualValue = expression.getValue(context);
@@ -211,7 +211,7 @@ function parseValue(text: string): Value {
     } else if (text.match(/^-?[0-9]+.[0-9]+$/)) {
         return parseFloat(text);
     } else if (text.match(/^".*"$/)) {
-        return text.substring(1, text.length - 1).replace(/\\"/g, "\"");
+        return text.substring(1, text.length - 1).replace(/\\"/g, "\"").replace(/\\\\/g, "\\");
     }
 
     throw new Error(`Unsupported value: ${text}`)

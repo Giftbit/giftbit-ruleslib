@@ -6,6 +6,7 @@ export declare class AstVisitor extends RuleVisitor {
     visitCompileUnit(ctx: any): any;
     visitFuncExpr(ctx: any): any;
     visitArrayExpr(ctx: any): any;
+    visitObjectExpr(ctx: any): any;
     visitNullExpr(ctx: any): any;
     visitNumberExpr(ctx: any): any;
     visitMemberExpr(ctx: any): any;
@@ -20,4 +21,5 @@ export declare class AstVisitor extends RuleVisitor {
     visitMemberDotExpr(ctx: any): any;
     visitFuncParam(ctx: any): any;
     visitLambda(ctx: any): any;
+    getStringContent(s: string): string;
 }

@@ -1,6 +1,6 @@
 {
   "name": "giftbit-ruleslib",
-  "version": "4.1.1",
+  "version": "4.2.0",
   "description": "Expression-evaluation library for Redemption Rules, Reaction Rules, et al",
   "main": "distjs/index.js",
   "types": "distjs/index.d.ts",
@@ -23,17 +23,17 @@
   },
   "homepage": "https://github.com/Giftbit/giftbit-ruleslib#readme",
   "dependencies": {
-    "antlr4": "4.7.0"
+    "antlr4": "4.7.2"
   },
   "devDependencies": {
-    "@types/chai": "^4.0.4",
-    "@types/mocha": "^2.2.42",
-    "@types/node": "^8.0.24",
-    "chai": "^4.1.1",
-    "mocha": "^3.5.0",
-    "rimraf": "^2.6.1",
-    "ts-node": "^3.3.0",
-    "tslint": "^5.6.0",
-    "typescript": "^2.4.2"
+    "@types/chai": "^4.1.7",
+    "@types/mocha": "^5.2.5",
+    "@types/node": "^10.12.18",
+    "chai": "^4.2.0",
+    "mocha": "^5.2.0",
+    "rimraf": "^2.6.3",
+    "ts-node": "^7.0.1",
+    "tslint": "^5.12.1",
+    "typescript": "^3.2.2"
   }
 }
