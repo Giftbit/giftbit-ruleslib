@@ -2,6 +2,9 @@
 =@
  =@
 
+# invalid identifier
+1cantstartwithnumber=@
+
 # mismatched quotes
 'unclosed * leftquote=@
 unclosed * rightquote'=@

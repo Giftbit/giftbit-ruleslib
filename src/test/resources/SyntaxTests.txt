@@ -1,3 +1,14 @@
+# identifiers
+i=null
+I=null
+i0=null
+i1=null
+_=null
+_i=null
+i_i=null
+$i=null
+$i$=null
+
 # number parsing
 0=0
 -0=-0
@@ -506,6 +517,7 @@ sum([7, ['8'], 'eleven', numbers])=21
 # maps
 {}.keys().size()=0
 {}['a']=null
+{_: 'u'}['_']="u"
 {a: 'a'}['a']="a"
 {'a': 'a'}['a']="a"
 {"a": 'a'}['a']="a"
