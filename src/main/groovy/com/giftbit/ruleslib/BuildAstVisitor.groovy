@@ -37,7 +37,7 @@ class BuildAstVisitor extends RuleBaseVisitor<ExpressionNode> {
 
     @Override
     ExpressionNode visitStringExpr(RuleParser.StringExprContext ctx) {
-        return new LiteralNode(new Value(StringEscapeUtils.unescapeJava(ctx.value.text.substring(1, ctx.value.text.length() - 1))))
+        return new LiteralNode(new Value(getStringContent(ctx.value.text)))
     }
 
     @Override
@@ -88,6 +88,16 @@ class BuildAstVisitor extends RuleBaseVisitor<ExpressionNode> {
     @Override
     ExpressionNode visitArrayExpr(RuleParser.ArrayExprContext ctx) {
         return new ListNode(ctx.expr().collect({ arg -> visit(arg) }))
+    }
+
+    @Override
+    ExpressionNode visitObjectExpr(RuleParser.ObjectExprContext ctx) {
+        def expressionMap = new HashMap<String, ExpressionNode>()
+        for (def assignment : ctx.propertyAssignment()) {
+            def key = assignment.key.ident ? assignment.key.ident.text : getStringContent(assignment.key.string.text)
+            expressionMap.put(key, visit(assignment.value))
+        }
+        return new ObjectNode(expressionMap)
     }
 
     @Override
@@ -149,5 +159,9 @@ class BuildAstVisitor extends RuleBaseVisitor<ExpressionNode> {
     @Override
     ExpressionNode visitLambda(RuleParser.LambdaContext ctx) {
         return new LambdaNode(ctx.ID().collect({ id -> id.text }), visit(ctx.expr()))
+    }
+
+    private static String getStringContent(String s) {
+        return StringEscapeUtils.unescapeJava(s.substring(1, s.length() - 1))
     }
 }

@@ -63,19 +63,10 @@ export class AstVisitor extends RuleVisitor {
     }
 
     visitObjectExpr(ctx: any): any {
-        // console.log("ctx=", ctx);
-        const pa = ctx.propertyAssignment();
-        // console.log("pa=", pa);
-
         const o: {[key: string]: ExpressionNode} = {};
-        for (const arg of pa) {
-            // console.log("arg.key=", arg.key);
-            const key: string = arg.key.ident ? arg.key.ident.text : this.getStringContent(arg.key.string.text);
-            console.log("key=", key);
-            const value = this.visit(arg.value);
-            console.log("value=", value);
-
-            o[key] = value;
+        for (const assignment of ctx.propertyAssignment()) {
+            const key: string = assignment.key.ident ? assignment.key.ident.text : this.getStringContent(assignment.key.string.text);
+            o[key] = this.visit(assignment.value);
         }
 
         return new ObjectNode(o);
