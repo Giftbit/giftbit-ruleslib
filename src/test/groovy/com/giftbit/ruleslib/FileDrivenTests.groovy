@@ -122,6 +122,9 @@ class FileDrivenTests {
                         ex = e
                     }
                     assert ex != null : "${lastComment} ➡ ${line} ➡ throws Exception"
+                    if (ex instanceof NullPointerException) {
+                        ex.printStackTrace()
+                    }
                     assert ex instanceof AstException : "${lastComment} ➡ ${line} ➡ throws AstException"
                     if (messageRegex) {
                         assert ex.message.matches(messageRegex) : "${lastComment} ➡ ${line} ➡ ${ex.message} matches ${messageRegex}"
@@ -130,7 +133,7 @@ class FileDrivenTests {
                     ExpressionNode expression = BuildAstVisitor.buildAst(expressionString)
                     Value actualValue = expression.getValue(context)
                     Value expectedValue = parseValue(valueString)
-                    System.out.print("Expected value: " + expectedValue)
+                    System.out.println("Expected value: " + expectedValue)
                     assert actualValue.innerValue == expectedValue.innerValue: "${lastComment} ➡ ${line} ➡ ${expression.toString()}=${valueString} ➡ ${actualValue.toString()}=${expectedValue.toString()}"
                 }
                 assertCount++

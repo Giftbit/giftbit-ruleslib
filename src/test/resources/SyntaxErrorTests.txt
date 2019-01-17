@@ -59,6 +59,20 @@ a--=@
 1 ? : 1=@
 ? 1 : 1=@
 
+# broken lists
+[=@
+]=@
+[[]=@
+
+# broken objects
+{=@
+}=@
+{a}=@
+{"a"}=@
+{1}=@
+{[}]=@
+{["a"]}=@
+
 # misused lambda
 metadata.hats.some(hat -> hat.color == 'that should be a fat arrow')=@
 metadata.hats.some(hat =>)=@
