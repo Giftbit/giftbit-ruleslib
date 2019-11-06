@@ -5,6 +5,8 @@ import {Every} from "./functions/Every";
 import {ExpressionNode} from "./ast/ExpressionNode";
 import {Filter} from "./functions/Filter";
 import {FindIndex} from "./functions/FindIndex";
+import {FindLast} from "./functions/FindLast";
+import {FindLastIndex} from "./functions/FindLastIndex";
 import {Find} from "./functions/Find";
 import {Floor} from "./functions/Floor";
 import {IsNaN} from "./functions/IsNaN";
@@ -30,13 +32,15 @@ import {AstError} from "./AstError";
 
 export class Rule {
 
-    static readonly defaultFunctions: {[name: string]: RuleFunction} = {
+    static readonly defaultFunctions: { [name: string]: RuleFunction } = {
         abs: new Abs(),
         ceil: new Ceil,
         every: new Every(),
         filter: new Filter(),
         find: new Find(),
         findIndex: new FindIndex(),
+        findLast: new FindLast(),
+        findLastIndex: new FindLastIndex(),
         floor: new Floor(),
         isNaN: new IsNaN(),
         isNull: new IsNull(),
@@ -71,28 +75,28 @@ export class Rule {
         }
     }
 
-    evaluate(contextValues: object, customFunctions?: {[key: string]: RuleFunction}): any {
+    evaluate(contextValues: object, customFunctions?: { [key: string]: RuleFunction }): any {
         if (this.compileError) {
             throw this.compileError;
         }
         return this.expression.getValue(new MutableContext({...Rule.defaultFunctions, ...customFunctions}, contextValues));
     }
 
-    evaluateToBoolean(contextValues: object, customFunctions?: {[key: string]: RuleFunction}): boolean {
+    evaluateToBoolean(contextValues: object, customFunctions?: { [key: string]: RuleFunction }): boolean {
         if (this.compileError) {
             throw this.compileError;
         }
         return !!this.expression.getValue(new MutableContext({...Rule.defaultFunctions, ...customFunctions}, contextValues));
     }
 
-    evaluateToNumber(contextValues: object, customFunctions?: {[key: string]: RuleFunction}): number {
+    evaluateToNumber(contextValues: object, customFunctions?: { [key: string]: RuleFunction }): number {
         if (this.compileError) {
             throw this.compileError;
         }
         return +this.expression.getValue(new MutableContext({...Rule.defaultFunctions, ...customFunctions}, contextValues));
     }
 
-    evaluateToString(contextValues: object, customFunctions?: {[key: string]: RuleFunction}): string {
+    evaluateToString(contextValues: object, customFunctions?: { [key: string]: RuleFunction }): string {
         if (this.compileError) {
             throw this.compileError;
         }
