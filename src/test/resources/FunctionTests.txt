@@ -60,6 +60,10 @@ filter("asdasdffa").size()=0
 filter("asdasdffa", p => true).size()=0
 
 # find
+find(["a", "b", "c"], p => p == "a")="a"
+find(["a", "b", "c"], p => p == "c")="c"
+find(["a"], p => p == "a")="a"
+find(["a"], p => p == "c")=null
 find([1, 2, 3, 4, 5, 6, 7, 8, 9], p => p % 4 == 0)=4
 find([1, 2, 3, 4, 5, 6, 7, 8, 9], p => p % 10 == 0)=null
 find(null)=null
@@ -73,7 +77,29 @@ find(true, p => true)=null
 find("asdasdffa")=null
 find("asdasdffa", p => true)=null
 
+# findLast
+findLast(["a", "b", "c"], p => p == "a")="a"
+findLast(["a", "b", "c"], p => p == "c")="c"
+findLast(["a"], p => p == "a")="a"
+findLast(["a"], p => p == "c")=null
+findLast([1, 2, 3, 4, 5, 6, 7, 8, 9], p => p % 4 == 0)=8
+findLast([1, 2, 3, 4, 5, 6, 7, 8, 9], p => p % 10 == 0)=null
+findLast(null)=null
+findLast(null, p => true)=null
+findLast(1)=null
+findLast(1, p => true)=null
+findLast(false)=null
+findLast(false, p => true)=null
+findLast(true)=null
+findLast(true, p => true)=null
+findLast("asdasdffa")=null
+findLast("asdasdffa", p => true)=null
+
 # findIndex
+findIndex(["a", "b", "c"], p => p == "a")=0
+findIndex(["a", "b", "c"], p => p == "c")=2
+findIndex(["a"], p => p == "a")=0
+findIndex(["a"], p => p == "c")=-1
 findIndex([1, 2, 3, 4, 5, 6, 7, 8, 9], p => p % 4 == 0)=3
 findIndex([1, 2, 3, 4, 5, 6, 7, 8, 9], p => p % 10 == 0)=-1
 findIndex(null)=-1
@@ -86,6 +112,24 @@ findIndex(true)=-1
 findIndex(true, p => true)=-1
 findIndex("asdasdffa")=-1
 findIndex("asdasdffa", p => true)=-1
+
+# findLastIndex
+findLastIndex(["a", "b", "c"], p => p == "a")=0
+findLastIndex(["a", "b", "c"], p => p == "c")=2
+findLastIndex(["a"], p => p == "a")=0
+findLastIndex(["a"], p => p == "c")=-1
+findLastIndex([1, 2, 3, 4, 5, 6, 7, 8, 9], p => p % 4 == 0)=7
+findLastIndex([1, 2, 3, 4, 5, 6, 7, 8, 9], p => p % 10 == 0)=-1
+findLastIndex(null)=-1
+findLastIndex(null, p => true)=-1
+findLastIndex(1)=-1
+findLastIndex(1, p => true)=-1
+findLastIndex(false)=-1
+findLastIndex(false, p => true)=-1
+findLastIndex(true)=-1
+findLastIndex(true, p => true)=-1
+findLastIndex("asdasdffa")=-1
+findLastIndex("asdasdffa", p => true)=-1
 
 # floor
 floor(123)=123

@@ -6,6 +6,8 @@ const Ceil_1 = require("./functions/Ceil");
 const Every_1 = require("./functions/Every");
 const Filter_1 = require("./functions/Filter");
 const FindIndex_1 = require("./functions/FindIndex");
+const FindLast_1 = require("./functions/FindLast");
+const FindLastIndex_1 = require("./functions/FindLastIndex");
 const Find_1 = require("./functions/Find");
 const Floor_1 = require("./functions/Floor");
 const IsNaN_1 = require("./functions/IsNaN");
@@ -97,6 +99,8 @@ Rule.defaultFunctions = {
     filter: new Filter_1.Filter(),
     find: new Find_1.Find(),
     findIndex: new FindIndex_1.FindIndex(),
+    findLast: new FindLast_1.FindLast(),
+    findLastIndex: new FindLastIndex_1.FindLastIndex(),
     floor: new Floor_1.Floor(),
     isNaN: new IsNaN_1.IsNaN(),
     isNull: new IsNull_1.IsNull(),
