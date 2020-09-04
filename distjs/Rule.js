@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Rule = void 0;
 const astAnalysis = require("./astAnalysis");
 const Abs_1 = require("./functions/Abs");
 const Ceil_1 = require("./functions/Ceil");
@@ -47,25 +48,25 @@ class Rule {
         if (this.compileError) {
             throw this.compileError;
         }
-        return this.expression.getValue(new MutableContext_1.MutableContext(Object.assign({}, Rule.defaultFunctions, customFunctions), contextValues));
+        return this.expression.getValue(new MutableContext_1.MutableContext(Object.assign(Object.assign({}, Rule.defaultFunctions), customFunctions), contextValues));
     }
     evaluateToBoolean(contextValues, customFunctions) {
         if (this.compileError) {
             throw this.compileError;
         }
-        return !!this.expression.getValue(new MutableContext_1.MutableContext(Object.assign({}, Rule.defaultFunctions, customFunctions), contextValues));
+        return !!this.expression.getValue(new MutableContext_1.MutableContext(Object.assign(Object.assign({}, Rule.defaultFunctions), customFunctions), contextValues));
     }
     evaluateToNumber(contextValues, customFunctions) {
         if (this.compileError) {
             throw this.compileError;
         }
-        return +this.expression.getValue(new MutableContext_1.MutableContext(Object.assign({}, Rule.defaultFunctions, customFunctions), contextValues));
+        return +this.expression.getValue(new MutableContext_1.MutableContext(Object.assign(Object.assign({}, Rule.defaultFunctions), customFunctions), contextValues));
     }
     evaluateToString(contextValues, customFunctions) {
         if (this.compileError) {
             throw this.compileError;
         }
-        return this.expression.getValue(new MutableContext_1.MutableContext(Object.assign({}, Rule.defaultFunctions, customFunctions), contextValues)) + "";
+        return this.expression.getValue(new MutableContext_1.MutableContext(Object.assign(Object.assign({}, Rule.defaultFunctions), customFunctions), contextValues)) + "";
     }
     /**
      * Determine through static analysis whether the rule *might* evaluate
@@ -92,6 +93,7 @@ class Rule {
         return astAnalysis.mustEvaluateToType(this.expression, type);
     }
 }
+exports.Rule = Rule;
 Rule.defaultFunctions = {
     abs: new Abs_1.Abs(),
     ceil: new Ceil_1.Ceil,
@@ -119,4 +121,3 @@ Rule.defaultFunctions = {
     toUpperCase: new ToUpperCase_1.ToUpperCase(),
     values: new Values_1.Values(),
 };
-exports.Rule = Rule;

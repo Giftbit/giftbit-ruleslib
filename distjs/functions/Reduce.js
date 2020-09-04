@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Reduce = void 0;
 const RuleFunction_1 = require("./RuleFunction");
 const LambdaContext_1 = require("./LambdaContext");
 class Reduce extends RuleFunction_1.RuleFunction {

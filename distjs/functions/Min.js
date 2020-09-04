@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Min = void 0;
 const RuleFunction_1 = require("./RuleFunction");
 class Min extends RuleFunction_1.RuleFunction {
     invoke(args, context) {

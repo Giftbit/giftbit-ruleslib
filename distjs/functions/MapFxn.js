@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.MapFxn = void 0;
 const RuleFunction_1 = require("./RuleFunction");
 const LambdaContext_1 = require("./LambdaContext");
 class MapFxn extends RuleFunction_1.RuleFunction {

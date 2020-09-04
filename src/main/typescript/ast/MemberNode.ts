@@ -20,7 +20,7 @@ export class MemberNode implements ExpressionNode {
                 return null;
             }
             return parentValue[index];
-        } else if (typeof parentValue === "object" && parentValue.hasOwnProperty(childValue)) {
+        } else if (typeof parentValue === "object" && parentValue[childValue] !== undefined) {
             return parentValue[childValue];
         }
 

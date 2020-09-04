@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.AstError = void 0;
 class AstError extends Error {
     constructor(row, column, expression, msg) {
         super(msg);

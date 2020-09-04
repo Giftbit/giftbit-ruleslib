@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.UnaryNode = void 0;
 const UnsupportedOperationError_1 = require("../UnsupportedOperationError");
 class UnaryNode {
     constructor(operator, child) {
@@ -35,5 +36,5 @@ class UnaryNode {
         return this.child.isComplex() ? `${this.operator}(${this.child.toString()})` : `${this.operator}${this.child.toString()}`;
     }
 }
-UnaryNode.type = "Unary";
 exports.UnaryNode = UnaryNode;
+UnaryNode.type = "Unary";

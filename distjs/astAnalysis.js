@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.mustEvaluateToType = exports.canEvaluateToType = void 0;
 const ListNode_1 = require("./ast/ListNode");
 const FuncCallNode_1 = require("./ast/FuncCallNode");
 const IdentifierNode_1 = require("./ast/IdentifierNode");

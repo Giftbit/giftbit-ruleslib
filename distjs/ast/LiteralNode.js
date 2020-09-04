@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.LiteralNode = void 0;
 class LiteralNode {
     constructor(value) {
         this.value = value;
@@ -15,5 +16,5 @@ class LiteralNode {
         return JSON.stringify(this.value);
     }
 }
-LiteralNode.type = "Literal";
 exports.LiteralNode = LiteralNode;
+LiteralNode.type = "Literal";

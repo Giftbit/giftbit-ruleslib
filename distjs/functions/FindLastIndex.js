@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.FindLastIndex = void 0;
 const RuleFunction_1 = require("./RuleFunction");
 const LambdaContext_1 = require("./LambdaContext");
 class FindLastIndex extends RuleFunction_1.RuleFunction {

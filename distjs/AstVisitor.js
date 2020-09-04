@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.AstVisitor = void 0;
 const antlr4 = require("antlr4");
 const RuleLexer_1 = require("./antlrgen/RuleLexer");
 const RuleVisitor_1 = require("./antlrgen/RuleVisitor");

@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.MutableContext = void 0;
 class MutableContext {
     constructor(functions, values = {}) {
         this.functions = functions;
@@ -9,7 +10,7 @@ class MutableContext {
         return this.functions[name];
     }
     getValue(identifier) {
-        if (this.values.hasOwnProperty(identifier)) {
+        if (this.values[identifier] !== undefined) {
             return this.values[identifier];
         }
         return null;

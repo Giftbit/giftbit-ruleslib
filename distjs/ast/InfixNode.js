@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.InfixNode = void 0;
 const Value_1 = require("../Value");
 const UnsupportedOperationError_1 = require("../UnsupportedOperationError");
 class InfixNode {
@@ -79,5 +80,5 @@ class InfixNode {
         return (this.left.isComplex() ? `(${this.left.toString()}) ` : `${this.left.toString()} `) + this.operator + (this.right.isComplex() ? ` (${this.right.toString()})` : ` ${this.right.toString()}`);
     }
 }
-InfixNode.type = "Infix";
 exports.InfixNode = InfixNode;
+InfixNode.type = "Infix";

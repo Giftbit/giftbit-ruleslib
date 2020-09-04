@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.RuleFunction = void 0;
 const Value_1 = require("../Value");
 class RuleFunction {
     resolveAllArgs(args, context) {

@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.FuncCallNode = void 0;
 class FuncCallNode {
     constructor(funcName, args, isMethodCall) {
         this.funcName = funcName;
@@ -27,5 +28,5 @@ class FuncCallNode {
         return `${this.funcName}(${this.args.map(arg => arg.toString()).join(", ")})`;
     }
 }
-FuncCallNode.type = "FuncCall";
 exports.FuncCallNode = FuncCallNode;
+FuncCallNode.type = "FuncCall";

@@ -12,7 +12,7 @@ export class LambdaContext implements Context {
     }
 
     getValue(identifier: string): Value {
-        if (this.lambdaParams.hasOwnProperty(identifier)) {
+        if (this.lambdaParams[identifier] !== undefined) {
             return this.lambdaParams[identifier];
         }
         return this.baseContext.getValue(identifier);

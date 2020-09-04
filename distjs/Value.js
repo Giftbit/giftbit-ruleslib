@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.valueToNumber = exports.valueToString = void 0;
 const UnsupportedOperationError_1 = require("./UnsupportedOperationError");
 function valueToString(v) {
     if (v === null) {

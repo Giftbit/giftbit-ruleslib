@@ -11,7 +11,7 @@ export class MutableContext implements Context {
     }
 
     getValue(identifier: string): Value {
-        if (this.values.hasOwnProperty(identifier)) {
+        if (this.values[identifier] !== undefined) {
             return this.values[identifier];
         }
 

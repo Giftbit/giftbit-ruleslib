@@ -12,7 +12,7 @@ export class ObjectNode implements ExpressionNode {
     getValue(context: Context): Value {
         const v: Value = {};
         for (const key in this.expressionMap) {
-            if (this.expressionMap.hasOwnProperty(key)) {
+            if (this.expressionMap[key] !== undefined) {
                 v[key] = this.expressionMap[key].getValue(context);
             }
         }

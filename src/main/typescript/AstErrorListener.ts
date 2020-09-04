@@ -1,5 +1,9 @@
 import {AstError} from "./AstError";
 
+// ANTLR4 for JS isn't super well documented so there's a lot of trial-and-error
+// and just-good-enough going on here.
+/* eslint-disable */
+
 export class AstErrorListener {
 
     readonly errors: AstError[] = [];

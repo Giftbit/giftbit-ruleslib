@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.LambdaNode = void 0;
 class LambdaNode {
     constructor(paramNames, body) {
         this.paramNames = paramNames;
@@ -22,5 +23,5 @@ class LambdaNode {
         return `(${this.paramNames.join(", ")}) => ${this.body.toString()}`;
     }
 }
-LambdaNode.type = "Lambda";
 exports.LambdaNode = LambdaNode;
+LambdaNode.type = "Lambda";

@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.TernaryNode = void 0;
 class TernaryNode {
     constructor(condition, consequent, alternative) {
         this.condition = condition;
@@ -20,5 +21,5 @@ class TernaryNode {
         return `${a} ? ${b} : ${c}`;
     }
 }
-TernaryNode.type = "Ternary";
 exports.TernaryNode = TernaryNode;
+TernaryNode.type = "Ternary";

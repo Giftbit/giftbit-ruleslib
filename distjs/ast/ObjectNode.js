@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.ObjectNode = void 0;
 class ObjectNode {
     constructor(expressionMap) {
         this.expressionMap = expressionMap;
@@ -8,7 +9,7 @@ class ObjectNode {
     getValue(context) {
         const v = {};
         for (const key in this.expressionMap) {
-            if (this.expressionMap.hasOwnProperty(key)) {
+            if (this.expressionMap[key] !== undefined) {
                 v[key] = this.expressionMap[key].getValue(context);
             }
         }
@@ -21,5 +22,5 @@ class ObjectNode {
         return `{${Object.keys(this.expressionMap).map(key => `'${key}': ${this.expressionMap[key].toString()}`).join(", ")}}`;
     }
 }
-ObjectNode.type = "Object";
 exports.ObjectNode = ObjectNode;
+ObjectNode.type = "Object";

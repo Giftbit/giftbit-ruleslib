@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.IdentifierNode = void 0;
 class IdentifierNode {
     constructor(identifier) {
         this.identifier = identifier;
@@ -15,5 +16,5 @@ class IdentifierNode {
         return this.identifier;
     }
 }
-IdentifierNode.type = "Identifier";
 exports.IdentifierNode = IdentifierNode;
+IdentifierNode.type = "Identifier";

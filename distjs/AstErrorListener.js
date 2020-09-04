@@ -1,6 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.AstErrorListener = void 0;
 const AstError_1 = require("./AstError");
+// ANTLR4 for JS isn't super well documented so there's a lot of trial-and-error
+// and just-good-enough going on here.
+/* eslint-disable */
 class AstErrorListener {
     constructor(expression) {
         this.expression = expression;

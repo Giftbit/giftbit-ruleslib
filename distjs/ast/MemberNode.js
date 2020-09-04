@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.MemberNode = void 0;
 class MemberNode {
     constructor(parent, child, isCalculated) {
         this.parent = parent;
@@ -20,7 +21,7 @@ class MemberNode {
             }
             return parentValue[index];
         }
-        else if (typeof parentValue === "object" && parentValue.hasOwnProperty(childValue)) {
+        else if (typeof parentValue === "object" && parentValue[childValue] !== undefined) {
             return parentValue[childValue];
         }
         return null;
@@ -42,5 +43,5 @@ class MemberNode {
         return s;
     }
 }
-MemberNode.type = "Member";
 exports.MemberNode = MemberNode;
+MemberNode.type = "Member";

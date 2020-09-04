@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.LambdaContext = void 0;
 class LambdaContext {
     constructor(baseContext, lambdaParams) {
         this.baseContext = baseContext;
@@ -9,7 +10,7 @@ class LambdaContext {
         return this.baseContext.getFunction(name);
     }
     getValue(identifier) {
-        if (this.lambdaParams.hasOwnProperty(identifier)) {
+        if (this.lambdaParams[identifier] !== undefined) {
             return this.lambdaParams[identifier];
         }
         return this.baseContext.getValue(identifier);
