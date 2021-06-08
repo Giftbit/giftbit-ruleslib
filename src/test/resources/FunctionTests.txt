@@ -131,6 +131,43 @@ findLastIndex(true, p => true)=-1
 findLastIndex("asdasdffa")=-1
 findLastIndex("asdasdffa", p => true)=-1
 
+# flatten
+[0, 1, 2, [3, 4]].flatten().size()=5
+[0, 1, 2, [3, 4]].flatten()[0]=0
+[0, 1, 2, [3, 4]].flatten()[1]=1
+[0, 1, 2, [3, 4]].flatten()[2]=2
+[0, 1, 2, [3, 4]].flatten()[3]=3
+[0, 1, 2, [3, 4]].flatten()[4]=4
+[0, 1, 2, [3, 4]].flatten(0).size()=4
+[0, 1, 2, [3, 4]].flatten(1).size()=5
+[0, 1, 2, [3, 4]].flatten(2).size()=5
+[0, 1, 2, [[[3, 4]]]].flatten().size()=4
+[0, 1, 2, [[[3, 4]]]].flatten(0).size()=4
+[0, 1, 2, [[[3, 4]]]].flatten(1).size()=4
+[0, 1, 2, [[[3, 4]]]].flatten(2).size()=4
+[0, 1, 2, [[[3, 4]]]].flatten(3).size()=5
+[0, 1, 2, [[[3, 4]]]].flatten(4).size()=5
+[0, 1, 2, [[[3, 4]]]].flatten(999).size()=5
+[[[[[[[0], 1], 2], 3], 4], 5], 6].flatten().size()=3
+[[[[[[[0], 1], 2], 3], 4], 5], 6].flatten(-1).size()=2
+[[[[[[[0], 1], 2], 3], 4], 5], 6].flatten(0).size()=2
+[[[[[[[0], 1], 2], 3], 4], 5], 6].flatten(1).size()=3
+[[[[[[[0], 1], 2], 3], 4], 5], 6].flatten(2).size()=4
+[[[[[[[0], 1], 2], 3], 4], 5], 6].flatten(3).size()=5
+[[[[[[[0], 1], 2], 3], 4], 5], 6].flatten(4).size()=6
+[[[[[[[0], 1], 2], 3], 4], 5], 6].flatten(5).size()=7
+[[[[[[[0], 1], 2], 3], 4], 5], 6].flatten(6).size()=7
+[[[[[[[0], 1], 2], 3], 4], 5], 6].flatten(7).size()=7
+[0, 1, [2, 3], [[4]], [], 5].flatten(2).size()=6
+flatten([]).size()=0
+flatten(null)[0]=null
+flatten(0)[0]=0
+flatten(1)[0]=1
+flatten(-1)[0]=-1
+flatten('foo')[0]="foo"
+flatten(true)[0]=true
+flatten(false)[0]=false
+
 # floor
 floor(123)=123
 floor(-123)=-123

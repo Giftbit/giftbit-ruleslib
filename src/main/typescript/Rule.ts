@@ -8,6 +8,7 @@ import {FindIndex} from "./functions/FindIndex";
 import {FindLast} from "./functions/FindLast";
 import {FindLastIndex} from "./functions/FindLastIndex";
 import {Find} from "./functions/Find";
+import {Flatten} from "./functions/Flatten";
 import {Floor} from "./functions/Floor";
 import {IsNaN} from "./functions/IsNaN";
 import {IsNull} from "./functions/IsNull";
@@ -41,6 +42,7 @@ export class Rule {
         findIndex: new FindIndex(),
         findLast: new FindLast(),
         findLastIndex: new FindLastIndex(),
+        flatten: new Flatten(),
         floor: new Floor(),
         isNaN: new IsNaN(),
         isNull: new IsNull(),
