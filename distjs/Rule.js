@@ -10,6 +10,7 @@ const FindIndex_1 = require("./functions/FindIndex");
 const FindLast_1 = require("./functions/FindLast");
 const FindLastIndex_1 = require("./functions/FindLastIndex");
 const Find_1 = require("./functions/Find");
+const Flatten_1 = require("./functions/Flatten");
 const Floor_1 = require("./functions/Floor");
 const IsNaN_1 = require("./functions/IsNaN");
 const IsNull_1 = require("./functions/IsNull");
@@ -103,6 +104,7 @@ Rule.defaultFunctions = {
     findIndex: new FindIndex_1.FindIndex(),
     findLast: new FindLast_1.FindLast(),
     findLastIndex: new FindLastIndex_1.FindLastIndex(),
+    flatten: new Flatten_1.Flatten(),
     floor: new Floor_1.Floor(),
     isNaN: new IsNaN_1.IsNaN(),
     isNull: new IsNull_1.IsNull(),

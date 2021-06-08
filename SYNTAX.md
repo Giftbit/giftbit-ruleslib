@@ -236,6 +236,20 @@ findLastIndex([1, 2, 3], x => x % 2 == 0) → 1
 ['a', 'b', 'c', 'd'].findLastIndex(x => x == 'e') → -1
 ```
 
+### flatten
+
+`flatten(list: any[], depth: number = 1) → any[]`
+
+Create a new list with all sub-list elements concatenated into it recursively up to the specified depth.
+
+If a non-list is passed in then it will be wrapped in a list.
+
+```javascript
+flatten([0, 1, 2, [3, 4]]) → [0, 1, 2, 3, 4]
+[0, 1, 2, [[[3, 4]]]].flatten(2) → [0, 1, 2, [3, 4]]
+flatten('x') → ['x']
+```
+
 ### floor
 
 `floor(value: number) → number`
