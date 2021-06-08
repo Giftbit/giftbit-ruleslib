@@ -16,6 +16,11 @@ class Flatten extends RuleFunction_1.RuleFunction {
     }
 }
 exports.Flatten = Flatten;
+/**
+ * The MDN polyfill for Array.prototype.flat().
+ * @param arr array to flatten
+ * @param d depth to flatten to
+ */
 function flatDeep(arr, d) {
     return d > 0 ? arr.reduce((acc, val) => acc.concat(Array.isArray(val) ? flatDeep(val, d - 1) : val), [])
         : arr.slice();

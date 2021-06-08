@@ -14,6 +14,7 @@ class Rule {
             findIndex    : new FindIndex(),
             findLast     : new FindLast(),
             findLastIndex: new FindLastIndex(),
+            flatten      : new Flatten(),
             floor        : new Floor(),
             isNaN        : new IsNaN(),
             isNull       : new IsNull(),
