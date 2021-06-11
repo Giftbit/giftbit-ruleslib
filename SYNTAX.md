@@ -376,7 +376,7 @@ roundBankers(13.5) → 14
 
 ### size
 
-`size(value: any[] | number) → number`
+`size(value: any[] | string) → number`
 
 Get the length of the list or the number of characters in a string.
 
@@ -422,7 +422,7 @@ Get the sum total of the numbers and lists of numbers.
 ```javascript
 sum(5) → 5
 sum(5, 5, 5) → 15
-[1, 2, 3, 4, 5, -10].sum() → 5
+[1, 2, 3, [4, 5, -10]].sum() → 5
 ```
 
 ### toLowerCase
